@@ -10,13 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { NavComponent } from './blocks/nav/nav.component';
+import { LoginComponent } from './login/login.component';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

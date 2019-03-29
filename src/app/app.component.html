@@ -1,43 +1,89 @@
-<div class="app">
+<div class="app app-header-fixed">
+  <nz-header [ngClass]="{'active': isCollapsed}">
+    <div class="logo animated fadeInLeft" >
+      <span class="icon logo-img" (click)="toggleMenu()">
+      </span>
+      <span class="campany-name animated fadeInLeft" [routerLink]="[ '/dashboard' ]">
+        {{campanyName}}
+      </span>
+    </div>
+    <i class="trigger" nz-icon [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+      (click)="isCollapsed = !isCollapsed"></i>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <i nz-icon nzType="arrows-alt" nzTheme="outline"></i>
+      </li>
+      <li>
+        <span class="msg">
+          <nz-badge [nzCount]="5">
+            <span class="head-example"><i nz-icon nzType="message" nzTheme="outline"></i></span>
+          </nz-badge>
+        </span>
+      </li>
+      <li [ngClass]="{'active': userInfoActive}">
+        <nz-avatar [nzText]="text" nzSize="large" [ngStyle]="{ 'background-color': color }" style="vertical-align: middle;" (click)="userInfoActive = !userInfoActive">
+        </nz-avatar>
+        <div class="userInfo animated fadeInRight" *ngIf="userInfoActive">
+          <ul>
+            <li>超级管理员</li>
+            <li>
+              <a nz-popconfirm nzTitle="您确定退出吗?" (nzOnConfirm)="logout()" (nzOnCancel)="cancel()" nzPlacement="bottom">退出账号</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nz-header>
   <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
-      <div class="logo"></div>
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
-        <li nz-submenu>
-          <span title><i nz-icon type="user"></i><span class="nav-text">User</span></span>
-          <ul>
-            <li nz-menu-item>Tom</li>
-            <li nz-menu-item>Bill</li>
-            <li nz-menu-item>Alex</li>
-          </ul>
-        </li>
-        <li nz-submenu>
-          <span title><i nz-icon type="team"></i><span class="nav-text">Team</span></span>
-          <ul>
-            <li nz-menu-item>Team 1</li>
-            <li nz-menu-item>Team 2</li>
-          </ul>
+        <li nz-menu-item>
+          <span title><i nz-icon type="project"></i><span class="nav-text">应用程序管理</span></span>
         </li>
         <li nz-menu-item>
-          <span><i nz-icon type="file"></i><span class="nav-text">File</span></span>
+          <span title><i nz-icon type="menu"></i><span class="nav-text">菜单管理</span></span>
+        </li>
+        <li nz-menu-item>
+          <span><i nz-icon type="team"></i><span class="nav-text">角色管理</span></span>
+        </li>
+        <li nz-menu-item>
+          <span><i nz-icon nzType="safety" nzTheme="outline"></i><span class="nav-text">角色授权</span></span>
+        </li>
+        <li nz-menu-item>
+          <span><i nz-icon nzType="idcard" nzTheme="outline"></i><span class="nav-text">用户管理</span></span>
         </li>
       </ul>
     </nz-sider>
     <nz-layout>
-      <nz-header style="background: #fff; padding:0;">
-        <i class="trigger" nz-icon [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          (click)="isCollapsed = !isCollapsed"></i>
-      </nz-header>
-      <nz-content style="margin:0 16px;">
+      <nz-content style="margin:0 16px; min-height: 90vh;">
         <nz-breadcrumb style="margin:16px 0;">
-          <nz-breadcrumb-item>User</nz-breadcrumb-item>
-          <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+          <nz-breadcrumb-item>您所在的位置</nz-breadcrumb-item>
+          <nz-breadcrumb-item>用户列表</nz-breadcrumb-item>
         </nz-breadcrumb>
-        <div style="padding:24px; background: #fff; min-height: 360px;">
-          Bill is a cat.
+        <div style="padding:24px; background: #fff;">
+          <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfAllData"
+            (nzCurrentPageDataChange)="currentPageDataChange($event)">
+            <thead>
+              <tr>
+                <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="isAllDisplayDataChecked"
+                  [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of rowSelectionTable.data">
+                <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.age }}</td>
+                <td>{{ data.address }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
         </div>
       </nz-content>
-      <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>
+      <nz-footer style="text-align: center;">©2019 上海达华地理信息中心</nz-footer>
     </nz-layout>
     <ng-template #trigger>
       <i nz-icon type="up"></i>

@@ -1,0 +1,11 @@
+<!-- 列表操作权限 -->
+<div class="editable-row-operations">
+  <ng-container>
+    <a (click)="update()">编辑</a>
+  </ng-container>
+  <s nztype="vertical" class="ant-divider ant-divider-vertical ng-star-inserted" ng-reflect-nz-type="vertical"
+  ></s>
+  <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="delete()">
+    <a nz-popconfirm>删除</a>
+  </nz-popconfirm>
+</div>

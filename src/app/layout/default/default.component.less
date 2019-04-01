@@ -1,0 +1,151 @@
+
+.app-header-fixed{
+    padding-top: 50px;
+}
+// header css
+nz-header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 50px;
+    width: 100%;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 1px 0 rgba(0,0,0,0.05);
+    z-index: 99;
+    .trigger {
+        float: left;
+        font-size: 18px;
+        line-height: 50px;
+        padding: 0 24px;
+        cursor: pointer;
+        transition: color 0.3s;
+        vertical-align: inherit;
+        color: rgba(0, 0, 0, 0.65);
+    }
+    .trigger:hover {
+        color: #1890ff;
+    }
+    .logo{
+        float: left;
+        width: 200px;
+        padding: 6px 16px;
+        height: 50px;
+        margin: 0;
+        background-color: #001529;
+        color: #fff;
+        z-index: 100;
+        .campany-name{
+            float: left;
+            width: auto;
+            opacity: 1;
+            line-height: 38px;
+            padding: 0;
+            margin-left: 10px;
+        }
+        .logo-img{
+            float: left;
+            width: 2.78em;
+            height: 2.78em;
+            background: url('../../../assets/images/logo.png') no-repeat center;
+            background-size: contain
+        }
+        .fa{
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+    }
+    // 关闭css
+    &.active{
+        .logo{
+            width: 80px;
+            padding: 6px 20px;
+        }
+        .campany-name{
+            display: none;
+            width: 0;
+            opacity: 0;
+        }
+    }
+    .navbar-right{
+        float: right;
+        line-height: 50px;
+        vertical-align: middle;
+        i{
+            font-size:18px;
+        }
+        .msg{
+           display: inline-block;
+           width: 32px;
+           height: 50px;
+           vertical-align: middle;
+        }
+        nz-avatar{
+            cursor: pointer;
+        }
+        .roleText{
+            margin: 0 15px 0 5px;
+            color: rgba(0, 0, 0, 0.65);
+        }
+        .userInfo{
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 120px;
+            background-color: #fff;
+            z-index: 99;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 2px;
+            ul{
+                margin: 0;
+                padding: 0 15px;
+                list-style: none;
+                li{
+                    line-height: 32px;
+                    display: contents;
+                    padding-right: 15px;
+                    border-bottom:1px solid #E0E5F1;
+                }
+                li:last-child{
+                    border-top: 1px solid #e5e5e5;
+                    border-bottom:0 solid transparent;
+                }
+            }
+
+        }
+    }
+}
+// left nav
+.navbar-nav{
+    float: right;
+    list-style: none;
+    li{
+        padding: 0 10px;
+        float: left;
+        a{
+            position: relative;
+            display: block;
+        }
+    }
+}
+//content css
+@media screen and (max-width: 1440px) {
+    .content{
+        padding:1em 24px; background: #fff;
+        min-height: 79.5vh;
+   }
+}
+@media screen and (min-width: 1441px) {
+    .content{
+        padding:24px; background: #fff;
+        min-height: 82.6vh;
+   }
+}
+// footer css
+footer{
+    .ant-layout-footer{
+        padding: 0.5em 0;
+    }
+}
+

@@ -11,15 +11,22 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
+    <tr *ngFor="let data of basicTable.data" >
       <td>{{ data.key }}</td>
       <td>{{ data.name }}</td>
       <td>{{ data.desc }}</td>
       <td>{{ data.createName }}</td>
       <td>{{ data.createDate }}</td>
       <td>
-        <app-premission></app-premission>
+        <app-premission (update)="showModal()" (delete)="deleteRow()"></app-premission>
       </td>
     </tr>
   </tbody>
 </nz-table>
+<!-- 编辑框 -->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="修改信息" nzOkText="确定" nzCancelText="取消" (nzOnOk)="handleOk()"
+  (nzOnCancel)="handleCancel()">
+  <p>Bla bla ...</p>
+  <p>Bla bla ...</p>
+  <p>Bla bla ...</p>
+</nz-modal>

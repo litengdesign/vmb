@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplicationComponent implements OnInit {
   listOfData = []
+  isVisible = false;
   constructor() { }
 
   ngOnInit() {
@@ -21,6 +22,21 @@ export class ApplicationComponent implements OnInit {
         }
       )
     }
+  }
+  //编辑和新增弹框
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  deleteRow():void{
+    return;
   }
 
 }

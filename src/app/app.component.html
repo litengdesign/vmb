@@ -1,7 +1,7 @@
 <div class="app app-header-fixed">
   <nz-header [ngClass]="{'active': isCollapsed}">
     <div class="logo animated fadeInLeft" >
-      <span class="icon logo-img" (click)="toggleMenu()">
+      <span class="icon logo-img">
       </span>
       <span class="campany-name animated fadeInLeft" [routerLink]="[ '/dashboard' ]">
         {{campanyName}}
@@ -55,35 +55,16 @@
       </ul>
     </nz-sider>
     <nz-layout>
-      <nz-content style="margin:0 16px; min-height: 90vh;">
-        <nz-breadcrumb style="margin:16px 0;">
+      <nz-content style="margin:0 16px; min-height: 85.6vh;">
+        <nz-breadcrumb style="margin:1em 0;">
           <nz-breadcrumb-item>您所在的位置</nz-breadcrumb-item>
-          <nz-breadcrumb-item>用户列表</nz-breadcrumb-item>
+          <nz-breadcrumb-item>应用程序管理</nz-breadcrumb-item>
         </nz-breadcrumb>
-        <div style="padding:24px; background: #fff;">
-          <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfAllData"
-            (nzCurrentPageDataChange)="currentPageDataChange($event)">
-            <thead>
-              <tr>
-                <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="isAllDisplayDataChecked"
-                  [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"></th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Address</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of rowSelectionTable.data">
-                <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
-                <td>{{ data.name }}</td>
-                <td>{{ data.age }}</td>
-                <td>{{ data.address }}</td>
-              </tr>
-            </tbody>
-          </nz-table>
+        <div style="padding:1em 24px; background: #fff;">
+          <router-outlet></router-outlet>
         </div>
       </nz-content>
-      <nz-footer style="text-align: center;">©2019 上海达华地理信息中心</nz-footer>
+      <nz-footer style="text-align: center;">©2019 上海达华测绘地理信息中心</nz-footer>
     </nz-layout>
     <ng-template #trigger>
       <i nz-icon type="up"></i>

@@ -6,35 +6,14 @@ import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit{
-  public campanyName = '通用权限管理';
+  public campanyName = '通用权限管理系统';
   text: string = 'Admin';
   color: string = '#1890ff';
   isCollapsed = false;
   triggerTemplate: TemplateRef<void> | null = null;
   logoTemplate: TemplateRef<void> | null = null;
   @ViewChild('trigger') customTrigger: TemplateRef<void>;
-  listOfSelection = [
-    {
-      text: 'Select All Row',
-      onSelect: () => {
-        this.checkAll(true);
-      }
-    },
-    {
-      text: 'Select Odd Row',
-      onSelect: () => {
-        this.listOfDisplayData.forEach((data, index) => (this.mapOfCheckedId[data.id] = index % 2 !== 0));
-        this.refreshStatus();
-      }
-    },
-    {
-      text: 'Select Even Row',
-      onSelect: () => {
-        this.listOfDisplayData.forEach((data, index) => (this.mapOfCheckedId[data.id] = index % 2 === 0));
-        this.refreshStatus();
-      }
-    }
-  ];
+
   isAllDisplayDataChecked = false;
   isIndeterminate = false;
   listOfDisplayData: any[] = [];
@@ -62,13 +41,6 @@ export class AppComponent implements OnInit{
     this.logoTemplate = this.customTrigger;
   }
   ngOnInit(): void {
-    for (let i = 0; i < 100; i++) {
-      this.listOfAllData.push({
-        id: i,
-        name: `Edward King ${i}`,
-        age: 32,
-        address: `London, Park Lane no. ${i}`
-      });
-    }
+
   }
 }

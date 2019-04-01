@@ -10,7 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { NavComponent } from './blocks/nav/nav.component';
-import { LoginComponent } from './login/login.component';
+import { ApplicationComponent} from './pages/application/application.component';
+import { PremissionComponent } from './blocks/premission/premission.component';
+import { SearchComponent } from './blocks/search/search.component'
 
 registerLocaleData(zh);
 
@@ -18,7 +20,9 @@ registerLocaleData(zh);
   declarations: [
     AppComponent,
     NavComponent,
-    LoginComponent
+    ApplicationComponent,
+    PremissionComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -31,4 +35,6 @@ registerLocaleData(zh);
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  
+}

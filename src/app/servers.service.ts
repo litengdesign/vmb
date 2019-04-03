@@ -6,4 +6,7 @@ import { Injectable } from '@angular/core';
 export class ServersService {
 
   constructor() { }
+  getSystemName(){
+    return "应用权限管理系统"
+  }
 }

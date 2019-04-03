@@ -1,7 +1,8 @@
 <div class="container">
   <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-    <nz-form-item class="text-center">
+    <nz-form-item class="logo text-center">
       <img src="../../../assets/images/login-logo.png" alt="" style="max-height:70px ">
+      <span class="systemName">{{systemName}}</span>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>

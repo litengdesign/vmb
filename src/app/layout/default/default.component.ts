@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
+import { ServersService } from '../../servers.service';
 
 @Component({
   selector: 'app-default',
@@ -8,9 +9,9 @@ import { NzMessageService } from 'ng-zorro-antd';
   styleUrls: ['./default.component.less']
 })
 export class DefaultComponent implements OnInit {
-  constructor(public msg: NzMessageService, private router: Router,) { }
+  constructor(public server:ServersService,public msg: NzMessageService, private router: Router,) { }
 
-  public campanyName = '通用权限管理系统';
+  public systemName = this.server.getSystemName();
   text: string = 'Admin';
   color: string = '#1890ff';
   isCollapsed = false;

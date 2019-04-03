@@ -19,6 +19,7 @@ import {  } from '@angular/forms';
 export class LoginComponent implements OnInit {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' }); //发送post请求头部
   public api = 'Account/Login';
+  public systemName = this.server.getSystemName();
   validateForm: FormGroup;
 
   constructor(private fb: FormBuilder, public http: HttpClient, public router: Router, public server: ServersService) {
@@ -40,13 +41,14 @@ export class LoginComponent implements OnInit {
       api: this.api,
       params: this.validateForm.value
     }
-    this.http.post(environment.projectUrl + options.api, JSON.stringify(options.params), { headers: this.headers }).subscribe((data: any) => {
-      //  console.log(data)
-      if (data.msg == '登录成功！') {
-        this.router.navigate(['/dashboard/']);
-        //发送菜单数据到server
-        // this.server.postMenuJson(data.menuJson);
-      }
-    });
+    this.router.navigate(['/dashboard/']);
+    // this.http.post(environment.projectUrl + options.api, JSON.stringify(options.params), { headers: this.headers }).subscribe((data: any) => {
+    //   //  console.log(data)
+    //   if (data.msg == '登录成功！') {
+        
+    //     //发送菜单数据到server
+    //     // this.server.postMenuJson(data.menuJson);
+    //   }
+    // });
   }
 }

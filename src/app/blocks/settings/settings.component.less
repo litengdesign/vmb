@@ -1,0 +1,211 @@
+@dark:#3a3f51;
+@white:#fff;
+@info:#1199c4;
+@success:#20af42;
+@black:#1c2b36;
+@light:#dde6e9;
+@danger:#f21b1b;
+.bg-dark{
+    background-color: @dark;
+}
+.bg-white{
+    background-color: @white;
+}
+.bg-info{
+    background-color: @info;
+}
+.bg-success{
+    background-color: @success;
+}
+.bg-black{
+    background-color: @black;
+}
+.bg-light{
+    background-color: @light;
+}
+.bg-danger{
+    background-color: @danger;
+}
+.bg-light.lter, .bg-light .lter {
+    background-color: #f6f8f8;
+}
+.bg-black-opacity {
+    background-color: rgba(32,43,54,0.5);
+}
+.settings {
+  z-index: 1000;
+  position: fixed;
+  top: 95px;
+  right: -245px;
+  width: 240px;
+  -webkit-transition: right 0.2s;
+  transition: right 0.2s;
+  button.pos-abt{
+    outline: none;
+  }
+}
+.settings.active {
+  right: -1px;
+}
+.settings > .btn {
+  background: #f6f8f8 !important;
+  border-right-width: 0;
+  border-color: #dee5e7;
+  position: absolute;
+  left: -42px;
+  top: -1px;
+  padding: 10px 15px;
+}
+.settings .i-checks span b {
+  width: 50%;
+  height: 20px;
+  float: left;
+}
+.settings .i-checks span b.header {
+  height: 10px;
+}
+.wrapper {
+    padding: 15px;
+}
+.panel {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+.panel-body {
+  padding: 15px;
+}
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel-heading > .dropdown .dropdown-toggle {
+  color: inherit;
+}
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  color: inherit;
+}
+.panel-title > a {
+  color: inherit;
+}
+.panel-footer {
+  padding: 10px 15px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.panel > .list-group {
+  margin-bottom: 0;
+}
+.panel {
+  border-radius: 2px;
+}
+.panel .accordion-toggle {
+  font-size: 14px;
+  display: block;
+  cursor: pointer;
+}
+.panel .list-group-item {
+  border-color: #edf1f2;
+}
+.panel.no-borders {
+  border-width: 0;
+}
+.panel.no-borders .panel-heading,
+.panel.no-borders .panel-footer {
+  border-width: 0;
+}
+.panel-heading {
+  border-radius: 2px 2px 0 0;
+}
+.panel-default .panel-heading {
+  background-color: #f6f8f8;
+}
+.panel-heading.no-border {
+  margin: -1px -1px 0 -1px;
+  border: none;
+}
+.panel-heading .nav {
+  margin: -10px -15px;
+}
+.panel-heading .list-group {
+  background: transparent;
+}
+.panel-footer {
+  border-color: #edf1f2;
+  border-radius: 0 0 2px 2px;
+  background-color: #fff;
+}
+.panel-default {
+  border-color: #dee5e7;
+}
+.panel-default > .panel-heading,
+.panel-default > .panel-footer {
+  border-color: #edf1f2;
+}
+.panel-group .panel-heading + .panel-collapse .panel-body {
+  border-top: 1px solid #eaedef;
+}
+.m-b {
+    margin-bottom: 15px;
+}
+.block {
+    display: block;
+}
+.i-checks {
+    padding-left: 20px;
+    cursor: pointer;
+}
+label {
+    font-weight: normal;
+}
+.pos-rlt {
+    position: relative;
+}
+.pos-abt {
+    position: absolute;
+}
+.i-checks input {
+    opacity: 0;
+    position: absolute;
+    margin-left: -20px;
+}
+.i-checks > span .active {
+    display: none;
+}
+.i-checks input:checked + span .active {
+    display: inherit;
+    color: #fff;
+}
+.h-full {
+    height: 100%;
+}
+.w-full {
+    width: 100%;
+}
+.text-white{
+    color: #fff;
+}
+.setting-btn i{
+    animation: myAnimation 3s;	/* 规定在3秒内完成动画 */
+    animation-iteration-count: infinite;	/* 规定动画无限次执行 */
+    animation-timing-function: linear;
+}
+/* 定义动画如何执行 */
+@keyframes myAnimation {
+	form {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+    }
+}

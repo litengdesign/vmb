@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-application',
@@ -8,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class ApplicationComponent implements OnInit {
   listOfData = []
   isVisible = false;
-  constructor() { }
+  constructor(private oauthService: OAuthService) {
+   }
 
   ngOnInit() {
     for(let i=0;i<100;i++){

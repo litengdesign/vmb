@@ -15,6 +15,8 @@ import { PremissionComponent } from './blocks/premission/premission.component';
 import { SearchComponent } from './blocks/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DefaultComponent } from './layout/default/default.component'
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { SettingsComponent } from './blocks/settings/settings.component';
 
 registerLocaleData(zh);
 
@@ -26,7 +28,8 @@ registerLocaleData(zh);
     PremissionComponent,
     SearchComponent,
     LoginComponent,
-    DefaultComponent
+    DefaultComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ registerLocaleData(zh);
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    OAuthModule.forRoot()
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

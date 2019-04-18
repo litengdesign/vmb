@@ -4,7 +4,6 @@ import { ApplicationComponent} from '../app/pages/application/application.compon
 import { LoginComponent} from '../app/pages/login/login.component';
 import { DefaultComponent} from '../app/layout/default/default.component'
 
-
 const routes: Routes = [
   {
     path: '',
@@ -13,7 +12,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
       { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
       { path: 'dashboard/v1', component: ApplicationComponent },
-    ]
+    ],
   },
   { path: 'login', component: LoginComponent},
 ];

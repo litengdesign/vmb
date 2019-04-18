@@ -1,6 +1,6 @@
-<div class="app app-header-fixed">
-  <nz-header [ngClass]="{'active': isCollapsed}">
-    <div class="logo animated fadeInLeft">
+<div class="app app-header" [ngClass]="{'fixed': themes.headerFixed,'':!themes.headerFixed}">
+  <nz-header [ngClass]="{'active': isCollapsed}" class="{{themes.navbarHeaderColor}}">
+    <div class="logo animated fadeInLeft {{themes.navbarCollapseColor}}">
       <span class="icon logo-img">
       </span>
       <span class="campany-name animated fadeInLeft" [routerLink]="[ '/dashboard' ]">
@@ -37,7 +37,7 @@
     </ul>
   </nz-header>
   <nz-layout>
-    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" nzCollapsedWidth="50" class="{{themes.asideColor}}">
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
         <li nz-menu-item>
           <span title><i nz-icon type="project"></i><span class="nav-text">应用程序管理</span></span>
@@ -85,3 +85,5 @@
     <button type="button" (click)="closeChildren()" class="ant-btn"><span>关闭</span></button>
   </div>
 </nz-drawer>
+<!-- 主题设置 -->
+<app-settings (sendSetting)='getSettings($event)'></app-settings>

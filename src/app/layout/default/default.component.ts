@@ -1,19 +1,21 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input,ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ServersService } from '../../servers.service';
-
+import { OAuthService } from 'angular-oauth2-oidc';
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
   styleUrls: ['./default.component.less']
 })
-export class DefaultComponent implements OnInit {
-  constructor(public server:ServersService,public msg: NzMessageService, private router: Router,) { }
 
+export class DefaultComponent implements OnInit {
+  
+  constructor(public server: ServersService, public msg: NzMessageService, private router: Router, private oauthService: OAuthService) { }
   public systemName = this.server.getSystemName();
   text: string = 'Admin';
   color: string = '#1890ff';
+
   isCollapsed = false;
   triggerTemplate: TemplateRef<void> | null = null;
   logoTemplate: TemplateRef<void> | null = null;
@@ -28,6 +30,16 @@ export class DefaultComponent implements OnInit {
   visible = false;
   childrenVisible = false;
   vegetables = ['asparagus', 'bamboo', 'potato', 'carrot', 'cilantro', 'potato', 'eggplant'];
+  //接受设置参数
+  public themes = {
+    navbarHeaderColor: 'bg-black',
+    navbarCollapseColor: 'bg-black',
+    asideColor: 'bg-black',
+    headerFixed: true,
+    asideFixed: false,
+    asideFolded: false
+  }
+  
 
   currentPageDataChange($event: Array<{ id: number; name: string; age: number; address: string }>): void {
     this.listOfDisplayData = $event;
@@ -50,9 +62,10 @@ export class DefaultComponent implements OnInit {
     this.logoTemplate = this.customTrigger;
   }
   //登出
-  logout(): void {
-    this.msg.info('退出成功!');
-    this.router.navigateByUrl('/login');
+  logoff(): void {
+    this.oauthService.logOut();
+    // this.msg.info('退出成功!');
+    // this.router.navigateByUrl('/login');
   }
   //查看消息列表
   openMsg(): void{
@@ -61,7 +74,18 @@ export class DefaultComponent implements OnInit {
   close(){
     this.visible = false;
   }
+  login(){
+    this.oauthService.initImplicitFlow();
+  }
+  public get name() {
+    let claims = this.oauthService.getIdentityClaims();
+    if (!claims) return null;
+    // return claims.given_name;
+  }
   ngOnInit() {
+  }
+  getSettings(settings){
+    this.themes = settings;
   }
 
 }

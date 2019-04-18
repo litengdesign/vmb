@@ -1,0 +1,123 @@
+@dark:#3a3f51;
+@white:#fff;
+@info:#1199c4;
+@success:#20af42;
+@black:#1c2b36;
+@light:#dde6e9;
+@danger:#f21b1b;
+
+@dark-font-color:#6b94b3;
+@white-font-color:#1c2b36;
+@info-font-color:#f2f2f2;
+@success-font-color:#d7f7df;
+@black-font-color:#6b94b3;
+
+/*
+ *主题设置
+ *头部
+*/
+//深黑色
+nz-header.bg-black{
+  background-color: @black;
+  color: @white;
+  .userInfo{
+      color:#363f44;
+  }
+}
+//白色
+nz-header.bg-white{
+  background-color: @white;
+  color: @black;
+  .userInfo{
+      color:#363f44;
+  }
+}
+//默认蓝
+nz-header.bg-primary,
+nz-sider.bg-primary {
+  background-color: @primary-color;
+  color: @white;
+}
+//浅蓝
+nz-header.bg-info,
+nz-sider.bg-primary {
+  background-color: @info;
+  color: @white;
+}
+//成功绿
+nz-header.bg-success,
+nz-sider.bg-primary {
+  background-color: @success;
+  color: @white;
+  .ant-menu-dark{
+    background-color: @success;
+  }
+}
+//红色
+nz-header.bg-danger{
+  background-color: @danger;
+  color: @white;
+}
+
+//logo
+.logo.bg-dark{
+  background-color: @dark;
+  color:#bfd1de;
+}
+.logo.bg-black{
+  background-color: @black;
+  color:#bfd1de;
+}
+.logo.bg-success{
+  background-color: @success;
+  color:#edfbf0;
+}
+.logo.bg-info{
+  background-color: @info;
+  color:#edfbf0;
+}
+.logo.bg-danger{
+  background-color: @danger;
+  color:#fff;
+}
+
+//左侧导航
+nz-sider.bg-black{
+  background-color: @black;
+  color: @dark-font-color;
+  //左侧菜单栏
+  .ant-menu-dark{
+    background-color: @black;
+  }
+}
+
+nz-sider.bg-dark{
+  background-color: @dark;
+  color: @dark-font-color;
+  //左侧菜单栏
+  .ant-menu-dark{
+    background-color: @dark;
+  }
+  .ant-menu.ant-menu-dark .ant-menu-item-selected{
+    color:@white;
+    background-color: #2e3344;
+  }
+}
+nz-sider.bg-light{
+  background-color: @light;
+  color: @black;
+  //左侧菜单栏
+  .ant-menu-dark{
+    background-color: @light;
+  }
+  .ant-menu-dark .ant-menu-item{
+      color:@black;
+  }
+  .ant-menu.ant-menu-dark .ant-menu-item-selected{
+    color:@black;
+    background-color: @white;
+    }
+    
+}
+
+

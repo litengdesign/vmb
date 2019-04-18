@@ -1,0 +1,156 @@
+<div class="settings panel panel-default" [ngClass]="{'active': settingOpen}">
+  <!-- settings -->
+  <button class="btn btn-default no-shadow pos-abt setting-btn" (click)="settingOpen = !settingOpen">
+    <i nz-icon nzType="setting" nzTheme="outline"></i>
+  </button>
+  <div class="panel-heading">
+    主题设置
+  </div>
+  <div class="panel-body">
+    <div class="m-b">
+      头部置顶悬浮
+      <nz-switch [ngModel]="true" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+    </div>
+  </div>
+  <div class="wrapper b-t b-light bg-light lter r-b">
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <label class="i-checks block m-b" (click)="sendData('bg-black','bg-white-only','bg-black')">
+          <input type="radio" name="a" checked>
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-black header"></b>
+            <b class="bg-black header"></b>
+            <b class="bg-black"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-success','bg-success-only','bg-dark')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-success header"></b>
+            <b class="bg-success header"></b>
+            <b class="bg-dark"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-info','bg-info','bg-black')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-info header"></b>
+            <b class="bg-info header"></b>
+            <b class="bg-black"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-primary','bg-primary','bg-black')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-primary header"></b>
+            <b class="bg-primary header"></b>
+            <b class="bg-black"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-info','bg-info','bg-light')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-info header"></b>
+            <b class="bg-info header"></b>
+            <b class="bg-light"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-danger','bg-danger','bg-dark')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-danger header"></b>
+            <b class="bg-danger header"></b>
+            <b class="bg-dark"></b>
+          </span>
+        </label>
+      </div>
+      <div nz-col nzSpan="12">
+        <label class="i-checks block m-b" (click)="sendData('bg-white','bg-black','bg-black')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-black header"></b>
+            <b class="bg-white header"></b>
+            <b class="bg-black"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-white','bg-success','bg-dark')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-success header"></b>
+            <b class="bg-white header"></b>
+            <b class="bg-dark"></b>
+          </span>
+        </label>
+                <label class="i-checks block m-b" (click)="sendData('bg-white','bg-info','bg-black')">
+                  <input type="radio" name="a">
+                  <span class="block bg-light clearfix pos-rlt">
+                    <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+                      <i nz-icon nzType="check" nzTheme="outline"></i>
+                    </span>
+                    <b class="bg-info header"></b>
+                    <b class="bg-white header"></b>
+                    <b class="bg-black"></b>
+                  </span>
+                </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-primary','bg-white-only','bg-black')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-primary header"></b>
+            <b class="bg-white header"></b>
+            <b class="bg-black"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-white','bg-info','bg-black')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-info header"></b>
+            <b class="bg-white header"></b>
+            <b class="bg-black"></b>
+          </span>
+        </label>
+        <label class="i-checks block m-b" (click)="sendData('bg-white','bg-danger','bg-dark')">
+          <input type="radio" name="a">
+          <span class="block bg-light clearfix pos-rlt">
+            <span class="active pos-abt w-full h-full bg-black-opacity text-center">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </span>
+            <b class="bg-danger header"></b>
+            <b class="bg-white header"></b>
+            <b class="bg-dark"></b>
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /settings -->

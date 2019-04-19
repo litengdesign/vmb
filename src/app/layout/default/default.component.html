@@ -39,11 +39,17 @@
   <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" nzCollapsedWidth="50" class="{{themes.asideColor}}">
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
-        <li nz-menu-item>
-          <span title><i nz-icon type="project"></i><span class="nav-text">应用程序管理</span></span>
+        <li nz-menu-item routerLinkActive="active">
+          <a [routerLink]="'/application'">
+            <i nz-icon [nzIconfont]="'icon-app'"></i>
+            <span class="nav-text">应用程序管理</span>
+          </a>
         </li>
-        <li nz-menu-item>
-          <span title><i nz-icon type="menu"></i><span class="nav-text">菜单管理</span></span>
+        <li nz-menu-item routerLinkActive="active">
+          <a [routerLink]="'/arcgis'">
+            <i nz-icon [nzIconfont]="'icon-GIS'"></i>
+            <span class="nav-text">实时监控</span>
+          </a>
         </li>
         <li nz-menu-item>
           <span><i nz-icon type="team"></i><span class="nav-text">角色管理</span></span>

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ApplicationComponent} from '../app/pages/application/application.component';
 import { LoginComponent} from '../app/pages/login/login.component';
-import { DefaultComponent} from '../app/layout/default/default.component'
+import { DefaultComponent} from '../app/layout/default/default.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
       { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
-      { path: 'dashboard/v1', component: ApplicationComponent },
+      { path: 'dashboard/v1', component: DashboardComponent },
+      { path: 'application', component: ApplicationComponent },
     ],
   },
   { path: 'login', component: LoginComponent},

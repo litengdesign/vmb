@@ -9,7 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { AngularEsriModule } from 'angular-esri-components';
+
 import { NavComponent } from './blocks/nav/nav.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ApplicationComponent} from './pages/application/application.component';
 import { PremissionComponent } from './blocks/premission/premission.component';
 import { SearchComponent } from './blocks/search/search.component';
@@ -29,7 +32,8 @@ registerLocaleData(zh);
     SearchComponent,
     LoginComponent,
     DefaultComponent,
-    SettingsComponent
+    SettingsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,8 @@ registerLocaleData(zh);
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    AngularEsriModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

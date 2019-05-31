@@ -29,6 +29,7 @@ export class DefaultComponent implements OnInit {
   //右侧消息弹框
   visible = false;
   childrenVisible = false;
+  public fullScreen = false;
   vegetables = ['asparagus', 'bamboo', 'potato', 'carrot', 'cilantro', 'potato', 'eggplant'];
   //接受设置参数
   public themes = {
@@ -61,8 +62,8 @@ export class DefaultComponent implements OnInit {
     this.triggerTemplate = this.customTrigger;
     this.logoTemplate = this.customTrigger;
   }
-  //登出
-  logoff(): void {
+  // 登出
+  logout(): void {
     this.oauthService.logOut();
     // this.msg.info('退出成功!');
     // this.router.navigateByUrl('/login');
@@ -87,5 +88,39 @@ export class DefaultComponent implements OnInit {
   getSettings(settings){
     this.themes = settings;
   }
-
+  get requestAccessToken() {
+    return this.oauthService.requestAccessToken;
+  }
+  //全屏
+  setFullScreen() {
+    const dom: any = document.documentElement;
+    const doc: any = document;
+    var docElm: any = document.documentElement;
+    if (!this.fullScreen) {
+      if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+      }
+      else if (docElm.msRequestFullscreen) {
+        docElm.msRequestFullscreen();
+      }
+      else if (docElm.mozRequestFullScreen) {
+        docElm.mozRequestFullScreen();
+      }
+      else if (docElm.webkitRequestFullScreen) {
+        docElm.webkitRequestFullScreen();
+      }
+    }
+    else {
+      if (doc.webkitCancelFullScreen) {
+        doc.webkitCancelFullScreen();
+      } else if (doc.mozCancelFullScreen) {
+        doc.mozCancelFullScreen();
+      } else if (doc.cancelFullScreen) {
+        doc.cancelFullScreen();
+      } else if (doc.exitFullscreen) {
+        doc.exitFullscreen();
+      }
+    }
+    this.fullScreen = !this.fullScreen;
+  }
 }

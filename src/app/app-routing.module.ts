@@ -4,6 +4,7 @@ import { ApplicationComponent} from '../app/pages/application/application.compon
 import { LoginComponent} from '../app/pages/login/login.component';
 import { DefaultComponent} from '../app/layout/default/default.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,12 +16,14 @@ const routes: Routes = [
       { path: 'dashboard/v1', component: DashboardComponent },
       { path: 'application', component: ApplicationComponent },
     ],
+    canActivate: [AuthGuard]
   },
   { path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

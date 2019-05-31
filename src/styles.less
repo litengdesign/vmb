@@ -553,6 +553,12 @@
 *{
   outline: none;
 }
+.pull-left{
+  float: left;
+}
+.pull-right{
+  float: right;
+}
 a{
   color: #363f44;
 }
@@ -565,6 +571,12 @@ a{
 .text-center{
   text-align: center;
 }
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
 .ant-menu.ant-menu-dark .ant-menu-item-selected{
   color:#fff;
   background-color: #131e26;
@@ -572,4 +584,19 @@ a{
 .ant-badge-count{
   box-shadow: initial;
 }
-
+.ant-menu li{
+  margin-top: 0 !important;
+}
+//content css
+@media screen and (max-width: 1440px) {
+    .content{
+        padding:1em; background: #fff;
+        min-height: 81.7vh;
+   }
+}
+@media screen and (min-width: 1441px) {
+    .content{
+        padding:24px; background: #fff;
+        min-height: 84.6vh;
+   }
+}

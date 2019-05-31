@@ -44,7 +44,8 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    AngularEsriModule
+    AngularEsriModule,
+    OAuthModule.forRoot(),
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

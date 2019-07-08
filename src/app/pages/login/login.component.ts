@@ -19,7 +19,7 @@ import {  } from '@angular/forms';
 export class LoginComponent implements OnInit {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' }); //发送post请求头部
   public api = 'Account/Login';
-  public systemName = this.server.getSystemName();
+  public systemName = this.server.systemName;
   validateForm: FormGroup;
 
   constructor(private fb: FormBuilder, public http: HttpClient, public router: Router, public server: ServersService) {

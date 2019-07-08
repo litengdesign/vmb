@@ -20,7 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { DefaultComponent } from './layout/default/default.component'
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { SettingsComponent } from './blocks/settings/settings.component';
-
+import { LogoComponent } from './blocks/logo/logo.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -33,7 +33,8 @@ registerLocaleData(zh);
     LoginComponent,
     DefaultComponent,
     SettingsComponent,
-    DashboardComponent
+    DashboardComponent,
+    LogoComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,11 +46,13 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
     AngularEsriModule,
-    OAuthModule.forRoot(),
+  ],
+  entryComponents: [
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { 
   
 }

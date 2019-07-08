@@ -1,123 +1,81 @@
-@dark:#3a3f51;
-@white:#fff;
-@info:#1199c4;
-@success:#20af42;
-@black:#1c2b36;
-@light:#dde6e9;
-@danger:#f21b1b;
+// default
+@light-bg:rgba(237,237,237,1); //background-color
+@light-bg-header:rgba(247,247,247,1);; //background-color
+@light-border-color:#F3F3F3; //border-color
+@light-text-color:rgba(51,51,51,1); //text-color
+@light-active-color:rgba(226,226,226,1);
 
-@dark-font-color:#6b94b3;
-@white-font-color:#1c2b36;
-@info-font-color:#f2f2f2;
-@success-font-color:#d7f7df;
-@black-font-color:#6b94b3;
+//blue
+@blue-bg:#1890ff; //background-color
+@blue-bg-header:#1c4893; //background-color
+@blue-border-color:#F3F3F3; //border-color
+@blue-text-color:rgba(255,255,255,1); //text-color
+@blue-active-color:#BFCAE1;
 
-/*
- *主题设置
- *头部
-*/
-//深黑色
-nz-header.bg-black{
-  background-color: @black;
-  color: @white;
-  .userInfo{
-      color:#363f44;
-  }
+.ant-layout-sider-light{
+  background-color: @light-bg
 }
-//白色
-nz-header.bg-white{
-  background-color: @white;
-  color: @black;
-  .userInfo{
-      color:#363f44;
-  }
+.ant-layout-footer{
+  border-top:1px solid @light-border-color;
 }
-//默认蓝
-nz-header.bg-primary,
-nz-sider.bg-primary {
-  background-color: @primary-color;
-  color: @white;
+.ant-breadcrumb{
+  margin: 0;
+  padding: 15px;
+  border-bottom: 1px solid @light-border-color;
 }
-//浅蓝
-nz-header.bg-info,
-nz-sider.bg-primary {
-  background-color: @info;
-  color: @white;
-}
-//成功绿
-nz-header.bg-success,
-nz-sider.bg-primary {
-  background-color: @success;
-  color: @white;
-  .ant-menu-dark{
-    background-color: @success;
-  }
-}
-//红色
-nz-header.bg-danger{
-  background-color: @danger;
-  color: @white;
-}
-
-//logo
-.logo.bg-dark{
-  background-color: @dark;
-  color:#bfd1de;
-}
-.logo.bg-black{
-  background-color: @black;
-  color:#bfd1de;
-}
-.logo.bg-success{
-  background-color: @success;
-  color:#edfbf0;
-}
-.logo.bg-info{
-  background-color: @info;
-  color:#edfbf0;
-}
-.logo.bg-danger{
-  background-color: @danger;
-  color:#fff;
-}
-
-//左侧导航
-nz-sider.bg-black{
-  background-color: @black;
-  color: @dark-font-color;
-  //左侧菜单栏
-  .ant-menu-dark{
-    background-color: @black;
-  }
-}
-
-nz-sider.bg-dark{
-  background-color: @dark;
-  color: @dark-font-color;
-  //左侧菜单栏
-  .ant-menu-dark{
-    background-color: @dark;
-  }
-  .ant-menu.ant-menu-dark .ant-menu-item-selected{
-    color:@white;
-    background-color: #2e3344;
-  }
-}
-nz-sider.bg-light{
-  background-color: @light;
-  color: @black;
-  //左侧菜单栏
-  .ant-menu-dark{
-    background-color: @light;
-  }
-  .ant-menu-dark .ant-menu-item{
-      color:@black;
-  }
-  .ant-menu.ant-menu-dark .ant-menu-item-selected{
-    color:@black;
-    background-color: @white;
+.logo{
+  background-color: #f6f5f5;
+  //浅色主题
+  &.light{
+    background-color: @light-bg-header;
+    color: @light-text-color;
+    i{
+      color: @light-text-color;
     }
-    
+    .campany-name{
+      color:@blue-bg-header;
+    }
+  }
+  //蓝色主题
+  &.blue{
+    background-color: @blue-bg-header;
+    color: @blue-text-color;
+    i{
+      color: @blue-text-color;
+    }
+    .campany-name{
+      color:@blue-text-color;
+    }   
+  }
 }
-
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+   background-color: @light-active-color;
+}
+nz-header{
+  &.light{
+    background-color: @light-bg-header;
+    i{
+      color: @light-text-color
+    }
+    .navbar-right{
+      li .icon-content:hover{
+        background-color: rgba(255,255,255,0.2);
+      }
+    }
+  }
+  &.blue{
+    background-color: @blue-bg-header;
+    i{
+      color: @blue-text-color
+    }
+    .navbar-right{
+      li .icon-content:hover{
+        background-color: rgba(255,255,255,0.2);
+      }
+    }
+  }
+}
+.ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title{
+  width: 100%;
+}
 

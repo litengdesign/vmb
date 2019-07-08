@@ -12,11 +12,9 @@ import { OAuthService } from 'angular-oauth2-oidc';
 export class DefaultComponent implements OnInit {
   
   constructor(public server: ServersService, public msg: NzMessageService, private router: Router, private oauthService: OAuthService) { }
-  public systemName = this.server.getSystemName();
+  public theme = 'light';
   text: string = 'Admin';
-  color: string = '#1890ff';
-
-  isCollapsed = false;
+  isCollapsed = true;
   triggerTemplate: TemplateRef<void> | null = null;
   logoTemplate: TemplateRef<void> | null = null;
   @ViewChild('trigger') customTrigger: TemplateRef<void>;
@@ -40,8 +38,6 @@ export class DefaultComponent implements OnInit {
     asideFixed: false,
     asideFolded: false
   }
-  
-
   currentPageDataChange($event: Array<{ id: number; name: string; age: number; address: string }>): void {
     this.listOfDisplayData = $event;
     this.refreshStatus();

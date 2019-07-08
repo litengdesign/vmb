@@ -13,8 +13,16 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
       { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
-      { path: 'dashboard/v1', component: DashboardComponent },
-      { path: 'application', component: ApplicationComponent },
+      { path: 'dashboard/v1', component: DashboardComponent,
+        data: {
+          breadcrumb: '控制面板'
+        }
+      },
+      { path: 'application', component: ApplicationComponent,
+        data: {
+          breadcrumb: '应用程序管理'
+        }
+      },
     ],
     canActivate: [AuthGuard]
   },

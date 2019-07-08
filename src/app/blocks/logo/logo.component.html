@@ -1,0 +1,7 @@
+<div class="logo {{theme}}" >
+  <span class="icon logo-img">
+  </span>
+  <span class="campany-name animated fadeInLeft" [routerLink]="[ '/dashboard' ]" *ngIf="!isCollapsed">
+    {{server.systemName}}
+  </span>
+</div>

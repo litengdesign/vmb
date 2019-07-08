@@ -1,76 +1,113 @@
-<div class="app app-header" [ngClass]="{'fixed': themes.headerFixed,'':!themes.headerFixed}">
-  <nz-header [ngClass]="{'active': isCollapsed}" class="{{themes.navbarHeaderColor}}">
-    <div class="logo animated fadeInLeft {{themes.navbarCollapseColor}}">
-      <span class="icon logo-img">
-      </span>
-      <span class="campany-name animated fadeInLeft" [routerLink]="[ '/dashboard' ]">
-        {{systemName}}
-      </span>
-    </div>
-    <i class="trigger" nz-icon [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-      (click)="isCollapsed = !isCollapsed"></i>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <i nz-icon [nzType]="fullScreen?'shrink':'arrows-alt'" nzTheme="outline" (click)="setFullScreen()"></i>
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed"  [nzCollapsedWidth]="0"
+    [nzZeroTrigger]="zeroTrigger" nzCollapsible nzTheme="{{theme}}" class="mobile-sider">
+    <app-logo [theme]="theme"></app-logo>
+    <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" nzTheme="{{theme}}">
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" (click)="isCollapsed=true">
+        <a [routerLink]="'/application'">
+          <span><i nz-icon type="project"></i><span class="nav-text">应用程序管理</span></span>
+        </a>
       </li>
-      <li>
-        <span class="msg" (click)="openMsg()">
-          <nz-badge [nzCount]="5">
-            <span class="head-example"><i nz-icon nzType="message" nzTheme="outline"></i></span>
-          </nz-badge>
-        </span>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" (click)="isCollapsed=true">
+        <span><i nz-icon nzType="safety" nzTheme="outline"></i><span class="nav-text">角色授权</span></span>
       </li>
-      <li [ngClass]="{'active': userInfoActive}">
-        <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'" [nzClickHide]="false"
-          [(nzVisible)]="visibleLoginOut">
-          <a nz-dropdown>
-            <nz-avatar [nzText]="name" nzSize="large" [ngStyle]="{ 'background-color': color }"
-              style="vertical-align: middle;" (click)="userInfoActive = !userInfoActive">
-            </nz-avatar>
-          </a>
-          <ul nz-menu>
-            <li nz-menu-item nz-popconfirm nzTitle="您确定登出吗?" (nzOnConfirm)="logout()" (nzOnCancel)="cancel()"
-              nzPlacement="bottom" *ngIf="requestAccessToken">
-              登出
-            </li>
-          </ul>
-        </nz-dropdown>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" (click)="isCollapsed=true">
+        <span><i nz-icon nzType="idcard" nzTheme="outline"></i><span class="nav-text">用户管理</span></span>
       </li>
     </ul>
-  </nz-header>
-  <nz-layout>
-    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" nzCollapsedWidth="50" class="{{themes.asideColor}}" [nzReverseArrow]="isReverseArrow" >
-      <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
-        <li nz-menu-item>
-          <a [routerLink]="'/application'">
+  </nz-sider>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" nzCollapsedWidth="50" class="lg-sider">
+    <div class="logo {{theme}}">
+      <span class="icon logo-img">
+      </span>
+      <span class="campany-name animated fadeInLeft" [routerLink]="[ '/dashboard' ]" *ngIf="!isCollapsed">
+        {{server.systemName}}
+      </span>
+    </div>
+    <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" nzTheme="{{theme}}">
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" (click)="isCollapsed=true">
+        <a [routerLink]="'/application'">
           <span><i nz-icon type="project"></i><span class="nav-text">应用程序管理</span></span>
-          </a>
+        </a>
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" (click)="isCollapsed=true">
+        <span><i nz-icon nzType="safety" nzTheme="outline"></i><span class="nav-text">角色授权</span></span>
+      </li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" (click)="isCollapsed=true">
+        <span><i nz-icon nzType="idcard" nzTheme="outline"></i><span class="nav-text">用户管理</span></span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header class="{{theme}}">
+      <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"></i>
+      <!-- sm show logo -->
+      <app-logo [theme]="theme"></app-logo>
+      <!-- <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"></i> -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="fullScreenIcon">
+          <span class="icon-content">
+            <i nz-icon [nzType]="fullScreen?'shrink':'arrows-alt'" nzTheme="outline" (click)="setFullScreen()"></i>
+          </span>
         </li>
-        <li nz-menu-item>
-          <span><i nz-icon nzType="safety" nzTheme="outline"></i><span class="nav-text">角色授权</span></span>
+        <li>
+          <span class="msg icon-content" (click)="openMsg()">
+            <nz-badge [nzCount]="5">
+              <span class="head-example"><i nz-icon nzType="notification" nzTheme="outline"></i></span>
+            </nz-badge>
+          </span>
         </li>
-        <li nz-menu-item>
-          <span><i nz-icon nzType="idcard" nzTheme="outline"></i><span class="nav-text">用户管理</span></span>
+        <li>
+          <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'" [nzClickHide]="false">
+            <a nz-dropdown class="icon-content">
+              <i nz-icon nzType="skin" nzTheme="outline"></i>
+            </a>
+            <div nz-menu>
+              <ul class="skin-list">
+                <li (click)="theme='light'">
+                 <i class="icon icon-light"></i> 
+                 <span>浅色</span>  
+                 <i nz-icon nzType="check" nzTheme="outline" class="icon-check" style="color: #1890ff" *ngIf="theme=='light'"></i>
+                </li>
+                <li (click)="theme='blue'">
+                  <i class="icon icon-blue"></i>
+                  <span>蓝色</span>
+                  <i nz-icon nzType="check" nzTheme="outline" class="icon-check" *ngIf="theme=='blue'"></i>
+                </li>
+                <!-- <li (click)="theme=2">
+                  <i class="icon icon-dark"></i>
+                  <span>深黑</span>
+                  <i nz-icon nzType="check" nzTheme="outline" class="icon-check" *ngIf="theme==2"></i>
+                </li> -->
+              </ul>
+            </div>
+          </nz-dropdown>
+        </li>
+        <li style="padding: 0px 10px">
+          <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'" [nzClickHide]="false">
+            <a nz-dropdown style="display: inline-block;height: 40px;">
+              <nz-avatar [nzText]="'Admin'" nzSize="large"
+                style="vertical-align: middle;" (click)="userInfoActive = !userInfoActive">
+              </nz-avatar>
+            </a>
+            <ul nz-menu>
+              <li nz-menu-item nz-popconfirm nzTitle="您确定登出吗?" (nzOnConfirm)="logout()" (nzOnCancel)="cancel()"
+                nzPlacement="bottom" *ngIf="requestAccessToken">
+                登出
+              </li>
+            </ul>
+          </nz-dropdown>
         </li>
       </ul>
-    </nz-sider>
-    <nz-layout>
-      <nz-content style="margin:0 16px;">
-        <nz-breadcrumb style="margin:1em 0;">
-          <nz-breadcrumb-item>您所在的位置</nz-breadcrumb-item>
-          <nz-breadcrumb-item>应用程序管理</nz-breadcrumb-item>
-        </nz-breadcrumb>
-        <div class="content">
-          <router-outlet></router-outlet>
-        </div>
-      </nz-content>
-      <nz-footer>©2019 上海达华测绘地理信息中心<span class="pull-right">version:1.0</span></nz-footer>
-    </nz-layout>
-    <ng-template #trigger>
-      <i nz-icon type="up"></i>
-    </ng-template>
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer>©2019 上海达华测绘地理信息中心<span class="pull-right">version:1.0</span></nz-footer>
   </nz-layout>
-</div>
+</nz-layout>
 <!-- 消息列表 -->
 <nz-drawer [nzClosable]="false" [nzOffsetX]="childrenVisible ? 180 : 0" [nzWidth]="320" [nzVisible]="visible"
   nzTitle="消息列表" (nzOnClose)="close()">
@@ -84,4 +121,4 @@
   </div>
 </nz-drawer>
 <!-- 主题设置 -->
-<app-settings (sendSetting)='getSettings($event)'></app-settings>
+<!-- <app-settings (sendSetting)='getSettings($event)'></app-settings> -->

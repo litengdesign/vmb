@@ -104,7 +104,7 @@
 @outline-width : 2px;
 @outline-color : @primary-color;
 
-@background-color-light : hsv(0, 0, 98%); // background of header and selected item
+@background-color-light : rgba(246, 245,245,100); // background of header and selected item
 @background-color-base : hsv(0, 0, 96%); // Default grey background color
 
 // Disabled states
@@ -210,12 +210,12 @@
 @grid-gutter-width : 0;
 
 // Layout
-@layout-body-background : #f0f2f5;
-@layout-header-background : #001529;
+@layout-body-background : #fff;
+@layout-header-background : @background-color-light;
 @layout-footer-background : @layout-body-background;
 @layout-header-height : 64px;
 @layout-header-padding : 0 50px;
-@layout-footer-padding : 16px 50px;
+@layout-footer-padding : 16px;
 @layout-sider-background : @layout-header-background;
 @layout-trigger-height : 48px;
 @layout-trigger-background : #002140;
@@ -328,7 +328,7 @@
 @menu-item-color: @text-color;
 @menu-highlight-color: @primary-color;
 @menu-item-active-bg: @item-active-bg;
-@menu-item-active-border-width: 3px;
+@menu-item-active-border-width: 0px;
 @menu-item-group-title-color: @text-color-secondary;
 // dark theme
 @menu-dark-color: @text-color-secondary-dark;
@@ -440,7 +440,7 @@
 @avatar-font-size-base: 18px;
 @avatar-font-size-lg: 24px;
 @avatar-font-size-sm: 14px;
-@avatar-bg: #ccc;
+@avatar-bg: rgb(135, 211, 162);
 @avatar-color: #fff;
 @avatar-border-radius: @border-radius-base;
 
@@ -543,13 +543,6 @@
 
 /* You can add global styles to this file, and also import other style files */
 /* Get theme css*/
-#viewDiv {
-    padding: 0;
-    margin: 0;
-    height: 78vh;
-    width: 100%;
-}
-@import "./theme.less";
 *{
   outline: none;
 }
@@ -562,6 +555,16 @@
 a{
   color: #363f44;
 }
+#viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 80vh;
+    width: 100%;
+}
+.content{
+  padding: 1em;
+}
+@import "./theme.less";
 .editable-row-operations a{
   color: @primary-color;
 }
@@ -579,7 +582,7 @@ a{
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected{
   color:#fff;
-  background-color: #131e26;
+  background-color: #1890ff;
 }
 .ant-badge-count{
   box-shadow: initial;
@@ -587,16 +590,152 @@ a{
 .ant-menu li{
   margin-top: 0 !important;
 }
+.ant-menu-inline .ant-menu-item:not(:last-child){
+  margin-bottom: 0;
+}
+.ant-layout-sider-zero-width-trigger{
+  top: 4px;
+  z-index: 100;
+}
+.ant-layout-sider-zero-width-trigger:hover{
+  background: none;
+}
+.ant-table-content{
+  overflow: auto;
+}
+.ant-form-item-label{
+  padding-bottom: 0;
+}
+.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left{
+  border-right: 0;
+}
+.ant-layout-sider-light .ant-layout-sider-zero-width-trigger{
+  background: none;
+}
+.ant-menu{
+  background: rgba(237,237,237,1);
+}
+.ant-layout-sider-zero-width-trigger{
+  background: none;
+}
+.list-top{
+  padding: 10px 0;
+}
+.ant-drawer-content-wrapper .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #e8e8e8;
+    padding: 10px 16px;
+    text-align: right;
+    left: 0;
+    background: #fff;
+}
+.ant-drawer-content-wrapper .detailItem {
+    margin-bottom: 1em;
+}
 //content css
-@media screen and (max-width: 1440px) {
-    .content{
-        padding:1em; background: #fff;
-        min-height: 81.7vh;
-   }
+@media screen and (min-width: 991px) {
+  .content{
+    background: #fff;
+    min-height: 81.7vh;
+  }
+  nz-header{
+    .logo{
+      display: none;
+    }
+  }
 }
 @media screen and (min-width: 1441px) {
-    .content{
-        padding:24px; background: #fff;
-        min-height: 84.6vh;
+  .content{
+    background: #fff;
+    min-height: 84.6vh;
    }
+}
+@media screen and (max-width: 991px) {
+  .ant-layout-sider{
+    position: fixed;
+    height: 100%;
+    z-index: 100;
+  }
+  .content{
+    background: #fff;
+    min-height: 80vh;
+  }
+  app-search .ant-btn{
+    margin-left: 5px;
+  }
+  .ant-form-item-label label{
+    margin-right: 0.5em;
+  }
+  nz-header{
+    .logo{
+      display:inline-block;
+    }
+  }
+  nz-sider{
+    position: fixed;
+    height: 100%;
+  }
+  .ant-table-title + .ant-table-content{
+    overflow: auto;
+  }
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+    min-width: 150px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .content{
+    padding: 10px;
+  }
+  nz-header{
+    .navbar-right li{
+      padding: 0px 6px!important;
+      .icon-content{
+        margin-top: 5px;
+      }
+    }
+  }
+  .ant-layout-footer{
+    padding: 10px;
+  }
+  .ant-modal-body{
+    .ant-form-item-control {
+      line-height: 32px;
+      margin-bottom: 10px;
+    }
+  }
+}
+@media screen and (max-width: 375px) {
+  .content{
+    min-height: 78vh;
+    padding: 10px;
+  }
+  nz-header{
+    .navbar-right li{
+      padding: 0px 5px!important;
+      .icon-content{
+        margin-top: 5px;
+      }
+    }
+  }
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+    min-width: 150px;
+  }
+  .ant-btn{
+    margin-left: 5px;
+  }
+  .ant-modal-body{
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 374px) {
+     nz-header{
+       .logo{
+         display: none;
+       }
+     }
+     .ant-btn{
+       padding: 0 5px;
+     }
 }

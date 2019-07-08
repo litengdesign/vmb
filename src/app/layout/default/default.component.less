@@ -1,82 +1,58 @@
-
-.app-header.fixed{
-    padding-top: 50px;
-    nz-header{
-        position: fixed;
-        left: 0;
-        top: 0;
-    }
-}
 // header css
 nz-header{
-    position: relative;
     height: 50px;
     width: 100%;
     padding: 0;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 1px 0 rgba(0,0,0,0.05);
     z-index: 99;
+    ul{
+        margin: 0;
+    }
+    .logo{
+        height: 50px;
+        padding-left: 35px;
+    }
     .trigger {
-        float: left;
         font-size: 18px;
-        line-height: 50px;
-        padding: 0 1em;
+        padding: 16px;
         cursor: pointer;
         transition: color 0.3s;
-        vertical-align: inherit;
     }
     .trigger:hover {
         color: #1890ff;
     }
-    .logo{
-        float: left;
-        width: 200px;
-        padding: 6px 16px;
-        height: 50px;
-        margin: 0;
-        z-index: 100;
-        .campany-name{
-            float: left;
-            width: auto;
-            opacity: 1;
-            line-height: 38px;
-            padding: 0;
-            margin-left: 10px;
-        }
-        .logo-img{
-            float: left;
-            width: 2.78em;
-            height: 2.78em;
-            background: url('../../../assets/images/logo.png') no-repeat center;
-            background-size: contain
-        }
-        .fa{
-            margin: 0 5px;
-            vertical-align: middle;
-        }
-    }
-    // 关闭css
-    &.active{
-        .logo{
-            width: 50px;
-            padding: 6px 3px;
-        }
-        .campany-name{
-            display: none;
-            width: 0;
-            opacity: 0;
-        }
-    }
     .navbar-right{
         float: right;
-        line-height: 50px;
+        line-height: 30px;
         vertical-align: middle;
+        padding: 5px;
+        li{
+            list-style: none;
+            padding: 5px 10px;
+            float: left;
+            .icon-content{
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                border-radius: 100%;
+                text-align: center;
+                background-color: transparent;
+                cursor: pointer;
+                &:hover{
+                    cursor: pointer;
+                    background-color: rgba(226,226,226,1);
+                }
+                i{
+                    vertical-align:middle
+                }
+            }
+        }
         i{
             font-size:18px;
         }
         .msg{
            display: inline-block;
            width: 32px;
-           height: 50px;
+           height: 30px;
            vertical-align: middle;
         }
         nz-avatar{
@@ -86,45 +62,110 @@ nz-header{
             margin: 0 15px 0 5px;
             color: rgba(0, 0, 0, 0.65);
         }
-        .userInfo{
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 120px;
-            background-color: #fff;
-            z-index: 99;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 2px;
-            ul{
-                margin: 0;
-                padding: 0 15px;
-                list-style: none;
-                li{
-                    line-height: 32px;
-                    display: contents;
-                    padding-right: 15px;
-                    border-bottom:1px solid #E0E5F1;
-                }
-                li:last-child{
-                    border-top: 1px solid #e5e5e5;
-                    border-bottom:0 solid transparent;
-                }
+    }
+}
+.skin-list{
+    padding: 10px;
+    margin: 0;
+    list-style: none;
+    font-size: 12px;
+    li{
+        position: relative;
+        display: inline-block;
+        margin: 5px 10px;
+        .icon{
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: rgba(237,237,237,1);
+            &.icon-blue{
+                background-color: #1890ff;
             }
+            &.icon-dark{
+                background-color: #252525;
+            }
+        }
+        .icon-check{
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            color:#fff;
+        }
+    }
 
+ }
+.ant-layout-sider{
+    z-index: 100;
+}
+.ant-layout-sider{
+    background-color: rgba(237,237,237,1)
+}
+.logo{
+    padding: 6px 8px;
+    height: 50px;
+    margin: 0;
+    z-index: 100;
+    .campany-name{
+        float: left;
+        width: auto;
+        opacity: 1;
+        line-height: 38px;
+        padding: 0;
+        margin-left: 10px;
+        font-size: 16px;
+    }
+    .logo-img{
+        float: left;
+        width: 2.78em;
+        height: 2.78em;
+    }
+    .fa{
+        margin: 0 5px;
+        vertical-align: middle;
+    }
+    &.light{
+        .logo-img{
+            background: url('../../../assets/images/login-logo.png') no-repeat center;
+            background-size: contain
+        }
+    }
+    &.blue{
+        .logo-img{
+            background: url('../../../assets/images/logo.png') no-repeat center;
+            background-size: contain
         }
     }
 }
-// left nav
-.navbar-nav{
-    float: right;
-    list-style: none;
-    li{
-        padding: 0 10px;
-        float: left;
-        a{
-            position: relative;
-            display: block;
+.mobile-sider{
+    display: none;
+}
+@media screen and (max-width: 992px) {
+    .mobile-sider{
+        display: block;
+    }
+    .lg-sider{
+        display: none;
+    }
+    .fullScreenIcon{
+        display: none;
+    }
+    .logo{
+        display: block;
+    }
+    nz-header{
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding-left: 35px;
+        .trigger{
+            display: none;
         }
+    }
+    nz-content{
+        padding: 52px 0px 0px;
+    }
+    .ant-layout-sider-light .ant-layout-sider-zero-width-trigger{
+        background-color: none;
     }
 }

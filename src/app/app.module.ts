@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { AngularEsriModule } from 'angular-esri-components';
 
 import { NavComponent } from './blocks/nav/nav.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -21,6 +20,7 @@ import { DefaultComponent } from './layout/default/default.component'
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { SettingsComponent } from './blocks/settings/settings.component';
 import { LogoComponent } from './blocks/logo/logo.component';
+import { ArcgisMapComponent } from './blocks/arcgis-map/arcgis-map.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -35,6 +35,7 @@ registerLocaleData(zh);
     SettingsComponent,
     DashboardComponent,
     LogoComponent,
+    ArcgisMapComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +46,6 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    AngularEsriModule,
   ],
   entryComponents: [
   ],

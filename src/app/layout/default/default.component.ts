@@ -17,7 +17,7 @@ export class DefaultComponent implements OnInit {
   isCollapsed = true;
   triggerTemplate: TemplateRef<void> | null = null;
   logoTemplate: TemplateRef<void> | null = null;
-  @ViewChild('trigger') customTrigger: TemplateRef<void>;
+  @ViewChild('trigger', { static: false }) customTrigger: TemplateRef<void>;
 
   isAllDisplayDataChecked = false;
   isIndeterminate = false;

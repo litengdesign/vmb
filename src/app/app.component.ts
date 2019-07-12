@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { EsriModuleProvider } from 'angular-esri-components';
-import { NzMessageService, NzIconService } from 'ng-zorro-antd';
+import { NzIconService } from 'ng-zorro-antd';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
 
@@ -11,7 +10,7 @@ import { authConfig } from './auth.config';
 })
 export class AppComponent {
   title = 'app';
-  constructor(private authService: OAuthService, private moduleProvider: EsriModuleProvider, private _iconService: NzIconService) {
+  constructor(private authService: OAuthService, private _iconService: NzIconService) {
     this._iconService.fetchFromIconfont({
       scriptUrl: '//at.alicdn.com/t/font_1211807_plc2gxbpver.js'
     });

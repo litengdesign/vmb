@@ -1,5 +1,5 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
-
+import { environment } from '../environments/environment';
 // export const authConfig: AuthConfig = {
 
 //     // Url of the Identity Provider
@@ -19,14 +19,14 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 export const authConfig: AuthConfig = {
 
   // Url of the Identity Provider
-  issuer: 'http://10.9.53.103:5100',
+  issuer: 'http://106.15.239.187:5100',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin + '/#/dashboard?',
-
+  postLogoutRedirectUri: window.location.origin + '/#/dashboard?',
   // The SPA's id. The SPA is registerd with this id at the auth-server
-  // clientId: 'angular',
-  clientId: 'quick-start',
+  clientId: environment.clientId,
+  // clientId:'gis_release',
   // set the scope for the permissions the client should request
   // The first three are defined by OIDC. The 4th is a usecase-specific one
   scope: 'openid profile api_angular',

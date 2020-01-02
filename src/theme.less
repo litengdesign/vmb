@@ -1,81 +1,9 @@
-// default
-@light-bg:rgba(237,237,237,1); //background-color
-@light-bg-header:rgba(247,247,247,1);; //background-color
-@light-border-color:#F3F3F3; //border-color
-@light-text-color:rgba(51,51,51,1); //text-color
-@light-active-color:rgba(226,226,226,1);
-
-//blue
-@blue-bg:#1890ff; //background-color
-@blue-bg-header:#1c4893; //background-color
-@blue-border-color:#F3F3F3; //border-color
-@blue-text-color:rgba(255,255,255,1); //text-color
-@blue-active-color:#BFCAE1;
-
-.ant-layout-sider-light{
-  background-color: @light-bg
+*{
+  outline: none;
 }
-.ant-layout-footer{
-  border-top:1px solid @light-border-color;
+#viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
 }
-.ant-breadcrumb{
-  margin: 0;
-  padding: 15px;
-  border-bottom: 1px solid @light-border-color;
-}
-.logo{
-  background-color: #f6f5f5;
-  //浅色主题
-  &.light{
-    background-color: @light-bg-header;
-    color: @light-text-color;
-    i{
-      color: @light-text-color;
-    }
-    .campany-name{
-      color:@blue-bg-header;
-    }
-  }
-  //蓝色主题
-  &.blue{
-    background-color: @blue-bg-header;
-    color: @blue-text-color;
-    i{
-      color: @blue-text-color;
-    }
-    .campany-name{
-      color:@blue-text-color;
-    }   
-  }
-}
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
-   background-color: @light-active-color;
-}
-nz-header{
-  &.light{
-    background-color: @light-bg-header;
-    i{
-      color: @light-text-color
-    }
-    .navbar-right{
-      li .icon-content:hover{
-        background-color: rgba(255,255,255,0.2);
-      }
-    }
-  }
-  &.blue{
-    background-color: @blue-bg-header;
-    i{
-      color: @blue-text-color
-    }
-    .navbar-right{
-      li .icon-content:hover{
-        background-color: rgba(255,255,255,0.2);
-      }
-    }
-  }
-}
-.ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title{
-  width: 100%;
-}
-

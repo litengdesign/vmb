@@ -12,10 +12,8 @@ import zh from '@angular/common/locales/zh';
 
 import { NavComponent } from './blocks/nav/nav.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ApplicationComponent} from './pages/application/application.component';
 import { PremissionComponent } from './blocks/premission/premission.component';
 import { SearchComponent } from './blocks/search/search.component';
-import { LoginComponent } from './pages/login/login.component';
 import { DefaultComponent } from './layout/default/default.component'
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { SettingsComponent } from './blocks/settings/settings.component';
@@ -27,10 +25,8 @@ registerLocaleData(zh);
   declarations: [
     AppComponent,
     NavComponent,
-    ApplicationComponent,
     PremissionComponent,
     SearchComponent,
-    LoginComponent,
     DefaultComponent,
     SettingsComponent,
     DashboardComponent,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CanActivate, Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from '../../auth.config';
 import { Observable } from 'rxjs';

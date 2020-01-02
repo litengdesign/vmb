@@ -7,7 +7,17 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/themes/light/main.css">
+  <link rel="stylesheet" href="http://106.15.239.187/arcgis_js_api/library/4.11/esri/themes/light/main.css" />
+  <script>
+    dojoConfig = {
+      packages: [{
+        name: 'extras',
+        // location: this.location.pathname.replace(/\/[^/]+$/, "") + "/assets/arcgis/"
+        location: this.location.pathname.replace(/\/[^/]+$/, "") + "../assets/arcgis/"
+      }]
+    }; //dojoConfig必须set在加载dojo.js之前，否则在控制台调试时会发现报错。
+  </script>
+  <script src="http://106.15.239.187/arcgis_js_api/library/4.11/dojo/dojo.js"></script>
 </head>
 <body>
   <app-root></app-root>

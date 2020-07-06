@@ -1,0 +1,35 @@
+<app-search (checked)="getData()"></app-search>
+<div class="listbox">
+    <div class="header">项目列表</div>
+    <div class="list-content">
+        <nz-list class="project-list" [nzDataSource]="list" [nzItemLayout]="'horizontal'"
+            [nzLoading]="initLoading" [nzRenderItem]="item" [nzLoadMore]="loadMore">
+            <ng-template #item let-item>
+                <nz-list-item>
+                    <nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="item.loading">
+                        <div nz-row nzGutter="5" class="item-content" (click)="locationToPoint(item)">
+                                {{ item.name }}
+                                <div class="description">
+                                    <span><i nz-icon [nzIconfont]="'icon-comment_local'"></i>{{item.longitude?((item.longitude |pointerFloor) + ','+(item.latitude | pointerFloor)):'暂无位置信息'}}</span>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <span><i nz-icon [nzIconfont]="'icon-daxiao'"></i>{{item.gradeName||'未知'}}</span>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <span>
+                                        <nz-badge [nzStatus]=" item.statusCode | projectStatusPip"></nz-badge>
+                                        {{item.statusName ||'未知'}}
+                                    </span>
+                                    <!-- <span>类型：{{item.typeName}}</span> -->
+                                </div>
+                        </div>
+                    </nz-skeleton>
+                </nz-list-item>
+            </ng-template>
+            <ng-template #loadMore>
+                <div class="loadmore">
+                    <button nz-button *ngIf="!loadingMore && (total!=data.length)" (click)="onLoadMore()">加载更多</button>
+                    <p *ngIf="total==data.length && total>0" style="color: #aeb6bd;">数据全部加载完成！</p>
+                </div>
+            </ng-template>
+        </nz-list>
+    </div>
+</div>

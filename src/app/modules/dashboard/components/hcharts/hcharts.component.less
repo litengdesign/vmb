@@ -1,0 +1,106 @@
+@blue:#1C4893;
+@light-blue:#007AFF;
+@base-color:#E0E5F1;
+@activeColor:#007AFF;
+@white:#fff;
+.search-block{
+      position: relative;
+      padding-bottom: 10px;
+      z-index: 98;
+      .input-group-label{
+          display: inline-block;
+      }
+      .input-group-control{
+          display: inline-block;
+          max-width: 240px;
+      }
+      button{
+          vertical-align: text-top;
+          margin-top: 2px;
+      }
+
+  }
+.chart{
+    margin-top: 1em;
+}
+.title{
+    position: relative;
+    padding: 0.5em 0;
+    font-size: 16px !important;
+    color: @light-blue;
+    span{
+        position: relative;
+        background-color: #fff;
+        padding-right: 3.285em;
+        padding-left: 1em;
+        z-index: 1;
+    }
+    &:before{
+        content:'';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        height: 1px;
+        width: 94%;
+        background-color: @base-color;
+        z-index: 0;
+    }
+}
+.doubleChart .ant-card-grid{
+    padding: 0;
+    height: 668px;
+}
+.date-group {
+    .input-group-label{
+        display: inline-block;
+    }
+    .input-group-control{
+        display: inline-block;
+        max-width: 240px;
+    }
+}
+.device-group{
+    input{
+        border:0;
+        outline: none;
+        width:150px;
+        height: 26px;
+        line-height: 26px;
+        padding: 0 40px 0 10px;
+        border-radius: 2px;
+    }
+    .btn{
+        position: absolute;
+        padding: 0 7px;
+        top: 0;
+        right: -2px;
+        background-color: @activeColor;
+        color:@white;
+        line-height: 26px;
+        border: 0;
+        border-radius: 0 2px 2px 0;
+    }
+    nz-cascader{
+        width: 150px;
+    }
+}
+.active .ant-modal-body{
+    height: 700px;
+}
+nz-spin{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+#chartElement{
+    width: 718px;
+}
+#chartElementModel{
+    width: 1100px;
+}
+@media screen and (max-width: 1440px) {
+
+}
+@media screen and (max-width: 1920px){
+
+}

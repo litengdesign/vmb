@@ -1,0 +1,57 @@
+.title-content{
+    color: #E2F5FF;
+    padding-left: 4.2rem;
+    position: relative;
+    .icon{
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: inline-block;
+        width: 2.7rem;
+        height: 3.2rem;
+        &.icon-title-blue{
+            background: url('../../../../../assets/images/icon-title-blue.svg');
+            background-size: 100% 100%;
+        }
+        &.icon-title-green{
+            background: url('../../../../../assets/images/icon-title-green.svg');
+            background-size: 100% 100%;
+        }
+        &.icon-title-red{
+            background: url('../../../../../assets/images/icon-title-red.svg');
+            background-size: 100% 100%;
+        }
+        &.icon-title-orange{
+            background: url('../../../../../assets/images/icon-title-orange.svg');
+            background-size: 100% 100%;
+        }
+    }
+    .title-wrap{
+        border-bottom: 1px solid #16AEF5;
+        padding-bottom: 0.8rem;
+        .card-title{
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+            letter-spacing:3px;
+        }
+        .card-desc{
+            position: relative;
+            font-size: 1.2rem;
+            line-height: 2rem;
+            opacity: 0.6;
+        }
+        .card-extend{
+            float: right;
+        }
+    }
+
+}
+//响应式
+@media (max-width: 576px) {
+    .title-content{
+        .title-wrap{
+            padding: 0.2rem 0;
+        }
+    }
+}

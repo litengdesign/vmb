@@ -1,0 +1,57 @@
+<div id="menu">
+    <div class="badge tide">
+        <nz-button-group>
+            <button nz-button nzType="link" [nzSize]="'small'" >
+                <i nz-icon [nzIconfont]="'icon-chaoweiyubaoiconx'"></i>
+                潮位站
+             </button>
+            <nz-switch nzSize="small" nzCheckedChildren="开" nzUnCheckedChildren="关" [(ngModel)]="server.visibleTide" (ngModelChange)="visibleTideChange($event)"></nz-switch>
+        </nz-button-group>
+
+        <nz-button-group>
+            <button nz-button nzType="link" [nzSize]="'small'">
+               <i nz-icon [nzIconfont]="'icon-chaoweiyubaoiconx'"></i>
+               <i nz-icon nzType="global" nzTheme="outline"></i>
+               AIS
+            </button>
+            <nz-switch nzSize="small" nzCheckedChildren="开" nzUnCheckedChildren="关" [(ngModel)]="mapServer.visibleAIS" (ngModelChange)="visibleAISChange($event)"></nz-switch>
+        </nz-button-group>
+        <ng-template #tideContentTemplate>
+            <nz-list [nzDataSource]="server.tideData.graphicList" nzBordered nzSize="small" [nzRenderItem]="smallItem">
+                <ng-template #smallItem let-item>
+                    <nz-list-item class="item-content">
+                        <a (click)="getPointDetail(item)">
+                            {{item.attributes.name}}
+                        </a>
+                        <!--nz-divider nzType="vertical"></!--nz-divide-->
+                        <span class="small-text" style="margin-left: 5px;">
+                            <i nz-icon [nzIconfont]="'icon-comment_local'"></i>
+                            {{item.longitude?((item.longitude |pointerFloor) + ','+(item.latitude | pointerFloor)):'暂无位置信息'}}
+                        </span>
+                    </nz-list-item>
+                </ng-template>
+            </nz-list>
+        </ng-template>
+    </div>
+    <div class="badge msg" (click)="showAlert()" nzTitle="报警列表" nzPlacement="bottom" nz-tooltip>
+        <nz-badge [nzCount]="alertCount" nzDot>
+            <span class="head-example">
+                <i nz-icon [nzIconfont]="'icon-alert'"></i>
+            </span>
+        </nz-badge>
+    </div>
+    <a nz-dropdown style="display: inline-block;height: 40px;">
+        <nz-avatar [nzText]="userName" nzSize="large" class="avatar" nz-popover nzTitle="" [nzContent]="contentTemplate" nzPlacement="bottomRight" style="background-color:#0728FB;">
+        </nz-avatar>
+    </a>
+    <ng-template #contentTemplate>
+        <div>
+            <a (click)="logout()">
+                登出
+            </a>
+        </div>
+    </ng-template>
+</div>
+<app-alert-list [showDraw]="alertVisible" (closeDraw)="closeAlert()"></app-alert-list>
+<app-pop-template [popoverStyle]="popoverStyle" [showPop]="showPop" (closePop)="closePop()" [point]="selectedPoint">
+</app-pop-template>

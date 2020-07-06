@@ -7,6 +7,7 @@ import { ServersService } from '../../servers.service';
 })
 export class LogoComponent implements OnInit {
   @Input() theme: any; 
+  public isCollapsed;
   constructor(public server: ServersService) { }
 
   ngOnInit() {

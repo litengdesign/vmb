@@ -1,9 +1,257 @@
 *{
-  outline: none;
+    outline: none;
+  }
+  .small-text{
+      font-size: 12px;
+  }
+  .esri-attribution__powered-by{
+    display: none;
+  }
+  #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100vh;
+      width: 100%;
+  }
+  ul{
+      margin: 0;
+      padding: 0;
+      li{
+          list-style: none;
+      }
+  } 
+  .ant-divider-horizontal.ant-divider-with-text-left{
+      font-size: 14px;
+  }
+  .ant-card{
+      margin-bottom: 16px;
+      padding: 0;
+  }
+  .ant-card-body{
+      padding: 16px;
+  }
+  .ant-list-bordered .ant-list-header,
+  .ant-card-type-inner .ant-card-body{
+      padding: 10px 16px;
+  }
+  .ant-card-type-inner .ant-card-body .ant-list{
+      margin-bottom: 16px;
+  }
+  .ant-list-bordered .ant-list-item{
+      padding: 8px 16px;
+  }
+  .ant-card-head{
+      padding: 0 16px;
+  }
+  .ant-card-bordered{
+      border-radius: 5px;
+  }
+  .esri-view .esri-view-surface--inset-outline:focus::after{
+      display: none;
+  }
+  .popover {
+      .ant-tabs-bar{
+          padding: 8px 15px 0;
+          background: linear-gradient(to right, #3057EF,#36B8FE);
+          color: #fff;
+          border-radius: 8px 8px 0 0;
+          margin-bottom: 0;
+          .ant-tabs-nav .ant-tabs-tab-active,
+          .ant-tabs-nav .ant-tabs-tab:hover{
+              background-color: #fff;
+              border-radius: 6px 6px 0 0 ;
+              color: #0728FB;
+          }
+          .ant-tabs-nav-container{
+              line-height: 1;;
+          }
+          .ant-tabs-ink-bar{
+              background-color: #fff !important;
+          }
+      }
+      .ant-tabs-content{
+          padding: 16px;
+      }
+      .card-container ::ng-deep .ant-tabs-card .ant-tabs-bar {
+          border-color: #fff;
+      }
+      .ant-tabs-tabpane{
+          margin-left: 32px;
+          &:first-child{
+              margin-left: 0px;
+          }
+      }
+  }
+  nz-badge{
+      .anticon{
+          font-size: 20px;
+          vertical-align: bottom;
+      }
+      .ant-badge-count{
+          height: 14px;
+          line-height: 14px;
+      }
+      .ant-badge-multiple-words{
+          padding: 0 6px;
+      }
+  }
+  .ant-carousel .slick-slide img{
+      max-width: 100%;
+  }
+  .ant-table-small > .ant-table-content > .ant-table-body{
+      margin: 0;
+  }
+  .ant-switch-small{
+      vertical-align: text-bottom;
+  }
+  .ant-carousel .slick-list{
+      height: 420px !important;
+  }
+  .ant-card-head-title a{
+      font-size: 14px;color:#6F86AF;
+      &.active{
+          color: #3057EF;
+      }
+  }
+  .highcharts-credits{
+      display: none;
+  }
+  .esri-popup--is-docked{
+      top:60px;
+  }
+.esri-ui-manual-container>.esri-component{
+    // opacity: 0;
+}
+.esri-popup__header-title{
+    color: #fff;
 }
 #viewDiv {
     padding: 0;
     margin: 0;
     height: 100vh;
     width: 100%;
+}
+//总览
+.home{
+  .ant-steps-item-finish .ant-steps-item-icon {
+      background-color: rgb(228, 180, 20);
+  }
+  .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title{
+      color: rgb(228, 180, 20);
+  }
+  .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title{
+      color: rgba(255,255,255,0.8);
+  }
+  .statistic-list{
+      padding: 1.6rem 0;
+      .statistic-box{
+          padding: 0 1.3rem;
+          position: relative;
+          height: 4.6rem;
+          &:after{
+              position: absolute;
+              left: 0;
+              top: 0;
+              content: '';
+              width: 1.3rem;
+              height: 4.6rem;
+              background:url('./assets/images/statistic-box-left-border.png') no-repeat;
+              background-size: 100% 100%;
+          }
+          &:before{
+              position: absolute;
+              right: 0;
+              top: 0;
+              left: initial;
+              content: '';
+              width: 1.3rem;
+              height: 4.6rem;
+              background:url('./assets/images/statistic-box-right-border.png') no-repeat;
+              background-size: 100% 100%;
+          }
+          .statistic-content{
+              width: 100%;
+              position: relative;
+              height: 4.6rem;
+          }
+          &.box-blue{
+              &:after{
+                  background:url('./assets/images/statistic-box-left-border.png') no-repeat;
+                  background-size: 100% 100%;
+              }
+              &:blue{
+                  background:url('./assets/images/statistic-box-right-border.png') no-repeat;
+                  background-size: 100% 100%;            
+              }
+          }
+          .ant-statistic{
+              position: absolute;
+              left: 13px;
+              top: -1rem;
+              line-height: 4.2rem;
+              height: 4.2rem;
+          }
+          .statistic-title{
+              font-size: 1.2rem;
+              position: absolute;
+              left: 1.3rem;
+              bottom: 0;
+          }
+      }
+  }
+
+  .ant-statistic-title{
+
+      font-size: 1rem;
+  }
+  .ant-statistic-content{
+      font-size: 3rem;
+      color: #40AE8E;
+  }
+
+  .ant-statistic-content-suffix{
+      font-size: 1.2rem;
+  }
+  .ant-divider-horizontal{
+      margin: 5px 0;
+      opacity: .5;
+  }
+  .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after,
+  .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot{
+      background-color: #e4b414;
+  }
+  .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot{
+      background-color: #fff;
+  }
+}
+.pannel{
+    padding: 1.5rem 0;
+}
+//响应式
+@media (max-width: 576px) {
+  html{
+      -webkit-text-size-adjust:none; 
+      font-size: 10px;
+  }
+  .pannel {
+      padding: 1rem 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 1367px) {
+  html{
+      -webkit-text-size-adjust:none; 
+      font-size: 7.14px;
+  }
+}
+@media (min-width: 1368px) and (max-width: 1440px) {
+  html{
+      -webkit-text-size-adjust:none; 
+      font-size: 7.5px;
+  }
+}
+@media (min-width: 1441px) and (max-width: 1920px) {
+  html{
+      -webkit-text-size-adjust:none; 
+      font-size: 10px;
+  }
 }

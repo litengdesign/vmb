@@ -1,0 +1,102 @@
+@baseColor:#1C4893;
+@activeColor:#007AFF;
+@white:#fff;
+
+#menu{
+    position: fixed;
+    top: 1.285em;
+    right: 1.285em;
+    height: 38px;
+    z-index: 99;
+    .icon{
+        vertical-align: text-bottom;
+    }
+    .help{
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        padding-top: 2px;
+        background-color: #fff;
+        margin: 6px 0px 0 12px;
+        text-align: center;
+        border-radius: 2px;
+        color:@activeColor;
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    }
+    .badge{
+        display: inline-block;
+        min-width: 30px;
+        height: 30px;
+        padding: 3px;
+        background-color: rgba(234,237,239,.85);
+        text-align: center;
+        margin: 6px 20px 0 0px;
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+        border-radius: 15px;
+        position: relative;
+        cursor: pointer;
+        color: #434a54;
+        &:hover{
+            background-color: rgba(234,237,239,1);
+        }
+        &.tide{
+            padding: 3px 5px;
+        }
+        .ant-btn-link{
+            color: #434a54;
+        }
+        .icon{
+            display: inline-block;
+            width: 16px;
+            height: 16px; 
+            border-radius:2px; 
+        }
+        .icon-msg{
+           background-size: contain;   
+        }
+        .msg-num{
+            position: absolute;
+            right: 0;
+            top:0;
+            width: 22px;
+            height: 22px;
+            border-radius: 100%;
+            background-color: red;
+            color: @white;
+            transform: scale(0.6);
+            font-style: inherit;
+            line-height: 22px;
+            margin-right: -11px;
+            margin-top: -11px;
+        }
+    }
+
+    .icon.icon-book{
+        display: inline-block;
+        width: 16px;
+        height: 16px; 
+        border-radius:2px;
+        background-size: contain;   
+    }
+    nz-avatar{
+        border: 2px solid #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,.2), 0 -1px 0 rgba(0,0,0,.02);
+    }
+    a.item-content{
+        padding: 10px 16px;
+        color: #434a54;
+        cursor: pointer;
+        &:hover{
+            background-color: #f7f8f9;
+        }
+        .description{
+            color: #aeb6bd;
+            font-size: 12px;
+            margin-top: 6px;
+            i{
+                margin-right: 2px;
+                // color: @primary-color;
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 77 222" style="enable-background:new 0 0 77 222;" xml:space="preserve">
+<style type="text/css">
+	.st0{stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#000000;stroke-width:7;stroke-miterlimit:10;}
+	.st2{fill:#00A65A;stroke:#000000;stroke-width:4;stroke-miterlimit:10;}
+</style>
+<title>car</title>
+<path class="st0" d="M72.8,3v216H4.3V3H72.8 M74.8,1H2.3v220h72.5V1z"/>
+<line class="st1" x1="76" y1="121.6" x2="76" y2="145.5"/>
+<line class="st1" x1="76" y1="167.6" x2="76" y2="191.5"/>
+<line class="st1" x1="76" y1="16.6" x2="76" y2="40.5"/>
+<rect x="2.3" y="1" class="st2" width="72.5" height="36.3"/>
+<rect x="2.3" y="74.3" class="st2" width="72.5" height="146.7"/>
+<line class="st1" x1="1" y1="121.6" x2="1" y2="145.5"/>
+<line class="st1" x1="1" y1="167.6" x2="1" y2="191.5"/>
+<line class="st1" x1="1" y1="16.6" x2="1" y2="40.5"/>
+</svg>

@@ -1,0 +1,24 @@
+<app-header></app-header>
+<nz-layout id="main" class="home">
+    <nz-layout id="wrapper">
+        <nz-content id="content">
+            <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 40 }">
+                <div nz-col nzSpan="18" [nzXs]="24" [nzLg]="18" [nzXXl]="18" class="map-box"  [@cardTransition]="comomServer.isOpen?'zoomin':'zoomout'">
+                    <app-map></app-map>
+                    <!-- <app-arcgis-map></app-arcgis-map> -->
+                </div>
+                <div nz-col nzSpan="6" [nzXs]="24" [nzLg]="6" [nzXXl]="6" [@cardTransition]="comomServer.isOpen?'open':'fadeInLeft'" style="padding-top: 4rem;">
+                    <div nz-row nzGutter="8" nzType="flex" nzAlign="bottom">
+                        <div nz-col nzSpan="24">
+                            <app-project-info></app-project-info>
+                        </div>
+                        <nz-divider style="margin: 6rem 0;"></nz-divider>
+                        <div nz-col nzSpan="24">
+                            <app-volume-board></app-volume-board>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>

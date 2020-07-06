@@ -1,0 +1,19 @@
+<div class="title-content">
+    <i class="{{icon}}"></i>
+    <div class="title-wrap">
+        <span class="card-title">
+            {{title}}
+        </span>
+        <nz-divider nzType="vertical" *ngIf="description"></nz-divider>
+        <span class="card-desc">
+            {{description}}
+        </span>
+        <span class="card-extend" *ngIf="link">
+            
+            <a [routerLink]="link" target="_blank">
+                <!-- 跳转 -->
+                <i nz-icon [nzIconfont]="'icon-insertlink'" [title]="'跳转到'+title"></i>
+            </a>
+        </span>
+    </div>
+</div>

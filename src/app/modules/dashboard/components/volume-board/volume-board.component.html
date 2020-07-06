@@ -1,0 +1,12 @@
+<div class="container">
+    <app-card-title [title]="'运砂量方'" [icon]="'icon icon-title-orange'" [description]="'Volume Board'" [link]="'/integration'"></app-card-title>
+    <div class="pannel">
+        <nz-button-group>
+            <button nz-button [nzType]="searchType=='month'?'primary':'default'" (click)="changeChartType('month')">运砂量统计(月)</button>
+            <button nz-button [nzType]="searchType=='day'?'primary':'default'"  (click)="changeChartType('day')">运砂量统计(日)</button>
+          </nz-button-group>
+        <!-- <app-echarts [chartOption]='chartOption' [pheight]="'20rem'" [pwidth]="'42rem'">
+        </app-echarts> -->
+         <app-highcharts [chartsObj]='chartData'></app-highcharts>
+    </div>
+</div>

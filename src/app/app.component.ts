@@ -12,13 +12,10 @@ export class AppComponent {
   title = 'app';
   constructor(private authService: OAuthService, private _iconService: NzIconService) {
     this._iconService.fetchFromIconfont({
-      scriptUrl: '//at.alicdn.com/t/font_1211807_plc2gxbpver.js'
+      scriptUrl: '//at.alicdn.com/t/font_1506206_4bw6p4chwn8.js'
     });
-    this.authService.configure(authConfig);
-    this.authService.tokenValidationHandler = new JwksValidationHandler();
-    this.authService.loadDiscoveryDocumentAndLogin();
+    // this.authService.configure(authConfig);
+    // this.authService.tokenValidationHandler = new JwksValidationHandler();
+    // this.authService.loadDiscoveryDocumentAndLogin();
   }
-
-
-
 }

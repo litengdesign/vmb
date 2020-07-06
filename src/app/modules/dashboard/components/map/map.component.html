@@ -1,0 +1,63 @@
+<div id="viewDiv" [ngClass]="{'active': !server.isOpen}">
+    <div class="zoomOut" [ngClass]="{'active': !server.isOpen}" (click)='toggleZoom()' [title]="server.isOpen?'展开':'收缩'"></div>
+    <div class='nav'>
+        <div class="badge tide">
+            <nz-button-group>
+                <button nz-button nzType="link" [nzSize]="'small'">
+                   <i nz-icon [nzIconfont]="'icon-global'" ></i>
+                   AIS
+                </button>
+              <nz-switch [nzLoading]="AISloading" nzSize="small" nzCheckedChildren="开" nzUnCheckedChildren="关" [(ngModel)]="AISLayerVisible" (ngModelChange)="AisLayerVisibleChange($event)"></nz-switch>
+            </nz-button-group>
+        </div>
+        <div class="badge tide">
+            <nz-button-group>
+                <button nz-button nzType="link" [nzSize]="'small'">
+                    <i nz-icon [nzIconfont]="'icon-chaoweiyubaoiconx'"></i>
+                    潮位站
+                 </button>
+                <nz-switch nzSize="small" nzCheckedChildren="开" nzUnCheckedChildren="关" [(ngModel)]="server.visibleTide" (ngModelChange)="visibleTideChange($event)"></nz-switch>
+            </nz-button-group>
+            <ng-template #tideContentTemplate>
+                <nz-list [nzDataSource]="server.tideData.graphicList" nzBordered nzSize="small" [nzRenderItem]="smallItem">
+                    <ng-template #smallItem let-item>
+                        <nz-list-item class="item-content">
+                            <a (click)="getPointDetail(item,null)">
+                                {{item.attributes.name}}
+                            </a>
+                            <!--nz-divider nzType="vertical"></!--nz-divide-->
+                            <span class="small-text" style="margin-left: 5px;">
+                                <i nz-icon [nzIconfont]="'icon-comment_local'"></i>
+                                {{item.longitude?((item.longitude) + ','+(item.latitude)):'暂无位置信息'}}
+                            </span>
+                        </nz-list-item>
+                    </ng-template>
+                </nz-list>
+            </ng-template>
+        </div>
+
+    </div>
+    <div class="example-input">
+        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton">
+            <input
+              placeholder="工程搜索"
+              nz-input
+              [(ngModel)]="inputValue"
+              (input)="onInput($event.target?.value)" 
+              [nzAutocomplete]="auto"
+            />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSize="large" nzSearch (click)='serachPoint()'>
+              <i nz-icon [nzIconfont]="'icon-search'"></i>
+            </button>
+        </ng-template>
+        <nz-autocomplete #auto>
+            <nz-auto-option *ngFor="let option of options" [nzValue]="option.id" [nzLabel]="option.shortName">
+              {{ option.shortName }}
+            </nz-auto-option>
+          </nz-autocomplete>
+    </div>
+</div>
+<app-pop-template [popoverStyle]="popoverStyle" [showPop]="showPop" (closePop)="closePop()" [point]="selectedPoint">
+</app-pop-template>

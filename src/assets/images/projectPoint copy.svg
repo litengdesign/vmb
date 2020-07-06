@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <circle cx="20" cy="20" r="20"  fill="rgba(0,122,255,0.3)" class="circle_bottom2 animation2"/>
+	<circle cx="20" cy="20" r="15" class="circle_bottom animation" fill="rgba(0,122,255,0.5)" />
+    <circle cx="20" cy="20" r="10" stroke="rgba(0,0,0,0.25)" stroke-width="0.5" fill="#007AFF" />
+    <style type="text/css">
+.animation {
+    -webkit-animation: twinkling 2.1s infinite ease-in-out;
+    animation: twinkling 2.1s infinite ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.animation2 {
+    -webkit-animation: twinkling 2.1s infinite ease-in-out;
+    animation: twinkling 2.1s infinite ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+@-webkit-keyframes twinkling {
+	0% {
+	opacity:0.2;
+	filter:alpha(opacity=20);
+	-webkit-transform:scale(1);
+}
+50% {
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	-webkit-transform:scale(1);
+}
+100% {
+	opacity:0.2;
+	filter:alpha(opacity=20);
+	-webkit-transform:scale(1);
+}
+}@keyframes twinkling {
+	0% {
+	opacity:0.2;
+	filter:alpha(opacity=20);
+	-webkit-transform:scale(1);
+}
+50% {
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	-webkit-transform:scale(1);
+}
+100% {
+	opacity:0.2;
+	filter:alpha(opacity=20);
+	-webkit-transform:scale(1);
+}
+}
+</style>
+</svg> 

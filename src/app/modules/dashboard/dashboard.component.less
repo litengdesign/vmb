@@ -1,0 +1,374 @@
+
+.ant-descriptions-bordered .ant-descriptions-item-label{
+    background-color: transparent;
+}
+.esri-ui-manual-container>.esri-component .esri-attribution__powered-by{
+    display: none;
+}
+.ant-carousel .slick-slide img {
+    display: block;
+    max-width: 100%;
+    max-height: 400px; 
+}
+.popover {
+    .ant-tabs-bar{
+        padding: 8px 15px 0;
+        background: linear-gradient(to right, #3057EF,#36B8FE);
+        color: #fff;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 0;
+        .ant-tabs-nav .ant-tabs-tab-active,
+        .ant-tabs-nav .ant-tabs-tab:hover{
+            background-color: #fff;
+            border-radius: 6px 6px 0 0 ;
+            color: #0728FB;
+        }
+        .ant-tabs-nav-container{
+            line-height: 1;;
+        }
+        .ant-tabs-ink-bar{
+            background-color: #fff !important;
+        }
+    }
+    .ant-tabs-content{
+        padding: 16px;
+    }
+    .card-container ::ng-deep .ant-tabs-card .ant-tabs-bar {
+        border-color: #fff;
+    }
+    .ant-tabs-tabpane{
+        margin-left: 32px;
+        &:first-child{
+            margin-left: 0px;
+        }
+    }
+}
+.ant-table{
+    background-color: transparent !important;
+}
+//总览
+.home{
+    .ant-steps-item-finish .ant-steps-item-icon {
+        background-color: rgb(228, 180, 20);
+    }
+    .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title{
+        color: rgb(228, 180, 20);
+    }
+    .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title{
+        color: rgba(255,255,255,0.8);
+    }
+    .statistic-list{
+        padding: 1.6rem 0;
+        .statistic-box{
+            padding: 0 1.3rem;
+            position: relative;
+            height: 4.6rem;
+            &:after{
+                position: absolute;
+                left: 0;
+                top: 0;
+                content: '';
+                width: 1.3rem;
+                height: 4.6rem;
+                background:url('../../../assets/images/statistic-box-left-border.png') no-repeat;
+                background-size: 100% 100%;
+            }
+            &:before{
+                position: absolute;
+                right: 0;
+                top: 0;
+                left: initial;
+                content: '';
+                width: 1.3rem;
+                height: 4.6rem;
+                background:url('../../../assets/images/statistic-box-right-border.png') no-repeat;
+                background-size: 100% 100%;
+            }
+            .statistic-content{
+                width: 100%;
+                position: relative;
+                height: 4.6rem;
+            }
+            &.box-blue{
+                &:after{
+                    background:url('../../../assets/images/statistic-box-left-border.png') no-repeat;
+                    background-size: 100% 100%;
+                }
+                &:blue{
+                    background:url('../../../assets/images/statistic-box-right-border.png') no-repeat;
+                    background-size: 100% 100%;            
+                }
+            }
+            .ant-statistic{
+                position: absolute;
+                left: 13px;
+                top: -1rem;
+                line-height: 4.2rem;
+                height: 4.2rem;
+            }
+            .statistic-title{
+                font-size: 1.2rem;
+                position: absolute;
+                left: 1.3rem;
+                bottom: 0;
+            }
+        }
+    }
+
+    .ant-statistic-title{
+
+        font-size: 1rem;
+    }
+    .ant-statistic-content{
+        font-size: 3rem;
+        color: #40AE8E;
+    }
+
+    .ant-statistic-content-suffix{
+        font-size: 1.2rem;
+    }
+    .ant-divider-horizontal{
+        margin: 5px 0;
+        opacity: .5;
+    }
+    .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after,
+    .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot{
+        background-color: #e4b414;
+    }
+    .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot{
+        background-color: #fff;
+    }
+}
+#main{
+    height: 100vh;
+    color: #E2F5FF;
+    background-size: 100% 100%;
+     .ant-layout{
+        background-color: #000;
+     }
+     #wrapper{
+       padding-right: 2rem;
+       #content{
+         position: relative;
+         height: 100vh;
+         overflow: hidden;
+         .map-box{
+             &.active{
+                 position: fixed;
+                 left: 0;
+                 bottom: 0;
+                 width: 100%;
+                 height: 100vh;
+             }
+         }
+       }
+     }
+ }
+ .ant-drawer-content{
+     background:linear-gradient(to bottom,#0A63BD,#052261);
+ }
+ .ant-drawer-header-no-title{
+     background: none;
+     .ant-drawer-title{
+         color: #E2F5FF;
+         font-size: 1.8rem;
+     }
+ }
+ .ant-form-item-label > label{
+     color: #E2F5FF;
+ }
+ @media (min-width: 768px) and (max-width: 1441px) {
+     .home{
+         .statistic-list .statistic-box .statistic-title{
+             bottom: -5px;
+             transform: scale(.8);
+         }
+         .ant-tabs{
+             margin:0;
+         }
+         .statistic-list{
+             padding: 1rem 0;
+         }
+         .ant-steps-label-vertical .ant-steps-item-content{
+             margin-top: 0;
+         }
+     }
+ 
+ }
+ @media (min-width: 1441px) and (max-width: 1920px) {
+ 
+ }
+ 
+ 
+ .ant-modal-header{
+     background:  #0A63BD
+ }
+ .ant-modal-body{
+     background:#0A63BD;
+ }
+ 
+ .ant-input[disabled]{
+     color: #000;
+ }
+ .ant-select-selection-selected-value{
+     // color: #000;
+     font-weight: bold;
+ }
+ .nav{
+     max-width: 24rem;
+     position: fixed;
+     left: 2rem;
+     top: 8.8rem;
+     z-index: 100;
+ }
+ .home{
+     .ant-tabs{
+         color: #fff;
+         margin: 0;
+     }
+     .ant-tabs-bar{
+         border-bottom: 0;
+         margin: 1rem 0;
+     }
+
+     .ant-steps-item-finish .ant-steps-item-icon {
+         background-color: rgb(228, 180, 20);
+     }
+     .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title{
+         color: rgb(228, 180, 20);
+     }
+     .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title{
+         color: rgba(255,255,255,0.8);
+     }
+
+     .ant-statistic-title{
+         font-size: 1rem;
+     }
+     .ant-statistic-content{
+         font-size: 3rem;
+         color: #40AE8E;
+     }
+ 
+     .ant-statistic-content-suffix{
+         font-size: 1.2rem;
+     }
+     .ant-divider-horizontal{
+         margin: 5px 0;
+         opacity: .5;
+     }
+     .ant-tabs-nav .ant-tabs-tab{
+         padding: 2px 16px;
+     }
+     .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after,
+     .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot{
+         background-color: #e4b414;
+     }
+     .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot{
+         background-color: #fff;
+     }
+ }
+ .ant-drawer-content{
+     background:linear-gradient(to bottom,#0A63BD,#052261);
+ }
+ .ant-drawer-header-no-title{
+     background: none;
+     .ant-drawer-title{
+         color: #E2F5FF;
+         font-size: 1.8rem;
+     }
+ }
+ .ant-form-item-label > label{
+     color: #E2F5FF;
+ }
+.icon-toggle{
+    position: fixed;
+    left: 1rem;
+    top: 3rem;
+    width: 5rem;
+    height: 5rem;
+    background:url('../../../assets/images/icon-menu.png') no-repeat;
+    background-size: contain;
+    z-index: 100;
+    span{
+        display: none;
+    }
+}
+.typeName{
+    padding: 1rem 0;
+}
+ //响应式
+@media (max-width: 576px) {
+    #main{
+        height: auto;
+        #wrapper{
+            height: auto;
+            overflow: auto;
+            padding: 5.4rem 1rem 2rem;
+            .map-box{
+                height: auto;
+            }
+            #content{
+                height: auto;
+                overflow: auto;
+            }
+        }
+    }
+    .icon-toggle{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: auto;
+        width: 100%;
+        height: 5rem;
+        background: #0a63db;
+        z-index: 100;
+        line-height: 5rem;
+        text-align: center;
+        font-size: 2rem;
+        span{
+           display: block;
+        }
+    }
+}
+ @media (min-width: 768px) and (max-width: 1441px) {
+     .home{
+         .statistic-list .statistic-box .statistic-title{
+             bottom: -5px;
+             transform: scale(.8);
+         }
+         .ant-tabs{
+             margin:0;
+         }
+         .statistic-list{
+             padding: 1rem 0;
+         }
+         .ant-steps-label-vertical .ant-steps-item-content{
+             margin-top: 0;
+         }
+     }
+    .pannel .table{
+         font-size: 12px;
+     }
+ 
+ }
+ @media (min-width: 1441px) and (max-width: 1920px) {
+ 
+ }
+ 
+ 
+ .ant-modal-header{
+     background:  #0A63BD
+ }
+ .ant-modal-body{
+     background:#0A63BD;
+ }
+ 
+ .ant-input[disabled]{
+     color: #000;
+ }
+ .ant-select-selection-selected-value{
+     // color: #000;
+     font-weight: bold;
+ }
+ 
+ 

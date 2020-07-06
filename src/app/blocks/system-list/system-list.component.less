@@ -1,0 +1,272 @@
+.noProjectBox{
+    display:table-cell;
+    height:100px;
+    font-size:16px;
+    vertical-align:middle;
+    text-align:center;
+    span{
+        padding-left: 50px;
+    }
+}
+.card-list{
+    border:2px solid #dfe3e7;
+    margin-top: 8px;
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: hsla(0,0%,100%,.95);
+    .list-title{
+        font-size:14px;color:rgba(0, 0, 0, 0.85);margin-bottom:10px;font-weight: 500;
+    }
+    .header{
+        padding: 10px 16px;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        padding: 4px 16px;
+        color: #000;
+        background-color: #f7f8f9;
+        border-bottom: 1px solid #eaedef;
+        letter-spacing: 1.4px;
+    }
+    .card-body{
+        max-height: calc(100vh - 220px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        .ant-list-item {
+            cursor: pointer;
+            &:hover,&.active{
+                background-color: #f6f5f5;
+            }
+        }
+        .name{
+            color: #000;
+            font-size: 13px;
+        }
+        .mark{
+            font-size: 12px;
+            color: #aeb6bd;
+        }
+    }
+    .loadmore {
+        text-align: center;
+        margin-top: 12px;
+        height: 32px;
+        line-height: 32px;
+    }
+    .list-header-menu{
+       float: right;
+    }
+    .list-search{
+        margin-top: 10px;
+    }
+}
+/*统计分析*/
+.pannel{
+    min-height: 20em;
+    color: #6F86AF;
+}
+.pannel .title{
+    background-color: #F2F4FA;
+    line-height: 36px;
+    color: #1C4893;
+}
+.pannel .title span{
+    cursor: pointer;
+}
+.typeNumber span{
+    font-size: 1em;
+    margin-right: 10px;
+}
+.typeNumber span:last-child{
+    margin-right: 0;
+}
+.pannel .numberBlock{
+    padding: 50px 0;
+    color: #6F86AF;
+    font-size: 14px;
+    text-align: center;
+}
+.pannel .numberBlock span{
+    position: relative;
+    font-size: 52px;
+    font-weight: 400;
+}
+.pannel .numberBlock span.onlineEmpolyeNumber{
+    position: relative;
+}
+.pannel .numberBlock span.label{
+    position: absolute;
+    bottom: 5px;
+    right: -10px;
+    padding: 0;
+    font-size: 12px;
+    color: #6F86AF;
+}
+.pannel .numberBlock .title{
+    font-size: 12px;
+    background-color: #fff;
+    color: #6F86AF;
+}
+.pannel a{
+    position: relative;
+    color: #6F86AF;
+    display: inline-block;
+    width: 50%;
+}
+.pannel a:hover{
+    text-decoration: none;
+    color: #18A0FF;
+}
+.pannel a:hover span{
+    color: #18A0FF;
+}
+.pannel a:hover .tooltip{
+    display: block;
+}
+.pannel .tooltip{
+    position: absolute;
+    /* display: none; */
+    left: 50%;
+    bottom: 100%;
+    margin-left: -44px;
+    margin-bottom: -16px;
+    display: none;
+    width: 110%;
+}
+.pannel .description{
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+    width: 100%;
+    font-size: 12px;
+}
+.pannel .description b{
+    margin-right: 0;
+    vertical-align: sub;
+}
+.pannel .description {
+    text-align: left;
+}
+.pannel .description .num-item{
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+.pannel .description .num-item::after{
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 15px;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+.chartBlock{
+    position: relative;
+}
+.chart-content .chart{
+    width: 100%;
+    height: 200px;
+}
+.chartBlock .chartLabel{
+    top:0px;
+    position: absolute; right: 20px;
+}
+.onlineNumber .btn{
+    margin-top: 6px;
+}
+nz-divider{
+    font-size: 14px;
+}
+.carrier-fence-list{
+    position: fixed;
+    right: 1.285em;
+    top: 60px;
+}
+.optionList{
+    position: fixed;
+    top: 60px;
+    right: 80px;
+    min-width: 500px;
+    max-width: 680px;
+    overflow-y: scroll;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2),0 -1px 0 rgba(0,0,0,0.02);
+    z-index: 100;
+    max-height: 85vh;
+    .option-container{
+        background-color:#fff;
+        .icon-number{
+            float: right;
+            padding: 2px 10px;
+            border-radius: 15px;
+            background-color: #2db7f5;
+            color: #fff;
+        }
+    }
+    .option-header{
+        background-color: #f2f4f5;
+        color: #314659;
+        padding: 10px 20px;
+        line-height: 32px;
+        a{
+            color: #314659;
+            &.active{
+                color: #1890ff;
+            }
+        }
+        .close{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 99;
+            &:hover{
+                color: #dbdee2;
+            }
+        }
+    }
+    ul{
+        position: relative;
+        margin: 0;
+        padding: 0;
+        min-width: 200px;
+        .divider{
+            margin: 5px 0;
+            padding-left: 20px;
+            font-size: 13px;
+        }
+        button{
+            height: 30px;
+            padding: 5px 10px;
+            text-align: left;
+            &.full_width{
+               width: 70%;
+            }
+        }
+        li{
+            color: #314659;
+            list-style: none;
+            padding: 0px 20px;
+            width: 100%;
+            background-color: #eee;
+            border-bottom: 1px solid #fff;
+            cursor: pointer;
+            &:last-child{
+                border-bottom: 0;
+            }
+            &:hover{
+                background-color: #BAD6FF;
+            }
+            .tidalTime{
+                font-size: 12px;
+                color: #ebedf0;
+            }
+            &.gray{
+                color: #999;
+            }
+        }
+    }
+    .option-content{
+        min-width: 36px;
+        position: relative;
+        transition: width .3s ease;
+    }
+}

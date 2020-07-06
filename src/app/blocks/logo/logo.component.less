@@ -1,5 +1,5 @@
 .logo{
-    padding: 6px 4px;
+    padding: 6px 16px;
     height: 50px;
     margin: 0;
     z-index: 100;
@@ -10,7 +10,25 @@
         line-height: 38px;
         padding: 0;
         margin-left: 10px;
-        font-size: 16px;
+        font-size: 18px;
+        letter-spacing:3px;
+        color: rgba(255,255,255,0.9);
+        .firstName{
+            font-size: 20px;
+            position: relative;
+            margin-right: 5px;
+            padding-right: 5px;
+            color: rgba(255,255,255,1);
+            // &::after{
+            //     content: '';
+            //     width: 2px;
+            //     height: 18px;
+            //     position: absolute;
+            //     right: 0;
+            //     top: 4px;
+            //     background-color: #ddd;
+            // }
+        }
     }
     .logo-img{
         float: left;
@@ -28,6 +46,7 @@
         }
     }
     &.blue{
+        color: #fff;
         .logo-img{
             background: url('../../../assets/images/logo.png') no-repeat center;
             background-size: contain

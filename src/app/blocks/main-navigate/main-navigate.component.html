@@ -1,0 +1,9 @@
+<div id="main-navigate" [ngClass]="{'close': !navigateOpen}">
+   <div class="logo-wrapper" (click)="navigateOpen=!navigateOpen">
+    <app-logo theme="blue"></app-logo>
+   </div>
+   <div class="container">
+      <router-outlet></router-outlet>
+   </div>
+   <div class="caret" (click)="navigateOpen=!navigateOpen"></div>
+</div>

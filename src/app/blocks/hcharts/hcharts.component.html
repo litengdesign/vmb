@@ -1,0 +1,79 @@
+<!-- <nz-card [ngStyle]="chartsObj.cardGridStyle" nzBordered="false"> -->
+    <div class="pannel">
+        <h2 class="title">
+            <span>{{chartsObj.title}}</span>
+            <i nz-icon type="arrows-alt" theme="outline" style="float: right;cursor: pointer;"
+                (click)="showModal()"></i>
+        </h2>
+            <div class="search-block">
+                <div nz-row nzGutter="8" nzType="flex" nzJustify="end">
+                    <div nz-col nzSpan="12">
+                        <nz-form-control>
+                            <div class="input-group">
+                                <div class="input-group-label">
+                                    <nz-form-label>起止时间</nz-form-label>
+                                </div>
+                                <div class="input-group-control">
+                                    <nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="datepicker"  nzAllowClear="false">
+                                    </nz-range-picker>
+                                </div>
+                            </div>
+                        </nz-form-control>
+                    </div>
+                    <div nz-col nzSpan="3">
+                        <button nz-button nzType="primary" (click)="searchChartData()" [nzLoading]="isLoading">查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <div nz-row>
+            <div nz-col nzSpan="24" [hidden]="_Charts==''">
+                <div id="chartElement" #chartElement class="chart"></div>
+            </div>
+            <div nz-col nzSpan="24" *ngIf="_Charts==''">
+                <app-empty></app-empty>
+            </div>
+            <nz-spin [nzSpinning]="isSpinning" [nzDelay]="500"></nz-spin>
+        </div>
+    </div>
+    <nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" [nzClosable]='false' nzWidth="1200"
+        [nzBodyStyle]="{'height': _ChartsModel?'720px':''}" [nzStyle]="{'top': _ChartsModel?'80px':'' }"
+        [nzFooter]="null">
+        <div class="pannel">
+            <h2 class="title">
+                <span>{{chartsObj.title}}</span>
+                <i nz-icon type="shrink" theme="outline" style="float: right;cursor: pointer;"
+                    (click)="handleCancel()"></i>
+            </h2>
+            <div class="search-block">
+                <div nz-row nzGutter="8" nzType="flex" nzJustify="end">
+                    <div nz-col nzSpan="7">
+                        <nz-form-control>
+                            <div class="input-group">
+                                <div class="input-group-label">
+                                    <nz-form-label>起止时间</nz-form-label>
+                                </div>
+                                <div class="input-group-control">
+                                    <nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="datepicker" nzAllowClear="false">
+                                    </nz-range-picker>
+                                </div>
+                            </div>
+                        </nz-form-control>
+                    </div>
+                    <div nz-col nzSpan="2">
+                        <button nz-button nzType="primary" (click)="searchChartData()" [nzLoading]="isLoading">查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24" [hidden]="_ChartsModel==''">
+                    <div id="chartElementModel" #chartElementModel class="chart"></div>
+                </div>
+                <div nz-col nzSpan="24" *ngIf="_ChartsModel==''">
+                    <app-empty></app-empty>
+                </div>
+            </div>
+        </div>
+    </nz-modal>
+<!-- </nz-card> -->

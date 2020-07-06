@@ -1,0 +1,27 @@
+<div class="container">
+    <app-card-title [title]="'工程详情'" [icon]="'icon icon-title-green'" [description]="'Project Infomation'"></app-card-title>
+    <div class="pannel">
+        <table class="table">
+            <tr>
+                <td>工程名称</td>
+                <td>{{projectInfo.name||'暂无数据'}}</td>
+            </tr>
+            <tr>
+                <td>工程编号</td>
+                <td>{{projectInfo.code||'暂无数据'}}</td>
+            </tr>
+            <tr>
+                <td>设计单位</td>
+                <td>{{projectInfo.customerName||'暂无数据'}}</td>
+            </tr>
+            <tr>
+                <td>施工单位</td>
+                <td>{{projectInfo.companyName||'暂无数据'}}</td>
+            </tr>
+            <tr>
+                <td>工程类型</td>
+                <td>{{projectInfo.typeName||'暂无数据'}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

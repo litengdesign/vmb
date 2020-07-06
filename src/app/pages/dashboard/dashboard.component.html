@@ -1,1 +1,30 @@
-dashboard
+<!-- 左侧项目列表 -->
+<!-- 右上角用户区域 -->
+<app-main-avatar #mainAvatar></app-main-avatar>
+<app-main-navigate></app-main-navigate>
+<app-arcgis-map (checked)="getProjectData()"></app-arcgis-map>
+
+<nz-modal [(nzVisible)]="mapService.guiji_isVisible" nzTitle="历史轨迹" (nzOnCancel)="mapService.handleCancel()" (nzOnOk)="mapService.handleOk()">
+    <p>载具ID : {{ mapService.shipID }} </p>
+    <p>时间范围:
+        <nz-range-picker [(ngModel)]="mapService.dateRange"></nz-range-picker>
+    </p>
+</nz-modal>
+
+<nz-card *ngIf='mapService.playerHtmlDisplay' style="width:300px;position: absolute;top:100px;right:30px;" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+    <nz-card-meta nzTitle="历史轨迹回放" [nzDescription]="mapService.SHIPMMsi" [nzAvatar]="avatarTemplate"></nz-card-meta>
+</nz-card>
+<ng-template #avatarTemplate>
+    <!-- <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar> -->
+    <i nz-icon nzType="fund" nzTheme="outline"></i>
+</ng-template>
+<ng-template #actionSetting>
+    <i nz-icon nzType="import" nzTheme="outline" (click)="mapService.returnSelectDate()" nz-tooltip nzTooltipTitle="重选时间段" nzTooltipPlacement="bottom"></i>
+</ng-template>
+<ng-template #actionEdit>
+    <i *ngIf='mapService.playState' nz-tooltip nzTooltipTitle="播放" nzTooltipPlacement="bottom" nz-icon nzType="play-circle" nzTheme="outline" (click)="mapService.playShipTrajectory()"></i>
+    <i *ngIf='!mapService.playState' nz-tooltip nzTooltipTitle="暂停" nzTooltipPlacement="bottom" nz-icon nzType="pause-circle" nzTheme="outline" (click)="mapService.playShipTrajectory()"></i>
+</ng-template>
+<ng-template #actionEllipsis>
+    <i nz-tooltip nzTooltipTitle="关闭" nzTooltipPlacement="bottom" nz-icon nzType="close" nzTheme="outline" (click)="mapService.closePlayerHtml()"></i>
+</ng-template>

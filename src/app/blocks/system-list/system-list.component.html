@@ -1,0 +1,322 @@
+<nz-card nzTitle="{{projectInfo.name}}" [nzHoverable]="false" class="card-list">
+    <p class="list-title">
+        <i nz-icon nzType="appstore" nzTheme="outline"></i> 应用列表
+    </p>
+    <nz-spin nzTip="Loading..." *ngIf='pageLoading'>
+        <div class='noProjectBox'></div>
+    </nz-spin>
+    <div class="noProjectBox" *ngIf='noProject && !pageLoading'>
+        <span>暂无应用接入!</span>
+    </div>
+    <div class="card-body" *ngIf="!noProject && !pageLoading">
+        <!-- 生产调度系统 -->
+        <nz-card nzType="inner" [nzTitle]="extraInnerTitleTemplatePss" [nzExtra]="extraInnerTemplatePss">
+            <ng-container *ngIf="systemList[1].collapsible">
+                <nz-list [nzDataSource]="pssData.ship" nzBordered nzSize="small" [nzHeader]="'船舶列表'" [nzRenderItem]="shipItem" nzNoResult="暂无数据">
+                    <ng-template #shipItem let-item>
+                        <nz-list-item [nzContent]="item.carrierName || item.label" (click)="locationToMarker(item,'BD_ShipLayer')">
+                        </nz-list-item>
+                    </ng-template>
+                </nz-list>
+                <nz-list [nzDataSource]="pssData.vehicle" nzBordered nzSize="small" [nzHeader]="'车辆列表'" [nzRenderItem]="vehicleItem" nzNoResult="暂无数据">
+                    <ng-template #vehicleItem let-item>
+                        <nz-list-item [nzContent]="item.carrierName || item.label" (click)="locationToMarker(item,'Vehicle_Layer')">
+                        </nz-list-item>
+                    </ng-template>
+                </nz-list>
+                <nz-list [(nzDataSource)]="pssData.fenceList" nzBordered nzSize="small" [nzHeader]="'电子围栏'" [nzRenderItem]="fenceItem" nzNoResult="暂无数据">
+                    <ng-template #fenceItem let-item>
+                        <nz-list-item (click)="locationToFenceExtend(item,systemList[1])">
+                            <span class="name">
+                                    <i nz-icon [nzIconfont]="'icon-dianziweilan1'" style="margin-right:5px"></i> {{ item.name }}
+                                </span>
+                        </nz-list-item>
+                    </ng-template>
+                </nz-list>
+                <nz-list [nzDataSource]="pssData.routeList" nzBordered nzSize="small" [nzHeader]="'路线列表'" [nzRenderItem]="routeItem" nzNoResult="暂无数据">
+                    <ng-template #routeItem let-item>
+                        <nz-list-item (click)="locationToFenceExtend(item)">
+                            <span class="name">
+                                    <i nz-icon [nzIconfont]="'icon-hangxian'" style="margin-right:5px"></i> {{ item.name }}
+                                </span>
+                        </nz-list-item>
+                    </ng-template>
+                </nz-list>
+            </ng-container>
+        </nz-card>
+        <ng-container *ngFor="let system of systemList" >
+            <nz-card nzType="inner" [nzTitle]="extraInnerTitleTemplate" [nzExtra]="extraInnerTemplate" [nzHoverable]="true" *ngIf="system.id!='PSS' && system.disable">
+                <nz-list [nzDataSource]="system.list" nzBordered [nzHeader]="listHeaderTemplate" [nzRenderItem]="defaultItem" *ngIf="system.collapsible" nzNoResult="暂无数据">
+                    <ng-template #defaultItem let-item>
+                        <!-- <nz-list-item (click)="getPointDetail(item,system)" [ngClass]="{'active': item.active}"> -->
+                        <!-- 考勤打卡点 -->
+                        <nz-list-item (click)="locationToMarker(item,'Work_Layer')" [ngClass]="{'active': item.active}" *ngIf="system.id=='Check'">
+                            <span class="name">
+                                <i nz-icon [nzIconfont]="item.attributes.icon" style="margin-right:5px"></i> {{ item.attributes.name }}
+                            </span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span class="mark">
+                                <i nz-icon [nzIconfont]="'icon-comment_local'" style="margin-right:5px"></i> {{ (item.attributes.lat | pointerFloor)+','+(item.attributes.lon |pointerFloor) }}
+                            </span>
+                        </nz-list-item>
+                        <!-- 变形监测点 -->
+                        <nz-list-item (click)="getPointDetail(item,system)" [ngClass]="{'active': item.active}" *ngIf="system.id=='ADS'">
+                            <span class="name">
+                                <i nz-icon [nzIconfont]="item.attributes.icon" style="margin-right:5px"></i> {{ item.attributes.name }}
+                            </span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span class="mark">
+                                <i nz-icon [nzIconfont]="'icon-comment_local'" style="margin-right:5px"></i>
+                                {{ (item.latitude | pointerFloor)+','+(item.longitude |pointerFloor) }}
+                            </span>
+                        </nz-list-item>
+                        <!-- 激光量方船舶 -->
+                        <nz-list-item (click)="getShipVolume(item)" [ngClass]="{'active': item.active}" *ngIf="system.id=='Volume'">
+                            <span class="name">
+                                <i nz-icon [nzIconfont]="'icon-ship'" style="margin-right:5px"></i> {{ item.name }}
+                            </span>
+                        </nz-list-item>
+                    </ng-template>
+                </nz-list>
+            </nz-card>
+            <ng-template #extraInnerTemplate>
+                <!-- 打卡统计分析按钮 -->
+                <ng-container *ngIf="system.id=='Check' && system.list.length ">
+                    <button nz-button nzType="default" style="margin-right:10px" (click)="showModal()"><i nz-icon [nzIconfont]="'icon-chartpartten'"></i>统计</button>
+                </ng-container>
+                <nz-switch [ngModel]="system.viewMapVisible" nzCheckedChildren="开" nzUnCheckedChildren="关" nzSize="small" style="margin-right: 10px;" (ngModelChange)="visibleCheckChange($event,system)" [nzDisabled]="!system.list.length"></nz-switch>
+                <i nz-icon [nzType]="system.collapsible?'down':'up'" nzTheme="outline" (click)="system.collapsible = !system.collapsible"></i>
+            </ng-template>
+            <ng-template #extraInnerTitleTemplate>
+                <i nz-icon [nzIconfont]="system.icon" style="margin-right:5px"></i>{{system.name}}
+            </ng-template>
+            <ng-template #listHeaderTemplate>
+                <div class="list-header">
+                    {{system.header}}
+                    <span class="list-header-menu">
+                        <a *ngIf="system.url" [href]="system.url" target="_blank"><i nz-icon [nzIconfont]="'icon-insertlink'"></i></a>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <i nz-icon nzType="search" (click)="system.searchVisible = !system.searchVisible" *ngIf="system.hasSearch"></i>
+                    </span>
+                </div>
+                <div class="list-search" *ngIf="system.searchVisible">
+                    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                        <input type="text" nz-input placeholder="按关键词搜索" [(ngModel)]="system.searchKeyword" />
+                    </nz-input-group>
+                    <ng-template #suffixIconButton>
+                        <button nz-button nzType="primary" nzSearch (click)="searchByKeyword(system)"><i nz-icon nzType="search"></i></button>
+                    </ng-template>
+                </div>
+            </ng-template>
+        </ng-container>
+        <ng-template #extraInnerTemplatePss>
+            <!-- <nz-switch [ngModel]="systemList[1].viewMapAisVisible" nzCheckedChildren="AIS开" nzUnCheckedChildren="AIS关" nzSize="small" style="margin-right: 10px;" (ngModelChange)="visibleAisChange($event,systemList[1])"></nz-switch> -->
+            <nz-switch [ngModel]="systemList[1].viewMapVisible" nzCheckedChildren="开" nzUnCheckedChildren="关" nzSize="small" style="margin-right: 10px;" [nzDisabled]="systemList[1].viewMapDisable" (ngModelChange)="visibleBDChange($event,systemList[1])"></nz-switch>
+            <i nz-icon [nzType]="systemList[1].collapsible?'down':'up'" nzTheme="outline" (click)="systemList[1].collapsible = !systemList[1].collapsible"></i>
+        </ng-template>
+        <ng-template #extraInnerTitleTemplatePss>
+            <i nz-icon [nzIconfont]="systemList[1].icon" style="margin-right:5px"></i>{{systemList[1].name}}
+        </ng-template>
+        <!-- 安全检查和隐患监控中心 -->
+        <nz-card nzType="inner" [nzTitle]="hdiTitleTemplate" [nzExtra]="extraInnerTemplateHdi" [nzHoverable]="true">
+            <nz-list [nzDataSource]="hdi.list" nzBordered [nzHeader]="'检查单列表'" [nzRenderItem]="defaultItemHdi" nzNoResult="暂无数据" *ngIf="hdi.collapsible">
+                <ng-template #defaultItemHdi let-item>
+                    <nz-list-item>
+                        <a href="javascript:void(0)" (click)="showModaliframe(item.inspId)">
+                            {{ item.inspUnitName}} <nz-divider nzType="vertical"></nz-divider><span class="mark ">状态：{{item.inspStatus}}</span>
+                        </a>
+                        
+                    </nz-list-item>
+                </ng-template>
+            </nz-list>
+           
+        </nz-card>
+        <ng-template #hdiTitleTemplate>
+            <i nz-icon [nzIconfont]="'icon-anquanshengchan'" style="margin-right:5px"></i>安全检查和隐患监控中心
+        </ng-template>
+        <ng-template #extraInnerTemplateHdi>
+            <i nz-icon [nzType]="hdi.collapsible?'down':'up'" nzTheme="outline" (click)="hdi.collapsible = !hdi.collapsible"></i>
+        </ng-template>
+    </div>
+</nz-card>
+<!-- 考勤分析弹框 -->
+<nz-modal [(nzVisible)]="isVisibleStatistical" nzWidth="1200px" nzTitle="考勤打卡统计分析" (nzOnCancel)="handleCancel()" [nzFooter]="null">
+    <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="12">
+            <nz-card nzTitle="当前在场人数">
+                <div nz-row nzGutter="8">
+                    <div class="pannel onlineNumber">
+                        <nz-skeleton [nzActive]="true" [nzLoading]="chartSpinning" [nzParagraph]="{ rows: 7 }">
+                            <div class="numberBlock">
+                                <div nz-col [nzSpan]="8">
+                                    <span class="onlineEmpolyeNumber">
+                                        {{checkRecord.enterWorkerNumber}}
+                                        <span class="label">人</span>
+                                    </span>
+                                    <p class="title">(当日进场人数)</p>
+                                    <div class="tooltip top" role="tooltip">
+                                        <div class="tooltip-arrow"></div>
+                                        <div class="tooltip-inner">
+                                            查看当日进场人员
+                                        </div>
+                                    </div>
+                                </div>
+                                <div nz-col [nzSpan]="8">
+                                    <span class="onlineEmpolyeNumber">{{checkRecord.totalNum}}
+                                        <span class="label">人</span>
+                                    </span>
+                                    <p class="title">(当日在场人数)</p>
+                                    <div class="tooltip top" role="tooltip">
+                                        <div class="tooltip-arrow"></div>
+                                        <div class="tooltip-inner">
+                                            查看当日在场人员
+                                        </div>
+                                    </div>
+                                </div>
+                                <div nz-col [nzSpan]="8">
+                                    <span class="onlineEmpolyeNumber">{{checkRecord.exitWorkerNumber}}
+                                        <span class="label">人</span>
+                                    </span>
+                                    <p class="title">(当日离场人数)</p>
+                                    <div class="tooltip top" role="tooltip">
+                                        <div class="tooltip-arrow"></div>
+                                        <div class="tooltip-inner">
+                                            查看当日离场人员
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="description" *ngIf="checkRecord.totalNum">
+                                <div nz-row nzGutter="8">
+                                    <div class="p-0" nz-col nzSpan="5" style="text-align: right;">
+                                        <b>分区人数分布:</b>
+                                    </div>
+                                    <div nz-col nzSpan="19">
+                                        <div class="num-item" *ngFor="let p of checkRecord.presences.constructionAreaInfo">
+                                            <span>{{p.constructionAreaName}}:</span>{{p.numWorker}}人</div>
+                                    </div>
+                                </div>
+                                <div nz-row nzGutter="8">
+                                    <div nz-col nzSpan="5" style="text-align: right;">
+                                        <b>分包商人数分布:</b>
+                                    </div>
+                                    <div nz-col nzSpan="19">
+                                        <div class="num-item" ngf *ngFor="let p of checkRecord.presences.subcontractorInfo">
+                                            <span>{{p.subcontractorName}}:</span>{{p.numWorker}}人</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nz-skeleton>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-card [nzTitle]="extraStaticTitleTemplate">
+                <div class="pannel">
+                    <nz-skeleton [nzActive]="true" [nzLoading]="chartSpinning" [nzParagraph]="{ rows: 7 }">
+                        <div class="chartBlock">
+                            <div class="chartLabel p-top-10">
+                                <label class="control-label pull-right ">单位：人</label>
+                            </div>
+                            <div class="chart-content">
+                                <app-echarts [chartOption]='chartOption' [isVisableClear]='chartOption.isVisableClear'>
+                                </app-echarts>
+                            </div>
+                        </div>
+                    </nz-skeleton>
+                </div>
+            </nz-card>
+            <ng-template #extraStaticTitleTemplate>
+                本月人员分布情况 （
+                <a (click)="setActiveChart(1)" [ngClass]="{'active': activeChart==1}">分区人员</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="setActiveChart(2)" [ngClass]="{'active': activeChart==2}">分包商人员</a>）
+            </ng-template>
+        </div>
+    </div>
+</nz-modal>
+<!-- 终端关联电子围栏列表 -->
+<div class="optionList" *ngIf="openFencesByCarrier" style="width: 600px">
+    <div class="option-content">
+        <div class="option-container">
+            <div class="option-header">
+                <span *ngIf="fenceType=='fence'">关联防区列表</span>
+                <span *ngIf="fenceType=='route'">关联路线列表</span>
+                <span style="float: right;font-size: 12px">
+                    <span (click)="openFencesByCarrier = !openFencesByCarrier">
+                        <i nz-icon nzType="close" nzTheme="outline"></i>
+                    </span>
+                </span>
+            </div>
+            <div style="padding: 15px;">
+                <nz-table #basicTable4 [nzData]="displayDataFencesByCarrier" nzBordered nzShowSizeChanger nzSize="small" [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="totalFencesByCarrier" [(nzPageIndex)]="pageIndexFencesByCarrier" [(nzPageSize)]="pageSizeFencesByCarrier">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>报警类型</th>
+                            <th>缓冲区(m)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of basicTable4.data;let i = index">
+                            <td>{{ item.fenceName}}</td>
+                            <td>{{ item.alertType || '暂无数据'}}</td>
+                            <td>{{ item.bufferRange || '暂无数据'}}</td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 船舶方量详情 -->
+<nz-modal [(nzVisible)]="isVisibleVolumeStatistical" nzWidth="1200px" [nzTitle]="selectedShip+'船舶方量详情'" (nzOnCancel)="isVisibleVolumeStatistical=false" [nzFooter]="null">
+    <div nz-row [nzGutter]="8">
+        <div nz-col nzSpan="24">
+            <div class="search-block" nz-row  [nzGutter]="10"  [nzType]="flex" [nzJustify]="end">
+                <div nz-col nzSpan="6">
+                    <nz-radio-group [(ngModel)]="searchType">
+                    <label nz-radio nzValue="day">近30日统计</label>
+                    <label nz-radio nzValue="month">近12个月统计</label>
+                    </nz-radio-group>
+                </div>
+                <div nz-col nzSpan="5">
+                    <nz-select nzShowSearch="true" style="width: 100%;" [(ngModel)]="ProjectId" nzPlaceHolder="请选择项目名称" nzAllowClear="true" (ngModelChange)="onChangeOnSelect($event)">
+                        <nz-option *ngFor="let p of projects" [nzValue]="p.projectId" [nzLabel]="p.name"></nz-option>
+                    </nz-select>
+                </div>
+                <div nz-col nzSpan="5">
+                    <nz-select nzShowSearch="true" style="width: 100%;" [(ngModel)]="shipId" nzPlaceHolder="选择船舶" nzAllowClear>
+                        <nz-option *ngFor="let p of ships" [nzValue]="p.shipId" [nzLabel]="p.name"></nz-option>
+                    </nz-select>
+                </div>
+                <div nz-col nzSpan="3">
+                    <button nz-button nzType="primary" nzBlock="true"  (click)="getDataList()" [nzLoading]="isLoadingOne">查询</button>
+                </div>
+            </div>
+            <app-highcharts [chartsObj]='chartDataVolume'></app-highcharts>
+        </div>
+        <div nz-col nzSpan="24">
+            <div nz-col nzSpan="24">
+                <nz-divider nzText="施工船舶累计装载量统计（日）"></nz-divider>
+            </div>
+            <div class="search-block" nz-row  [nzGutter]="10" nzJustify="end" [nzType]="flex">
+                <div nz-col nzSpan="4">
+                    <nz-date-picker [nzFormat]="nzFormat" [(ngModel)]="showDay" [nzDisabledDate]="disabledDate"></nz-date-picker>
+                </div>
+                <div nz-col nzSpan="4">
+                    <nz-select nzShowSearch="true" style="width: 185px;" [(ngModel)]="ProjectId1" nzPlaceHolder="请选择项目名称" nzAllowClear="true">
+                        <nz-option *ngFor="let p of projects" [nzValue]="p.projectId" [nzLabel]="p.name"></nz-option>
+                    </nz-select>
+                </div>
+                <div nz-col nzSpan="3">
+                    <button nz-button nzBlock="true" nzType="primary" class="m-left-10" (click)="getDataByShipList()" [disabled]="!showDay" [nzLoading]="isLoadingTwo">查询</button>
+                </div>
+            </div>
+            <app-highcharts [chartsObj]='chartDataShip'></app-highcharts>
+        </div> 
+    </div>
+</nz-modal>

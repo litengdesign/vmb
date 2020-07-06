@@ -1,0 +1,21 @@
+<div class="container">
+    <app-card-title [title]="'变形监测警报'" [icon]="'icon icon-title-red'" [description]="'Automonitor Alert'" [link]="Origin"></app-card-title>
+    <div class="pannel">
+        <nz-table class="table" style="background-color: transparent;" #basicTable [nzData]="displayData" nzBordered="true" [nzShowPagination]="false" nzShowSizeChanger="false" nzSize="small" [nzFrontPagination]="false" [nzData]="displayData" [nzLoading]="loading" [nzTotal]="total">
+            <thead>
+                <tr>
+                    <th nzWidth="50px">测点</th>
+                    <!-- <th>报警时间</th> -->
+                    <th>报警内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of basicTable.data;let i = index">
+                    <td nzWidth="50px">{{ item.deviceName}}</td>
+                    <!-- <td>{{ item.alertTime | date:'yyyy-MM-dd'}}</td> -->
+                    <td>{{ item.content}}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

@@ -1,0 +1,818 @@
+<!-- 弹出框 -->
+<div class="popover" [ngStyle]="popoverStyle" *ngIf="showPop">
+    <!-- 变形监测测点详情 -->
+    <ng-container *ngIf="point.systemId=='ADS'">
+        <nz-tabset [nzTabBarExtraContent]="extraTemplate" nzTabBarGutter="10" [nzSelectedIndex]="selectedIndex" >
+            <nz-tab [nzTitle]="titleTemplate1" (nzSelect)="getDetail()">
+                <div class="pop-content">
+                   <div nz-row nzGutter="8">
+                        <div nz-col nzSpan="12">
+                            <nz-carousel [nzEffect]="'effect'" *ngIf="popData.sceneImgInfo">
+                                <div nz-carousel-content *ngFor="let img of popData.sceneImgInfo">
+                                    <img src="{{point.options.origin+img.url}}" alt="">
+                                </div>
+                            </nz-carousel>
+                        </div>
+                        <div nz-col nzSpan="12">
+                            <ul class="point-attribute">
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-name'"></i>测点名称:</label>{{popData.deviceName}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-bianhao'"></i>测点编号:</label>{{popData.deviceCode}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-type'"></i>测点类型:</label>{{popData.deviceTypeName}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-jingdu1'"></i>测点经度:</label>{{popData.lon}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-jingdu'"></i>测点纬度:</label>{{popData.lat}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-point'"></i>初始经度/X:</label>{{popData.orginValueX}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-point'"></i>初始纬度/Y:</label>{{popData.orginValueY}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-point'"></i>初始高度/H:</label>{{popData.orginValueH}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-point'"></i>IMEI:</label>{{popData.imei || '暂无数据'}}
+                                </li>
+                                <li>
+                                    <label><i nz-icon [nzIconfont]="'icon-project'"></i>所属工程:</label>{{popData.projectName}}
+                                </li>
+                            </ul>
+                        </div>
+                   </div>
+                </div>
+            </nz-tab>
+            <nz-tab [nzTitle]="titleTemplate2" (nzSelect)="getChart()">
+                <div class="pop-content">
+                    <!-- 表面位移图表 -->
+                    <nz-card style="margin-bottom: 0.8em" *ngIf="popData.deviceTypeId=='1'" [nzBordered]="false">
+                        <app-hcharts [chartsObj]='chartNorth' [searchData]='searchData'></app-hcharts>
+                        <app-hcharts [chartsObj]='chartEast' [searchData]='searchData'></app-hcharts>
+                        <app-hcharts [chartsObj]='chartHeight' [searchData]='searchData'></app-hcharts>
+                        <app-hcharts [chartsObj]='chartPoint' [searchData]='searchData'></app-hcharts>
+                    </nz-card>
+                    <!-- 深层位移图表 -->
+                    <nz-card style="margin-bottom: 0.8em" *ngIf="popData.deviceTypeId=='2'" [nzBordered]="false">
+                        <app-hcharts [chartsObj]='singleDeepPosition' [searchData]='searchData'></app-hcharts>
+                        <app-hcharts [chartsObj]='manyDeepPosition' [searchData]='searchData'></app-hcharts>
+                    </nz-card>
+                    <!-- 分层沉降图表 -->
+                    <nz-card style="margin-bottom: 0.8em" *ngIf="popData.deviceTypeId=='3'" [nzBordered]="false">
+                        <!-- 日变量曲线图 -->
+                        <app-hcharts [chartsObj]='singleSubsideChartChange' [searchData]='searchData'></app-hcharts>
+                        <!-- 累计变量曲线图 -->
+                        <app-hcharts [chartsObj]='manySubsideChartChange' [searchData]='searchData'></app-hcharts>
+                    </nz-card>
+                    <!-- 空隙水压力图表 -->
+                    <nz-card style="margin-bottom: 0.8em" *ngIf="popData.deviceTypeId=='4'" [nzBordered]="false">
+                        <!-- 日变量曲线图 -->
+                        <app-hcharts [chartsObj]='singleOptionlayered' [searchData]='searchData'></app-hcharts>
+                        <!-- 累计变量曲线图 -->
+                        <app-hcharts [chartsObj]='manyOptionlayered' [searchData]='searchData'></app-hcharts>
+                    </nz-card>
+                </div>
+            </nz-tab>
+            <nz-tab [nzTitle]="titleTemplate3" (nzSelect)="getDevicesList()">
+                <div class="pop-content">
+                    <div class="list-wrapper">
+                        <div class="search-block">
+                            <div nz-row nzGutter="8" nzType="flex" nzJustify="end">
+                                <div nz-col nzSpan="12">
+                                <nz-form-control>
+                                    <div class="input-group">
+                                        <div class="input-group-label">
+                                            <nz-form-label>采集时间</nz-form-label>
+                                        </div>
+                                        <div class="input-group-control">
+                                            <nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="deviceOption.defaultSelectDate" nzAllowClear="false">
+                                            </nz-range-picker>
+                                        </div>
+                                    </div>
+                                </nz-form-control>
+                                </div>
+                                <div nz-col nzSpan="3">
+                                    <button nz-button nzType="primary" (click)="getDevicesList(true)" [nzLoading]="deviceOption.isLoading" style="margin-top: 3px;width: 100%;">查询</button>
+                                </div>
+                            </div>
+                        </div>
+                        <nz-table 
+                            *ngIf="popData.deviceTypeId == '1'"  
+                            #filterTable 
+                            nzShowSizeChanger 
+                            [nzFrontPagination]="false"
+                            [nzData]="popData.displayData" 
+                            [nzLoading]="deviceOption.loading" 
+                            [nzBordered]="true" 
+                            [nzTotal]="deviceOption.total" 
+                            [(nzPageIndex)]="deviceOption.Page"
+                            [(nzPageSize)]="deviceOption.Rows" 
+                            (nzPageSizeChange)="getDevicesList(true)" 
+                            (nzPageIndexChange)="getDevicesList()" 
+                            [nzScroll]="{ x: '880px'}"
+                            nzSize="small"
+                            [nzWidthConfig]="deviceOption.widthConfig"                            
+                            >
+                            <thead>
+                                <tr>
+                                    <th rowspan="0" nzLeft="0px">序号</th>
+                                    <th rowspan="2" nzLeft="44px">测点名称</th>
+                                    <th rowspan="2">X轴(m)</th>
+                                    <th rowspan="2">Y轴(m)</th>
+                                    <th rowspan="2">Z轴(m)</th>
+                                    <th colspan="3">日变化速率(mm)</th>
+                                    <th colspan="3">累计变化速率(mm)</th>
+                                    <th rowspan="2" nzRight="0px">采集时间</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3">X轴</th>
+                                    <th rowspan="2">Y轴</th>
+                                    <th rowspan="2">H轴</th>
+                                    <th rowspan="2">X轴</th>
+                                    <th rowspan="2">Y轴</th>
+                                    <th rowspan="2">H轴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of filterTable.data;let i = index">
+                                    <td nzLeft="0">{{(deviceOption.Page-1)*deviceOption.Rows+i+1}}</td>
+                                    <td nzLeft="44px">{{data.deviceName}}</td>
+                                    <td>{{data.valueX}}</td>
+                                    <td>{{data.valueY}}</td>
+                                    <td>{{data.valueH}}</td>
+                                    <td>{{data.speedDayX}}</td>
+                                    <td>{{data.speedDayY}}</td>
+                                    <td>{{data.speedDayH}}</td>
+                                    <td>{{data.totalX}}</td>
+                                    <td>{{data.totalY}}</td>
+                                    <td>{{data.totalH}}</td>
+                                    <td nzRight="0px">
+                                        <span style="font-size: 12px;">{{data.dacTime | date : 'yyyy-MM-dd HH:mm:ss'}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                        <nz-table
+                            *ngIf="popData.deviceTypeId != '1'"  
+                            #filterTable2 
+                            nzShowSizeChanger = "false"
+                            [nzData]="popData.displayData"
+                            [nzLoading]="deviceOption.loading" 
+                            [nzBordered]="true" 
+                            [nzTotal]="deviceOption.total" 
+                            [(nzPageIndex)]="deviceOption.Page" 
+                            [(nzPageSize)]="deviceOption.Rows"
+                            (nzPageSizeChange)="getDevicesList(true)" 
+                            [nzFrontPagination]="false" 
+                            (nzPageIndexChange)="getDevicesList()"
+                            nzSize="small"
+                            >
+                            <thead>
+                                <tr>
+                                    <th nzLeft="0px" style="text-align: center" nzWidth="50px">序号</th>
+                                    <th nzLeft="50px" nzWidth="80px">测点名称</th>
+                                    <th nzLeft="130px" nzWidth="80px">内测点名称</th>
+                                    <th nzWidth="70px">内侧点深度(m)</th>
+                                    <th *ngIf="popData.deviceTypeId != '4'" nzWidth="100px">日变化量(mm)</th>
+                                    <th *ngIf="popData.deviceTypeId != '4'" nzWidth="120px">累计变化量(mm)</th>
+                                    <th *ngIf="popData.deviceTypeId == '4'" nzWidth="120px">日变化量(KPa)</th>
+                                    <th *ngIf="popData.deviceTypeId == '4'" nzWidth="100px">累计变化量(KPa)</th>
+                                    <th nzRight="0px" nzWidth="100px">采集时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of filterTable2.data;let i = index;">
+                                    <td style="text-align: center" nzWidth="50px" nzLeft="0px">{{(deviceOption.Page-1)*deviceOption.Rows+i+1}}</td>
+                                    <td nzWidth="80px" nzLeft="50px">{{data.deviceName}}</td>
+                                    <td nzWidth="130px" nzLeft="130px">{{data.innerDeviceName}}</td>
+                                    <td nzWidth="130px">{{data.channelH}}</td>
+                                    <td nzWidth="130px">{{data.valueDay}}</td>
+                                    <td nzWidth="130px">{{data.value}}</td>
+                                    <td nzWidth="100px" nzRight="0px">
+                                        <span style="font-size: 12px;">{{data.dacTime | date : 'MM-dd HH:mm:ss'}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table
+                        >
+                    </div>
+                </div>
+            </nz-tab>
+            <nz-tab [nzTitle]="titleTemplate4" (nzSelect)="getAlert()">
+                <div class="pop-content">
+                    <div class="list-wrapper">
+                        <div class="search-block">
+                            <div nz-row nzGutter="8" nzType="flex" nzJustify="end">
+                                <div nz-col nzSpan="12">
+                                    <nz-form-control>
+                                        <div class="input-group">
+                                            <div class="input-group-label">
+                                                <nz-form-label>报警时间</nz-form-label>
+                                            </div>
+                                            <div class="input-group-control">
+                                                <nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="alertOption.defaultSelectDate"
+                                                    nzAllowClear="false">
+                                                </nz-range-picker>
+                                            </div>
+                                        </div>
+                                    </nz-form-control>
+                                </div>
+                                <div nz-col nzSpan="3">
+                                    <button nz-button nzType="primary" (click)="getAlert(true)" [nzLoading]="alertOption.isLoading"
+                                        style="margin-top: 3px;width: 100%;">查询</button>
+                                </div>
+                            </div>
+                        </div>
+                        <nz-table 
+                            #alertTable 
+                            nzShowSizeChanger 
+                            [nzData]="popData.displayAlertData" 
+                            [nzLoading]="alertOption.loading" 
+                            [nzBordered]="true"
+                            [nzTotal]="alertOption.total" 
+                            [(nzPageIndex)]="alertOption.Page" 
+                            [(nzPageSize)]="alertOption.Rows" 
+                            (nzPageSizeChange)="getAlert(true)"
+                            [nzFrontPagination]="false" 
+                            (nzPageIndexChange)="getAlert()"
+                            nzSize="small"
+                            >
+                            <thead>
+                                <tr>
+                                    <th nzWidth="40px">序号</th>
+                                    <th nzWidth="100px">测点名称</th>
+                                    <th nzWidth="100px">报警内容</th>
+                                    <!-- <th nzWidth="100px">报警时间</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of alertTable.data;let i = index;">
+                                    <td>{{(alertOption.Page-1)*deviceOption.Rows+i+1}}</td>
+                                    <td>{{data.deviceName}}</td>
+                                    <td>{{data.content}}</td>
+                                    <!-- <td nzWidth="100px">{{data.alertTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td> -->
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+            </nz-tab>
+        </nz-tabset>
+        <ng-template #titleTemplate1>
+            <i nz-icon [nzIconfont]="'icon-unfileddetails'"></i>
+            测点详情
+       </ng-template>
+        <ng-template #titleTemplate2>
+           <i nz-icon [nzIconfont]="'icon-chartpartten'"></i>
+          {{popData.deviceTypeName}}图示
+        </ng-template>
+        <ng-template #titleTemplate3>
+            <i nz-icon [nzIconfont]="'icon-shujuliebiao'"></i>
+            数据列表
+        </ng-template>
+        <ng-template #titleTemplate4>
+            <i nz-icon [nzIconfont]="'icon-alert'"></i>
+            报警信息
+        </ng-template>
+        <ng-template #extraTemplate>
+            <span class="iconclsoe" (click)="closePop()"><i nz-icon [nzIconfont]="'iconclsoe'" ></i></span>
+        </ng-template>
+    </ng-container>
+    <!-- 潮位站详情数据 -->
+    <ng-container *ngIf="point.systemId=='Tidal'">
+        <nz-tabset [nzTabBarExtraContent]="extraTemplate" nzTabBarGutter="10" [nzSelectedIndex]="selectedIndex">
+            <nz-tab [nzTitle]="titleTemplate1" (nzSelect)="getDetail()">
+            <div class="pop-content">
+                <div nz-row nzGutter="8">
+                    <div nz-col nzSpan="24">
+                        <ul class="point-attribute">
+                            <li>
+                                <label><i nz-icon [nzIconfont]="'icon-name'"></i>潮位站名称:</label>{{popData.stationName}}
+                            </li>
+                            <li>
+                                <label><i nz-icon [nzIconfont]="'icon-bianhao'"></i>潮位站编号:</label>{{popData.stationCode}}
+                            </li>
+                            <li>
+                                <label><i nz-icon [nzIconfont]="'icon-bianhao'"></i>北斗卡号:</label>{{popData.cardNumber || '暂无数据'}}
+                            </li>
+                            <li>
+                                <label><i nz-icon [nzIconfont]="'icon-jingdu1'"></i>潮位站经度:</label>{{popData.lon}}
+                            </li>
+                            <li>
+                                <label><i nz-icon [nzIconfont]="'icon-jingdu'"></i>潮位站纬度:</label>{{popData.lat}}
+                            </li>
+                            <li>
+                                <label><i nz-icon [nzIconfont]="'icon-point'"></i>最新采集数据:</label>
+                                {{popData.tidalValue || '暂无数据'}}
+                            </li>
+                            <li>
+                                <label><i nz-icon [nzIconfont]="'icon-point'"></i>最新采集时间:</label>
+                                {{popData.tidalTime? (popData.tidalTime| date:'yyyy-MM-dd HH:mm:ss') : '暂无数据'}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </nz-tab>
+            <nz-tab [nzTitle]="titleTemplate2" (nzSelect)="getChart()">
+                <div class="pop-content">
+                    <!-- 历史潮位曲线 -->
+                    <app-hcharts [chartsObj]='historyTidalChart' [searchData]='searchData'></app-hcharts>
+                </div>
+            </nz-tab>
+            <nz-tab [nzTitle]="titleTemplate3" (nzSelect)="getTidelList()">
+                <div class="pop-content">
+                    <div class="list-wrapper">
+                        <div class="search-block">
+                            <div nz-row nzGutter="8" nzType="flex" nzJustify="end">
+                                <div nz-col nzSpan="13" *ngIf="selectedTidal.name!='潮位月报表'">
+                                    <nz-form-control>
+                                        <div class="input-group">
+                                            <div class="input-group-label">
+                                                <nz-form-label>起止时间</nz-form-label>
+                                            </div>
+                                            <div class="input-group-control">
+                                                <nz-range-picker [nzDisabledDate]="disabledDate"
+                                                    [(ngModel)]="selectedTidal.defaultSelectDate" nzAllowClear="false">
+                                                </nz-range-picker>
+                                            </div>
+                                        </div>
+                                    </nz-form-control>
+                                </div>
+                                <div nz-col nzSpan="9" *ngIf="selectedTidal.name=='潮位月报表'">
+                                    <nz-form-control>
+                                        <div class="input-group">
+                                            <div class="input-group-label">
+                                                <nz-form-label>月份</nz-form-label>
+                                            </div>
+                                            <div class="input-group-control">
+                                                <nz-month-picker  style="width: 100%;" [(ngModel)]="TidalMonth" [nzFormat]="'yyyy-MM'" [nzDisabledDate]="disabledDate" [nzAllowClear]="false"></nz-month-picker>
+                                            </div>
+                                        </div>
+                                    </nz-form-control>
+                                </div>
+                                <div nz-col nzSpan="3">
+                                    <button nz-button nzType="primary" (click)="getTidelList(true)" [nzLoading]="selectedTidal.isLoading"
+                                        style="margin-top: 3px;width: 100%;">查询</button>
+                                </div>
+                            </div>
+                        </div>
+                        <nz-table 
+                        #editRowTable 
+                        [nzData]="popData.displayTidalData" 
+                        nzBordered
+                        [nzLoading]="selectedTidal.loading" 
+                        nzShowSizeChanger
+                        [nzTotal]="selectedTidal.total" 
+                        [(nzPageIndex)]="selectedTidal.params.Page" 
+                        [(nzPageSize)]="selectedTidal.params.Rows" 
+                        [nzFrontPagination]="false" 
+                        (nzPageSizeChange)="getTidelList(true)"
+                        (nzPageIndexChange)="getTidelList()"
+                        nzSize="small"
+                        [nzScroll]="selectedTidal.nzScroll"
+                        nzTitle="{{title}}"
+                        >
+                            <ng-container *ngIf="selectedTidal.name=='潮位数据预处理成果列表'">
+                                <thead>
+                                    <tr>
+                                        <th nzWidth="45px">序号</th>
+                                        <th>潮高</th>
+                                        <th>时区</th>
+                                        <th>采集时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of editRowTable.data;let i = index" [ngClass]="{'removeStatic': data.isDelete}">
+                                        <td>
+                                            {{(selectedTidal.params.Page-1)*selectedTidal.params.Rows+i+1}}
+                                        </td>
+                                        <td>
+                                            {{ data.tadalValue}}
+                                        </td>
+                                        <td>
+                                            {{ data.timeZoneName}}
+                                        </td>
+                                        <td>
+                                            {{ data.tadalTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-container *ngIf="selectedTidal.name=='潮位数据特征值列表'">
+                                <thead>
+                                    <tr>
+                                        <th nzWidth="50px" nzLeft="0px">序号</th>
+                                        <th nzWidth="100px">最高高潮位</th>
+                                        <th nzWidth="200px">最高高潮位时间</th>
+                                        <th nzWidth="100px">最高低潮位</th>
+                                        <th nzWidth="200px">最高低潮位时间</th>
+                                        <th nzWidth="100px">最低高潮位</th>
+                                        <th nzWidth="200px">最低高潮位时间</th>
+                                        <th nzWidth="100px">最低低潮位</th>
+                                        <th nzWidth="200px">最低低潮位时间</th>
+                                        <th nzWidth="100px">平均潮差</th>
+                                        <th nzWidth="100px">最大潮差</th>
+                                        <th nzWidth="100px">最小潮差</th>
+                                        <th nzWidth="100px">平均潮位</th>
+                                        <th nzWidth="100px">平均高潮位</th>
+                                        <th nzWidth="100px">平均低潮位</th>
+                                        <th nzWidth="150px">最大涨潮潮差</th>
+                                        <th nzWidth="150px">平均涨潮潮差</th>
+                                        <th nzWidth="150px">最小涨潮潮差</th>
+                                        <th nzWidth="150px">最大落潮潮差</th>
+                                        <th nzWidth="150px">平均落潮潮差</th>
+                                        <th nzWidth="150px">最小落潮潮差</th>
+                                        <th nzWidth="150px">平均涨潮历时</th>
+                                        <th nzWidth="150px">平均落潮历时</th>
+                                        <th nzWidth="200px">潮位统计起始时间</th>
+                                        <th nzWidth="200px">潮位统计结束时间</th>
+                                        <th nzWidth="100px">时区</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of editRowTable.data;let i = index" [ngClass]="{'removeStatic': data.isDelete}">
+                                        <td nzLeft="45px" nzLeft="0px">{{(selectedTidal.params.Page-1)*selectedTidal.params.Rows+i+1}}</td>
+                                        <td>{{ data.highestHighHeight}}</td>
+                                        <td>{{data.hhHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{ data.highestLowHeight}}</td>
+                                        <td>{{ data.hlHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{ data.lowestHighHeight}}</td>
+                                        <td>{{ data.lhHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{data.lowestLowHeight}}</td>
+                                        <td>{{data.llHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{data.tidalRangeMean}}</td>
+                                        <td>{{data.tidalRangeMax}}</td>
+                                        <td>{{data.tidalRangeMin}}</td>
+                                        <td>{{data.meanTidal}}</td>
+                                        <td>{{data.tidalHighHeightMean}}</td>
+                                        <td>{{data.tidalLowHeightMean}}</td>
+                                        <td>{{data.diffHeightUpMax}}</td>
+                                        <td>{{data.diffHeightUpMean}}</td>
+                                        <td>{{data.diffHeightUpMin}}</td>
+                                        <td>{{data.diffHeightDownMax}}</td>
+                                        <td>{{data.diffHeightDownMean}}</td>
+                                        <td>{{data.diffHeightDownMin}}</td>
+                                        <td>{{data.diffTimeUpMean}}</td>
+                                        <td>{{data.diffTimeDownMean}}</td>
+                                        <td>{{data.statisticStartTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{data.statisticEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{data.timeZoneName}}</td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-container *ngIf="selectedTidal.name=='高低潮统计成果列表'">
+                                <thead>
+                                    <tr>
+                                        <th nzWidth="45px">序号</th>
+                                        <th>采集日期</th>
+                                        <th>高潮潮时</th>
+                                        <th>高潮潮高(m)</th>
+                                        <th>低潮潮时</th>
+                                        <th>低潮潮高(m)</th>
+                                        <th>时区</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of editRowTable.data;let i = index" [ngClass]="{'removeStatic': data.isDelete}">
+                                        <td>
+                                            {{(selectedTidal.params.Page-1)*selectedTidal.params.Rows+i+1}}
+                                        </td>
+                                        <td>
+                                            {{ data.dayHighHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        </td>
+                                
+                                        <td>
+                                            {{ data.dayHighHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        </td>
+                                        <td>
+                                            {{ data.dayHighHeight}}
+                                        </td>
+                                        <td>
+                                            {{ data.dayLowHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        </td>
+                                        <td>
+                                            {{ data.dayLowHeight}}
+                                        </td>
+                                        <td>
+                                            {{ data.timeZoneName}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-container *ngIf="selectedTidal.name=='预报潮位数据列表'">
+                                <thead>
+                                    <tr>
+                                        <th nzWidth="45px">序号</th>
+                                        <th>预报潮位名称</th>
+                                        <th>预报潮位值</th>
+                                        <th>时区</th>
+                                        <th>预报时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of editRowTable.data;let i = index" [ngClass]="{'removeStatic': data.isDelete}">
+                                        <td>
+                                            {{(selectedTidal.params.Page-1)*selectedTidal.params.Rows+i+1}}
+                                        </td>
+                                        <td>
+                                            {{ data.forcastMethodName}}
+                                        </td>
+                                        <td>{{data.datumValue}}</td>
+                                        <td>
+                                            {{ data.timeZoneName}}
+                                        </td>
+                                        <td>
+                                            {{ data.tidalForcastTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-container *ngIf="selectedTidal.name=='潮位高低潮预报成果列表'">
+                                <thead>
+                                    <tr>
+                                        <th nzWidth="45px">序号</th>
+                                        <th>高潮潮时</th>
+                                        <th>高潮潮高(m)</th>
+                                        <th>低潮潮时</th>
+                                        <th>低潮潮高(m)</th>
+                                        <th>时区</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of editRowTable.data;let i = index" [ngClass]="{'removeStatic': data.isDelete}">
+                                        <td>
+                                            {{(selectedTidal.params.Page-1)*selectedTidal.params.Rows+i+1}}
+                                        </td>
+                                        <td>
+                                            {{ data.highHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        </td>
+                                        <td>
+                                            {{ data.highHeight}}
+                                        </td>
+                                        <td>
+                                            {{ data.lowHeightTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        </td>
+                                        <td>
+                                            {{ data.lowHeight}}
+                                        </td>
+                                        <td>
+                                            {{ data.timeZoneName}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-container *ngIf="selectedTidal.name=='非调和常数列表'">
+                                <thead>
+                                    <tr>
+                                        <th nzWidth="50px" nzLeft="0px">序号</th>
+                                        <th nzWidth="100px">平均潮差</th>
+                                        <th nzWidth="100px">平均半潮面</th>
+                                        <th nzWidth="100px">平均高潮高</th>
+                                        <th nzWidth="100px">平均低潮高</th>
+                                        <th nzWidth="100px">平均大潮差</th>
+                                        <th nzWidth="150px">大潮平均半潮面</th>
+                                        <th nzWidth="150px">大潮平均高潮位</th>
+                                        <th nzWidth="150px">大潮平均低潮位</th>
+                                        <th nzWidth="100px">平均小潮差</th>
+                                        <th nzWidth="150px">小潮平均半潮面</th>
+                                        <th nzWidth="150px">小潮平均高潮位</th>
+                                        <th nzWidth="150px">小潮平均低潮位</th>
+                                        <th nzWidth="120px">平均高潮间隙</th>
+                                        <th nzWidth="120px">平均低潮间隙</th>
+                                        <th nzWidth="200px">潮位数据的起始时间</th>
+                                        <th nzWidth="200px">潮位数据的结束时间</th>
+                                        <th nzWidth="100px">时区</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of editRowTable.data;let i = index" [ngClass]="{'removeStatic': data.isDelete}">
+                                        <td nzLeft="50px" nzLeft="0px">{{(selectedTidal.params.Page-1)*selectedTidal.params.Rows+i+1}}</td>
+                                        <td>{{ data.meanTidalRange}}</td>
+                                        <td>{{ data.meanHalfLevel}}</td>
+                                        <td>{{ data.meanHighLevel}}</td>
+                                        <td>{{ data.meanLowLevel}}</td>
+                                        <td>{{ data.meanSpringRange}}</td>
+                                        <td>{{ data.springMeanHalfLevel}}</td>
+                                        <td>{{ data.springMeanHighLevel}}</td>
+                                        <td>{{ data.springMeanLowLevel}}</td>
+                                        <td>{{ data.meanNeapRange}}</td>
+                                        <td>{{ data.neapMeanHalfLevel}}</td>
+                                        <td>{{ data.neapMeanLowLevel}}</td>
+                                        <td>{{ data.neapMeanHighLevel}}</td>
+                                        <td>{{ data.meanHighInterval}}</td>
+                                        <td>{{ data.meanLowInterval}}</td>
+                                        <td>{{ data.tidalStartTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{ data.tidalEndTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{ data.timeZoneName}}</td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-container *ngIf="selectedTidal.name=='潮位差比关系信息列表'">
+                                <thead>
+                                    <tr>
+                                        <th nzWidth="45px" nzLeft="0">序号</th>
+                                        <th nzWidth="120px">所属海域编码</th>
+                                        <th nzWidth="100px">h_K1/h_O1</th>
+                                        <th nzWidth="100px">h_K1-h_O1</th>
+                                        <th nzWidth="100px">h_S2/h_M2</th>
+                                        <th nzWidth="100px">h_S2-h_M2</th>
+                                        <th nzWidth="100px">h_MS4/h_M4</th>
+                                        <th nzWidth="100px">h_MS4-h_M4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of editRowTable.data;let i = index" [ngClass]="{'removeStatic': data.isDelete}">
+                                        <td nzWidth="45px" nzLeft="0">
+                                            {{(selectedTidal.params.Page-1)*selectedTidal.params.Rows+i+1}}
+                                        </td>
+                                        <td nzWidth="120px">
+                                            {{ data.seaCode}}
+                                        </td>
+                                        <td nzWidth="100px">
+                                            {{ data.h1}}
+                                        </td>
+                                        <td nzWidth="100px">
+                                            {{ data.g1}}
+                                        </td>
+                                        <td nzWidth="100px">
+                                            {{ data.h2}}
+                                        </td>
+                                        <td nzWidth="100px">
+                                            {{ data.g2}}
+                                        </td>
+                                        <td nzWidth="100px">
+                                            {{ data.h4}}
+                                        </td>
+                                        <td nzWidth="100px">
+                                            {{ data.g4}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            <ng-container *ngIf="selectedTidal.name=='潮位月报表'">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">公历</th>
+                                        <th rowspan="2" nzWidth="90px">农历</th>
+                                        <th colspan="24">各潮时水位(m)</th>
+                                        <th rowspan="2">总计</th>
+                                        <th rowspan="2">平均</th>
+                                        <th rowspan="1" colspan="2">高潮</th>
+                                        <th rowspan="1" colspan="2">高潮</th>
+                                        <th rowspan="1" colspan="2">低潮</th>
+                                        <th rowspan="1" colspan="2">低潮</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="1">0</th>
+                                        <th rowspan="1">1</th>
+                                        <th rowspan="1">2</th>
+                                        <th rowspan="1">3</th>
+                                        <th rowspan="1">4</th>
+                                        <th rowspan="1">5</th>
+                                        <th rowspan="1">6</th>
+                                        <th rowspan="1">7</th>
+                                        <th rowspan="1">8</th>
+                                        <th rowspan="1">9</th>
+                                        <th rowspan="1">10</th>
+                                        <th rowspan="1">11</th>
+                                        <th rowspan="1">12</th>
+                                        <th rowspan="1">13</th>
+                                        <th rowspan="1">14</th>
+                                        <th rowspan="1">15</th>
+                                        <th rowspan="1">16</th>
+                                        <th rowspan="1">17</th>
+                                        <th rowspan="1">18</th>
+                                        <th rowspan="1">19</th>
+                                        <th rowspan="1">20</th>
+                                        <th rowspan="1">21</th>
+                                        <th rowspan="1">22</th>
+                                        <th rowspan="1">23</th>
+                                        <th rowspan="1">潮时</th>
+                                        <th rowspan="1">潮高</th>
+                                        <th rowspan="1">潮时</th>
+                                        <th rowspan="1">潮高</th>
+                                        <th rowspan="1">潮时</th>
+                                        <th rowspan="1">潮高</th>
+                                        <th rowspan="1">潮时</th>
+                                        <th rowspan="1">潮高</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of editRowTable.data;let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{item.monthdate}}</td>
+                                        <td>{{item.time00}}</td>
+                                        <td>{{item.time01}}</td>
+                                        <td>{{item.time02}}</td>
+                                        <td>{{item.time03}}</td>
+                                        <td>{{item.time04}}</td>
+                                        <td>{{item.time05}}</td>
+                                        <td>{{item.time06}}</td>
+                                        <td>{{item.time07}}</td>
+                                        <td>{{item.time08}}</td>
+                                        <td>{{item.time09}}</td>
+                                        <td>{{item.time10}}</td>
+                                        <td>{{item.time11}}</td>
+                                        <td>{{item.time12}}</td>
+                                        <td>{{item.time13}}</td>
+                                        <td>{{item.time14}}</td>
+                                        <td>{{item.time15}}</td>
+                                        <td>{{item.time16}}</td>
+                                        <td>{{item.time17}}</td>
+                                        <td>{{item.time18}}</td>
+                                        <td>{{item.time19}}</td>
+                                        <td>{{item.time20}}</td>
+                                        <td>{{item.time21}}</td>
+                                        <td>{{item.time22}}</td>
+                                        <td>{{item.time23}}</td>
+                                        <td>{{item.sum}}</td>
+                                        <td>{{item.avg}}</td>
+                                        <td>{{item.day_high_height?item.day_high_height[0]:''}}</td>
+                                        <td>{{item.day_high_height?item.day_high_height[1]:''}}</td>
+                                        <td>{{item.day_high_height?item.day_high_height[2]:''}}</td>
+                                        <td>{{item.day_high_height?item.day_high_height[3]:''}}</td>
+                                        <td>{{item.day_low_height?item.day_low_height[0]:''}}</td>
+                                        <td>{{item.day_low_height?item.day_low_height[1]:''}}</td>
+                                        <td>{{item.day_low_height?item.day_low_height[2]:''}}</td>
+                                        <td>{{item.day_low_height?item.day_low_height[3]:''}}</td>
+                                    </tr>
+                                    <!-- 表尾 -->
+                                    <tr>
+                                        <td colspan="11" rowspan="5">备注：</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">最高高潮高</td>
+                                        <td colspan="3">{{colData.highestHighHeight?colData.highestHighHeight+'m': '暂无数据'}}</td>
+                                        <td colspan="1">潮时</td>
+                                        <td colspan="5">{{colData.hhHeightTime | date:'yyyy-MM-dd HH:mm:ss' || '暂无数据'}}</td>
+                                        <td colspan="2">月总数</td>
+                                        <td colspan="2">{{colData.totalMonth?colData.totalMonth+'m':'暂无数据'}}</td>
+                                        <td colspan="8"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">最低高潮高</td>
+                                        <td colspan="3">{{colData.lowestHighHeight?colData.lowestHighHeight+'m':'暂无数据'}}</td>
+                                        <td colspan="1">潮时</td>
+                                        <td colspan="5">{{colData.lhHeightTime| date:'yyyy-MM-dd HH:mm:ss'|| '暂无数据'}}</td>
+                                        <td colspan="2">月平均</td>
+                                        <td colspan="2">{{colData.avgMonth?colData.avgMonth+'m' : '暂无数据'}}</td>
+                                        <td colspan="8"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">最高低潮高</td>
+                                        <td colspan="3">{{colData.lowestHighHeight?colData.lowestHighHeight+'m':'暂无数据'}}</td>
+                                        <td colspan="1">潮时</td>
+                                        <td colspan="5">{{colData.lhHeightTime| date:'yyyy-MM-dd HH:mm:ss'|| '暂无数据'}}</td>
+                                        <td colspan="6">平均高潮潮高：{{colData.tidalHighHeightMean?colData.tidalHighHeightMean+'m':'暂无数据'}}</td>
+                                        <td colspan="6">平均低潮潮高：{{colData.tidalLowHeightMean?colData.tidalLowHeightMean+'m' : '暂无数据'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">最低低潮高</td>
+                                        <td colspan="3">{{colData.highestLowHeight?colData.highestLowHeight+'m':'暂无数据'}}</td>
+                                        <td colspan="1">潮时</td>
+                                        <td colspan="5">{{colData.hlHeightTime| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td colspan="4">平均潮差：{{colData.tidalRangeMean?colData.tidalRangeMean+'m' : '暂无数据'}} </td>
+                                        <td colspan="4">最大潮差：{{colData.tidalRangeMax?colData.tidalRangeMax+'m' : '暂无数据'}}</td>
+                                        <td colspan="4">最小潮差：{{colData.tidalRangeMin?colData.tidalRangeMin+'m' : '暂无数据'}}</td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                            
+                        </nz-table>
+                    </div>
+                </div>
+            </nz-tab>
+        </nz-tabset>
+        <ng-template #titleTemplate1>
+            <i nz-icon [nzIconfont]="'icon-unfileddetails'"></i>
+            　潮位站详情
+        </ng-template>
+        <ng-template #titleTemplate2>
+            <i nz-icon [nzIconfont]="'icon-chartpartten'"></i>
+            　历史潮位
+        </ng-template>
+        <ng-template #titleTemplate3>
+            <span>
+                <i nz-icon [nzIconfont]="'icon-shujuliebiao'"></i>{{selectedTidal.name}}
+                <i nz-icon [nzIconfont]="'icon-down-circle1'" nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" [nzPlacement]="'bottomRight'"></i>
+            </span>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item *ngFor="let item of tidelOption.list" (click)="getTidelList(true,item)">{{item.name}}</li>
+                </ul>
+            </nz-dropdown-menu>
+        </ng-template>
+        <ng-template #extraTemplate>
+            <span class="iconclsoe" (click)="closePop()"><i nz-icon [nzIconfont]="'iconclsoe'" ></i></span>
+        </ng-template>
+    </ng-container>
+
+</div>

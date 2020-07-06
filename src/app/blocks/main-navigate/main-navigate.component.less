@@ -1,0 +1,76 @@
+@primary-color:#3057EF;
+#main-navigate{
+    position: fixed;
+    left: 16px;
+    top:16px;
+    bottom: 16px;
+    width: 360px;
+    z-index: 101;
+    border-radius: 10px;
+    background-color: rgba(234,237,239,.85);
+    -webkit-box-shadow: 0 2px 20px rgba(0,0,0,.5);
+    box-shadow: 0 2px 20px rgba(0,0,0,.5);
+    &.close{
+        left: -360px;
+
+    }
+    .logo-wrapper{
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        // background-color: #0728FB;
+        background: linear-gradient(to left, rgb(76, 108, 238),rgba(12, 26, 221, 0.945));
+    }
+    .container{
+        padding: 16px;
+        max-height: calc(100% - 66px);
+        overflow: hidden;
+    }
+    .caret{
+        position: absolute;
+        top: calc(50% - 32px);
+        left: 100%;
+        width: 24px;
+        height: 64px;
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+        background-color: rgba(234,237,239,.85);
+        outline: none;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        cursor: pointer;
+        z-index: 102;
+        &::after{
+            content: "";
+            position: absolute;
+            transition: transform .25s cubic-bezier(.6,.1,.27,1.02),-webkit-transform .25s cubic-bezier(.6,.1,.27,1.02);
+            width: 100%;
+            height: 100%;
+            background-size: 19.2px;
+            background-repeat: no-repeat;
+            background-image: url('../../../assets/images/caret.svg');
+            background-position: 100%;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            will-change: transform;
+        }
+    }
+    &.close .caret{
+        &::after{
+            content: "";
+            position: absolute;
+            transition: transform .25s cubic-bezier(.6,.1,.27,1.02),-webkit-transform .25s cubic-bezier(.6,.1,.27,1.02);
+            width: 100%;
+            height: 100%;
+            background-size: 19.2px;
+            background-repeat: no-repeat;
+            background-image: url('../../../assets/images/caret.svg');
+            background-position: 100%;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(180deg);
+            will-change: transform;
+        }
+    }
+}
+
+
+

@@ -1,0 +1,84 @@
+<div class="content" [ngClass]="{'active': cardOpen}">
+    <h2 class="card-title">{{projectInfo.name || '暂无数据'}}
+    </h2>
+    <div class="card animated fadeInLeft">
+        <ul class="card-info">
+            <li>
+                <div nz-row nzGutter="2">
+                    <div nz-col nzSpan="7">
+                       <span class="card-item-label"><i nz-icon [nzIconfont]="'icon-bianhao'"></i>工程编号：</span>
+                    </div>
+                    <div nz-col nzSpan="17">
+                        <span class="card-item-title">{{projectInfo.code || '未知'}}</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div nz-row nzGutter="2">
+                    <div nz-col nzSpan="7">
+                        <span class="card-item-label"><i nz-icon [nzIconfont]="'icon-sheji'"></i>设计单位：</span>
+                    </div>
+                    <div nz-col nzSpan="17">
+                        <span class="card-item-title">{{projectInfo.companyName || '未知'}}</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div nz-row nzGutter="2">
+                    <div nz-col nzSpan="7">
+                        <span class="card-item-label"><i nz-icon [nzIconfont]="'icon-shigongdanwei1'"></i>施工单位：</span>
+                    </div>
+                    <div nz-col nzSpan="17">
+                        <span class="card-item-title">{{projectInfo.customerName || '未知'}}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!-- <div class="card-thumb">
+            <nz-divider nzText="工程图片" nzOrientation="left"></nz-divider>
+            <nz-skeleton [nzActive]="true" [nzLoading]="detailSpinning">
+                <div nz-col nzSpan="24" class="thumb">
+                    <nz-carousel [nzEffect]="'fade'" *ngIf="projectInfo.projectImgInfo.length">
+                        <div nz-carousel-content *ngFor="let img of projectInfo.projectImgInfo;let i = index">
+                            <div class="point-img" [ngStyle]="{'background-image': img.url?img.url:'#6F86AF'}"
+                                (click)="openModal(popData.pointName,i)">
+                            </div>
+                        </div>
+                    </nz-carousel>
+                    <div class="" *ngIf="!projectInfo.projectImgInfo.length">
+                        <nz-empty [nzNotFoundImage]="'../../assets/images/original.png'" [nzNotFoundContent]="contentTpl"
+                            [nzNotFoundFooter]="footerTpl">
+                            <ng-template #contentTpl>
+                                <span>暂无图片！</span>
+                            </ng-template>
+                        </nz-empty>
+                    </div>
+                </div>
+            </nz-skeleton>
+        </div> -->
+        <div class="card-desc">
+            <nz-divider nzText="工程描述" nzOrientation="left"></nz-divider>
+            <div class="card-desc-content">
+                <p *ngIf="projectInfo.remarks">
+                    {{projectInfo.remarks}}
+                </p>
+                <nz-empty [nzNotFoundImage]="'../../assets/images/original.png'" [nzNotFoundContent]="contentTpl"
+                    [nzNotFoundFooter]="footerTpl" *ngIf="!projectInfo.remarks">
+                    <ng-template #contentTpl>
+                        <span>暂无数据！</span>
+                    </ng-template>
+                </nz-empty>
+            </div>
+        </div>
+    </div>
+    <div class="card-link animated fadeInLeft">
+        <div nz-row nzType="flex" nzJustify="center" nzGutter="16">
+            <div nz-col nzSpan="12">
+                <button nz-button nzBlock="true" nzType="default" [nzSize]="size" nzShape="round" routerLink="/integration/dashboard/projectList"style="width: 100%;" >返回工程列表</button>
+            </div>
+            <div nz-col nzSpan="12">
+               <button nz-button nzBlock="true" nzType="primary" [nzSize]="size" nzShape="round" routerLink="/integration/projectPage/{{projectId}}" style="width: 100%;">进入工程</button>
+            </div>
+        </div>
+    </div>
+</div>

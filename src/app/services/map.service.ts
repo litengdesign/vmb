@@ -3,6 +3,7 @@ import { loadModules } from 'esri-loader';
 import { ServersService } from '../servers.service';
 import { Observable, forkJoin, BehaviorSubject, Subject } from 'rxjs';
 import { differenceInCalendarDays, differenceInHours, addDays, format} from 'date-fns';
+import { environment} from '../../environments/environment';
 interface Geometry {
   type: string,
   longitude?: number, //点
@@ -714,9 +715,9 @@ export class MapService {
   //获取ais船舶
   getAisShipList() {
     let options = {
+      origin:environment.APISmartLocation,
       // api:'/api/ProjectManager/GetPorjectTreeWithCarriers',
       api: '/api/LocationData/GetCarrierLocationData',
-      // origin:environment.APIAutoDeform,
       params: {
         // Rows:1000,
         // name:''

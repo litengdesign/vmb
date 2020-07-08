@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { NzIconService } from 'ng-zorro-antd';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
-
+import { fadeInAnimation, navigateAnimation } from './animations';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  styleUrls: ['./app.component.less'],
+  animations: [
+    fadeInAnimation,
+    navigateAnimation
+  ]
 })
 export class AppComponent {
   title = 'app';

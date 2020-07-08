@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServersService} from '../../servers.service';
+import { ComomService} from '../../shared/servers.service';
 import { fadeInAnimation, navigateAnimation } from '../../animations';
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { fadeInAnimation, navigateAnimation } from '../../animations';
 
 })
 export class DashboardComponent implements OnInit {
-  constructor(public comomServer: ServersService) { }
+  constructor(public comomServer: ComomService) { }
   public visible = false;
     public apps = [
     {

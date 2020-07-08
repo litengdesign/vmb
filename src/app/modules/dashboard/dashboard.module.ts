@@ -16,6 +16,7 @@ import { EchartsComponent } from './components/echarts/echarts.component';
 import { EmptyComponent } from './components/empty/empty.component';
 import { HighchartsComponent } from './components/highcharts/highcharts.component';
 import { HchartsComponent } from './components/hcharts/hcharts.component';
+
 @NgModule({
   // tslint:disable-next-line: max-line-length
   declarations: [HeaderComponent, MapComponent, EchartsComponent, PopTemplateComponent, EmptyComponent, HighchartsComponent , HchartsComponent , DashboardComponent, CardTitleComponent, ProjectInfoComponent, AutomonitorAlertComponent, VolumeBoardComponent],
@@ -24,7 +25,7 @@ import { HchartsComponent } from './components/hcharts/hcharts.component';
     NgZorroAntdModule,
     DashboardRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class DashboardModule { }

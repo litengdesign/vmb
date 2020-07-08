@@ -65,7 +65,8 @@ export class DashboardComponent implements OnInit {
                 OBJECTID: item.code,
                 NAME: item.name,
                 SIZE: item.gradeName || '特大型',
-                COLOR: item.statusName || '在建'
+                COLOR: item.statusName || '在建',
+                obj: item
               },
               symbol: this.getCircleSymbol(item.gradeName, item.statusName),
             };
@@ -81,7 +82,8 @@ export class DashboardComponent implements OnInit {
                 NAME: item.name,
                 SIZE: item.gradeName,
                 COLOR: item.statusName,
-                id: item.id
+                id: item.id,
+                obj: item
               },
               symbol: this.getIMGSymbol(item.gradeName),
               MKDATA: item
@@ -91,6 +93,7 @@ export class DashboardComponent implements OnInit {
       }
       this.server.view.on('click', (event) => {
         this.server.view.hitTest(event).then((response) => {
+          sessionStorage.setItem('projectInfo', JSON.stringify(response.results[0].graphic.attributes.obj));
           // this.activeMK=response.results[0].graphic.MKDATA
           console.log(response.results[0].graphic.MKDATA);
           if (response.results[0].graphic.MKDATA) {

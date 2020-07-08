@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ServersService } from '../../servers.service';
 import { environment } from '../../../environments/environment';
-import { MapService } from '../../services/map.service'
+import { MapService } from '../../services/map.service';
 declare let Swiper: any;
 @Component({
   selector: 'app-project-detail',
@@ -11,14 +11,15 @@ declare let Swiper: any;
 })
 export class ProjectDetailComponent implements OnInit {
   mySwiper: any;
-  public projectInfo: any =  JSON.parse(sessionStorage.getItem('projectInfo'));
+  public projectInfo: any;
   public detailSpinning: boolean;
   public projectId;
   public cardOpen;
   public size;
   // tslint:disable-next-line: variable-name
   public api_projectDetail = '/api/ProjectManager/GetProjectById';
-  constructor(private router: ActivatedRoute, public server: ServersService, public mapServer: MapService) { 
+  constructor(private router: ActivatedRoute, public server: ServersService, public mapServer: MapService) {
+    this.projectInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
   }
   ngOnInit() {
     if (this.server.visibleTide) {

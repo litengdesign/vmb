@@ -100,3 +100,10 @@
         </ng-template>
     </ng-container>
 </nz-drawer>
+<nz-drawer [nzClosable]="false" [nzVisible]="childrenVisible" [nzTitle]="openItem.deviceName" (nzOnClose)="childrenVisible = false">
+    <h5>{{openItem.alertTime | date:'yyyy-MM-dd HH:mm'}}</h5>
+    <p>
+        <b>{{openItem.content}}</b>
+    </p>
+    <p><i nz-icon [nzIconfont]="'icon-project'" style="margin-right:5px"></i>{{openItem.projectName}}</p>
+  </nz-drawer>

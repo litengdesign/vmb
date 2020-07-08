@@ -13,7 +13,7 @@ import zh from '@angular/common/locales/zh';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PremissionComponent } from './blocks/premission/premission.component';
 import { SearchComponent } from './blocks/search/search.component';
-import { DefaultComponent } from './layout/default/default.component'
+import { DefaultComponent } from './layout/default/default.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LogoComponent } from './blocks/logo/logo.component';
 import { ArcgisMapComponent } from './blocks/arcgis-map/arcgis-map.component';
@@ -35,6 +35,8 @@ import { EmptyComponent } from './blocks/empty/empty.component';
 import { TransformLunarPipe } from './pips/transform-lunar.pipe';
 import { ProjectDetailMapComponent } from './blocks/project-detail-map/project-detail-map.component';
 import { HighchartsComponent } from './blocks/highcharts/highcharts.component';
+import { HeaderComponent} from './blocks/header/header.component';
+
 registerLocaleData(zh);
 
 @NgModule({
@@ -62,7 +64,8 @@ registerLocaleData(zh);
     EmptyComponent,
     TransformLunarPipe,
     ProjectDetailMapComponent,
-    HighchartsComponent
+    HighchartsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,4 @@ registerLocaleData(zh);
   bootstrap: [AppComponent]
 })
 
-export class AppModule { 
-  
-}
+export class AppModule {}

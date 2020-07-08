@@ -47,7 +47,7 @@
                     </nz-carousel>
                     <div class="" *ngIf="!projectInfo.projectImgInfo.length">
                         <nz-empty [nzNotFoundImage]="'../../assets/images/original.png'" [nzNotFoundContent]="contentTpl"
-                            [nzNotFoundFooter]="footerTpl">
+                            >
                             <ng-template #contentTpl>
                                 <span>暂无图片！</span>
                             </ng-template>
@@ -59,11 +59,8 @@
         <div class="card-desc">
             <nz-divider nzText="工程描述" nzOrientation="left"></nz-divider>
             <div class="card-desc-content">
-                <p *ngIf="projectInfo.remarks">
-                    {{projectInfo.remarks}}
-                </p>
                 <nz-empty [nzNotFoundImage]="'../../assets/images/original.png'" [nzNotFoundContent]="contentTpl"
-                    [nzNotFoundFooter]="footerTpl" *ngIf="!projectInfo.remarks">
+                    >
                     <ng-template #contentTpl>
                         <span>暂无数据！</span>
                     </ng-template>

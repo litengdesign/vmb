@@ -276,7 +276,7 @@
 <nz-modal [(nzVisible)]="isVisibleVolumeStatistical" nzWidth="1200px" [nzTitle]="selectedShip+'船舶方量详情'" (nzOnCancel)="isVisibleVolumeStatistical=false" [nzFooter]="null">
     <div nz-row [nzGutter]="8">
         <div nz-col nzSpan="24">
-            <div class="search-block" nz-row  [nzGutter]="10"  [nzType]="flex" [nzJustify]="end">
+            <div class="search-block" nz-row [nzGutter]="10">
                 <div nz-col nzSpan="6">
                     <nz-radio-group [(ngModel)]="searchType">
                     <label nz-radio nzValue="day">近30日统计</label>
@@ -284,7 +284,7 @@
                     </nz-radio-group>
                 </div>
                 <div nz-col nzSpan="5">
-                    <nz-select nzShowSearch="true" style="width: 100%;" [(ngModel)]="ProjectId" nzPlaceHolder="请选择项目名称" nzAllowClear="true" (ngModelChange)="onChangeOnSelect($event)">
+                    <nz-select nzShowSearch="true" style="width: 100%;" [(ngModel)]="ProjectId" nzPlaceHolder="请选择项目名称" nzAllowClear="true">
                         <nz-option *ngFor="let p of projects" [nzValue]="p.projectId" [nzLabel]="p.name"></nz-option>
                     </nz-select>
                 </div>
@@ -303,9 +303,9 @@
             <div nz-col nzSpan="24">
                 <nz-divider nzText="施工船舶累计装载量统计（日）"></nz-divider>
             </div>
-            <div class="search-block" nz-row  [nzGutter]="10" nzJustify="end" [nzType]="flex">
+            <div class="search-block" nz-row  [nzGutter]="10" >
                 <div nz-col nzSpan="4">
-                    <nz-date-picker [nzFormat]="nzFormat" [(ngModel)]="showDay" [nzDisabledDate]="disabledDate"></nz-date-picker>
+                    <nz-date-picker [nzFormat]="nzFormat" [(ngModel)]="showDay"></nz-date-picker>
                 </div>
                 <div nz-col nzSpan="4">
                     <nz-select nzShowSearch="true" style="width: 185px;" [(ngModel)]="ProjectId1" nzPlaceHolder="请选择项目名称" nzAllowClear="true">

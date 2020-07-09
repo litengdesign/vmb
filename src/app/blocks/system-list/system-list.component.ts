@@ -1447,7 +1447,7 @@ export class SystemListComponent implements OnInit {
         projNo: this.projectInfo.code || 'P282',
         checkType: 'JC',
         page: 1,
-        rows: 6
+        rows: 1000
       }
     };
     this.server.getRxjsData(options).subscribe(data => {

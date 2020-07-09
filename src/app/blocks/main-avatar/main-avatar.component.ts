@@ -3,6 +3,8 @@ import { ServersService } from '../../servers.service';
 import { MapService } from '../../services/map.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { environment } from '../../../environments/environment';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-main-avatar',
   templateUrl: './main-avatar.component.html',
@@ -22,7 +24,8 @@ export class MainAvatarComponent implements OnInit {
   public activePoint = {};
   public showPop = false;
   public selectedPoint: object;
-  constructor(public server: ServersService, public msg: NzMessageService, public mapServer: MapService) { 
+  constructor(public server: ServersService, public msg: NzMessageService, public mapServer: MapService ,
+    private oauthService: OAuthService, public modal: NzModalService) { 
     this.mapServer.showPop.subscribe(res=>{
       this.showPop = res
     })
@@ -49,15 +52,22 @@ export class MainAvatarComponent implements OnInit {
     })
   }
   logout(): void {
-    let options: any = {
-      origin: environment.APITest,
-      api: "/Home/CasLogout"
-    }
-    this.server.getRxjsData(options).subscribe((data) => {
-      if (data != null) {
-        window.location.href = data.data;
+    this.modal.confirm({
+      nzTitle: '系统提示！',
+      nzContent: '<b>确定登出吗？</b>',
+      nzOnOk: () => {
+         this.oauthService.logOut();
       }
-    })
+    });
+    // let options: any = {
+    //   origin: environment.APITest,
+    //   api: "/Home/CasLogout"
+    // }
+    // this.server.getRxjsData(options).subscribe((data) => {
+    //   if (data != null) {
+    //     window.location.href = data.data;
+    //   }
+    // })
   }
   //显示弹框
   showAlert(){

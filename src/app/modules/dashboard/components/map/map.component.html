@@ -1,6 +1,12 @@
 <div id="viewDiv" [ngClass]="{'active': !server.isOpen}">
     <div class="zoomOut" [ngClass]="{'active': !server.isOpen}" (click)='toggleZoom()' [title]="server.isOpen?'展开':'收缩'"></div>
     <div class='nav'>
+        <div class="badge">
+            <a nz-button nzType="link" class="cancel-btn" nzShape="round"  target="_blank" routerLink="/integration">集成平台</a>
+        </div>
+        <div class="badge">
+            <a nz-button nzType="link" class="cancel-btn" nzShape="round" target="_blank" href="http://10.9.53.103:5600/">管理系统</a>
+        </div>
         <div class="badge tide">
             <nz-button-group>
                 <button nz-button nzType="link" [nzSize]="'small'">

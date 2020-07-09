@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NzIconService } from 'ng-zorro-antd';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
-import { authConfig } from './auth.config';
+import { authConfig } from './auth/auth.config';
 import { fadeInAnimation, navigateAnimation } from './animations';
 @Component({
   selector: 'app-root',
@@ -18,8 +18,8 @@ export class AppComponent {
     this._iconService.fetchFromIconfont({
       scriptUrl: '//at.alicdn.com/t/font_1506206_4bw6p4chwn8.js'
     });
-    // this.authService.configure(authConfig);
-    // this.authService.tokenValidationHandler = new JwksValidationHandler();
-    // this.authService.loadDiscoveryDocumentAndLogin();
+    this.authService.configure(authConfig);
+    this.authService.tokenValidationHandler = new JwksValidationHandler();
+    this.authService.loadDiscoveryDocumentAndLogin();
   }
 }

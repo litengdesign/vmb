@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent} from '../app/layout/default/default.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AuthGuard } from './shared/auth/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 import { ProjectListComponent } from './blocks/project-list/project-list.component';
 import { ProjectDetailComponent } from './blocks/project-detail/project-detail.component';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: '', redirectTo: 'home', pathMatch: 'full',
   },
-  { path: 'home', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'home', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard]},
   {
     path: 'integration',
     component: DefaultComponent,
@@ -38,10 +38,10 @@ const routes: Routes = [
       },
       {
         path: 'projectPage/:projectId', component: ProjectPageComponent,
-        data:{
+        data: {
           breadcrumb: '项目页面'
         },
-        children:[
+        children: [
           {
             path: '', redirectTo: 'systemList', pathMatch: 'full',
           },
@@ -51,7 +51,7 @@ const routes: Routes = [
         ]
       }
     ],
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 ];
 

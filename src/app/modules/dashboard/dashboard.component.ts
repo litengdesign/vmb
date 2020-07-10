@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
           description: '基于三维激光扫描技术的运砂船量方系统',
           type: '成本管控类',
           icon: 'icon-beibaoguanli',
-          url: 'http://10.9.53.103:5600/#/dashboard/v1',
+          url: 'http://47.102.121.205:7015/#/dashboard/v1',
         },
         {
           name: '管道管线管理系统',

@@ -115,4 +115,9 @@ export class ServersService {
     };
     return this.http.get(options.origin + options.api, { params: options.params, headers: this.getHeaders });
   }
+  getGeo(){
+    this.http.get('http://restapi.amap.com/v3/geocode/regeo?output=json&location=113.577,22.289&key=b72e513745b43577ac5814b2ab626190&radius=10000').subscribe(res=>{
+      console.log(res);
+    })
+  };
 }

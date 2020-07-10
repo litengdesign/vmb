@@ -8,6 +8,7 @@ import { MapService } from '../../services/map.service'
 import { differenceInCalendarDays, differenceInHours, addDays, format} from 'date-fns';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DomSanitizer,SafeResourceUrl } from "@angular/platform-browser";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Component({
   selector: 'app-project-page',
   templateUrl: './project-page.component.html',
@@ -23,11 +24,17 @@ export class ProjectPageComponent implements OnInit {
   };
   public shipID=null;
   public isModaliframeVisable = false;
+  public projectWeather:any;
   @ViewChild('mainNavigate',{static:false}) public mainNavigateEl;
   @ViewChild('arcgisMap',{static:false}) public arcgisMapEl;
   @ViewChild('mainAvatar',{static:false}) public mainAvatarEl;
   
-  constructor(public server: ServersService, public projectPageService: ProjectPageService, public mapService: MapService,public router:Router,private sanitizer: DomSanitizer) {
+  constructor(
+    public http: HttpClient,
+    public server: ServersService,
+    public projectPageService: ProjectPageService,
+    public mapService: MapService,public router:Router,
+    private sanitizer: DomSanitizer) {
      this.projectPageService.showIframeSubject.subscribe(data=>{
        if(data){
         // this.isModaliframeVisable = true;
@@ -42,6 +49,7 @@ export class ProjectPageComponent implements OnInit {
       this.server.map.remove(this.server.map.findLayerById('AIS_ShipLayer'))
       this.mapService.buildAisFeature() 
     }
+    this.getProjectGeo();
   }
 
   getSystemData() {
@@ -62,6 +70,25 @@ export class ProjectPageComponent implements OnInit {
   //退出工程
   exitProject(){
     this.router.navigateByUrl('/dashboard/projectDetail/'+this.projectInfo.id);
+  }
+  // 更加工程经纬度获取城市code
+  getProjectGeo(){
+    const apiGeo = `http://restapi.amap.com/v3/geocode/regeo?output=json&location=
+    ${this.projectInfo.longitude},${this.projectInfo.latitude}&key=b72e513745b43577ac5814b2ab626190&radius=10000`;
+    this.http.get(apiGeo).subscribe((res: any) => {
+          // tslint:disable-next-line: radix
+          this.getWeather(parseInt(res.regeocode.addressComponent.adcode));
+    });
+  }
+  // 获取项目天气
+  getWeather(adcode: number) {
+    const apiWeather = 'https://restapi.amap.com/v3/weather/weatherInfo?city=' +
+    + adcode + '&key=b72e513745b43577ac5814b2ab626190';
+    this.http.get(apiWeather).subscribe((data:any) => {
+      if (data.status) {
+        this.projectWeather = data.lives[0];
+      }
+    });
   }
 
 }

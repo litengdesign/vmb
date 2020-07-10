@@ -1,53 +1,9 @@
 <nz-drawer [nzWidth]="900" [nzVisible]="visibleAlert" nzPlacement="right" nzTitle="报警信息列表" (nzOnClose)="closeDetail()" [nzClosable]="true">
     <ng-container *ngFor="let system of systemList">
-        <nz-card nzType="inner" [nzTitle]="extraInnerTitleTemplate" [nzExtra]="extraTemplate">
+        <nz-card nzType="inner" [nzTitle]="extraInnerTitleTemplate" [nzExtra]="extraTemplate" *ngIf="system.id=='PSS'">
             <ng-container *ngIf="!system.collapsible">
                 <nz-table 
-                *ngIf="system.id=='ADS'"
-                #filterTable 
-                nzSize="small"
-                [nzData]="system.displayData" 
-                [nzTotal]="system.total" 
-                [(nzPageIndex)]="system.options.params.Page" 
-                [(nzPageSize)]="system.options.params.Rows"
-                nzShowSizeChanger 
-                nzShowPagination
-                [nzLoading]="system.loading"
-                [nzBordered]="true" 
-                (nzPageSizeChange)="getAlertList(system,true)"
-                [nzFrontPagination]="false" 
-                (nzPageIndexChange)="getAlertList(system)"
-                >
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>测点名称</th>
-                            <th>报警时间</th>
-                            <th>状态</th>
-                            <th nzWidth="100px">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of filterTable.data;let i = index;">
-                            <td>{{(system.options.params.Page-1)*system.options.params.Rows+i+1}}</td>
-                            <td>{{item.deviceName}}</td>
-                            <td>{{item.alertTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
-                            <td>
-                                待阅
-                            </td>
-                            <td nzWidth="100px">
-                                <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(item,system)">
-                                    <a nz-popconfirm>删除</a>
-                                </nz-popconfirm>
-                                <nz-divider nzType="vertical"></nz-divider>
-                                <a (click)="openChildren(item)">详情</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
-                <nz-table 
                 #smallTable 
-                *ngIf="system.id=='PSS'"
                 nzSize="small" 
                 [nzData]="system.displayData" 
                 [nzTotal]="system.total" 

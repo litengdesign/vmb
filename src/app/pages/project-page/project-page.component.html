@@ -3,7 +3,14 @@
 <app-main-navigate #mainNavigate></app-main-navigate>
 <app-arcgis-map (checked)="getSystemData()"></app-arcgis-map>
 <a nz-button nzType="primary" class="cancel-btn" nzShape="round" routerLink="/integration/dashboard/projectDetail/{{projectInfo.id}}">退出工程</a>
-
+<div class="weather-box" *ngIf="projectWeather">
+    <i nz-icon nzIconfont="icon-local"></i>
+    <span class="city">{{projectWeather.city}}</span>
+    <nz-divider nzType="vertical"></nz-divider>
+    <span class="city">{{projectWeather.weather}}</span>
+    <nz-divider nzType="vertical"></nz-divider>
+    <span class="city">{{projectWeather.temperature}}℃</span>
+</div>
 <nz-modal [(nzVisible)]="mapService.guiji_isVisible" nzTitle="历史轨迹" (nzOnCancel)="mapService.handleCancel()" (nzOnOk)="mapService.handleOk()">
     <p>载具ID : {{ mapService.shipID }} </p>
     <p>时间范围:

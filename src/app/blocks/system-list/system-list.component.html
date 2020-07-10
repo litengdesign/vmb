@@ -84,7 +84,11 @@
                 <ng-container *ngIf="system.id=='Check' && system.list.length ">
                     <button nz-button nzType="default" style="margin-right:10px" (click)="showModal()"><i nz-icon [nzIconfont]="'icon-chartpartten'"></i>统计</button>
                 </ng-container>
-                <nz-switch [ngModel]="system.viewMapVisible" nzCheckedChildren="开" nzUnCheckedChildren="关" nzSize="small" style="margin-right: 10px;" (ngModelChange)="visibleCheckChange($event,system)" [nzDisabled]="!system.list.length"></nz-switch>
+                <nz-switch *ngIf="system.id !=='Volume'" [ngModel]="system.viewMapVisible" nzCheckedChildren="开" nzUnCheckedChildren="关" nzSize="small" style="margin-right: 10px;" (ngModelChange)="visibleCheckChange($event,system)" [nzDisabled]="!system.list.length"></nz-switch>
+                <ng-container *ngIf="system.id ==='Volume'">
+                    <a *ngIf="system.url" [href]="system.url" target="_blank"><i nz-icon [nzIconfont]="'icon-insertlink'"></i></a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                </ng-container>
                 <i nz-icon [nzType]="system.collapsible?'down':'up'" nzTheme="outline" (click)="system.collapsible = !system.collapsible"></i>
             </ng-template>
             <ng-template #extraInnerTitleTemplate>
@@ -94,8 +98,6 @@
                 <div class="list-header">
                     {{system.header}}
                     <span class="list-header-menu">
-                        <a *ngIf="system.url" [href]="system.url" target="_blank"><i nz-icon [nzIconfont]="'icon-insertlink'"></i></a>
-                        <nz-divider nzType="vertical"></nz-divider>
                         <i nz-icon nzType="search" (click)="system.searchVisible = !system.searchVisible" *ngIf="system.hasSearch"></i>
                     </span>
                 </div>

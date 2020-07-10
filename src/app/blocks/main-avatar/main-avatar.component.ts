@@ -38,7 +38,7 @@ export class MainAvatarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUserName();
+    // this.getUserName();
     this.getTide();
   }
   public getUserName() {

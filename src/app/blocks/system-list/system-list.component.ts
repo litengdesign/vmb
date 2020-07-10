@@ -210,12 +210,13 @@ export class SystemListComponent implements OnInit {
     collapsible: true,
     list: []
   };
+  public projectWeather;
   constructor(
     public server: ServersService,
     public activatedRoute: ActivatedRoute,
     public projectPageService: ProjectPageService,
     private message: NzMessageService,
-    public mapServer: MapService
+    public mapServer: MapService,
   ) {
     this.ProjectId = this.projectInfo.projectId;
     this.ProjectId1 = this.projectInfo.projectId;
@@ -240,6 +241,7 @@ export class SystemListComponent implements OnInit {
 
   ngOnInit() {
     this.getHidList();
+    // this.server.getGeo();
   }
   // 获取生产运维数据
   getPssData() {

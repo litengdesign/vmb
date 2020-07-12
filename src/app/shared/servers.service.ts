@@ -64,6 +64,7 @@ export class ComomService {
     },
     graphicList:[]
   };
+
   constructor(public activeRoute:ActivatedRoute,private http: HttpClient, private msg: NzMessageService,public router: Router,private modalService: NzModalService) {
     this.tabs = sessionStorage.getItem('tabs')?JSON.parse(sessionStorage.getItem('tabs')):[];
   }

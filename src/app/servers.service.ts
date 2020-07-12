@@ -57,7 +57,10 @@ export class ServersService {
         }
       }, (error) => {
         if (error.status === 403 || error.status === 401) {
-          this.oauthService.initImplicitFlow();
+          this.msg.info('无权限访问！');
+          setTimeout( () => {
+            this.oauthService.initImplicitFlow();
+          },2000);
         }
       });
     });
@@ -77,7 +80,10 @@ export class ServersService {
         },
         (error) => {
           if (error.status === 403 || error.status === 401) {
-            this.oauthService.initImplicitFlow();
+            this.msg.info('无权限访问！');
+            setTimeout( () => {
+              this.oauthService.initImplicitFlow();
+            },2000);
           } else {
             this.msg.info(error.error.text);
             observer.next();

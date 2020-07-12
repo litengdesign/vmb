@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { addDays, format } from 'date-fns';
-import { ServersService } from '../../../../servers.service';
+import { ComomService } from '../../../../shared/servers.service';
 import { environmentVolum} from '../../../../../environments/environment';
 
 @Component({
@@ -113,8 +113,12 @@ export class VolumeBoardComponent implements OnInit {
   public nzFormat = 'yyyy/MM/dd';
 
 
-  constructor(public comomServer: ServersService) {
-
+  constructor(public comomServer: ComomService) {
+    this.comomServer.selectedProject.subscribe(res => {
+      if (res) {
+        this.getDataList(res);
+      }
+    })
   }
 
   ngOnInit(): void {

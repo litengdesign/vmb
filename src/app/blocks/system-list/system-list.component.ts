@@ -14,7 +14,11 @@ import { differenceInCalendarDays, setHours, setDay, addDays, format } from 'dat
   styleUrls: ['./system-list.component.less']
 })
 export class SystemListComponent implements OnInit {
-
+  public api_allFenceInfo = '/api/FencesInfo/GetAllFenceInfo';//获取电子围栏列表
+  public api_allRouteInfo = '/api/RouteManage/GetRouteInfo';//获取路线列表
+  public api_getFencesByCarrier = '/api/FencesInfo/GetFencesByCarrier';//按照终端ID获取终端关联的所有电子围栏(显示防区)
+  //终端关联航线
+  public api_getRoutesByCarrier = '/api/RouteManage/GetRoutesByCarrier';//按照终端ID获取终端关联的所有电子围栏(显示防区)
   public apiAllFenceInfo = '/api/FencesInfo/GetAllFenceInfo'; // 获取电子围栏列表
   public apiAllRouteInfo = '/api/RouteManage/GetRouteInfo'; // 获取路线列表
   public apiGetFencesByCarrier = '/api/FencesInfo/GetFencesByCarrier'; // 按照终端ID获取终端关联的所有电子围栏(显示防区)
@@ -244,49 +248,56 @@ export class SystemListComponent implements OnInit {
     // this.server.getGeo();
   }
   // 获取生产运维数据
-  getPssData() {
-    // 获取电子围栏
-    const fenceInfo = this.server.forkRxjsData({
-      api: this.apiAllFenceInfo,
+  getPssData(){
+    //获取电子围栏
+    let fenceInfo = this.server.forkRxjsData({
+      api: this.api_allFenceInfo,
       params: {
-        fenceType: '24a9d240-e5ec-4073-b73a-08d74e18b561'
+        fenceType: "24a9d240-e5ec-4073-b73a-08d74e18b561"
       }
     });
-    // 获取路线列表
-    const routerInfo = this.server.forkRxjsData({
-      api: this.apiAllRouteInfo,
+    //获取路线列表
+    let routerInfo = this.server.forkRxjsData({
+      api: this.api_allRouteInfo,
       params: {
-        fenceType: '9d663eba-8532-406e-b73b-08d74e18b561'
+        fenceType: "9d663eba-8532-406e-b73b-08d74e18b561"
       }
     });
 
-    // 获取北斗船舶
-    const shipList = this.server.forkRxjsData({
-      origin: environment.APISmartLocation,
-      api: '/api/ProjectManager/GetPorjectTreeWithCarriers',
+    //获取北斗船舶
+    let shipList = this.server.forkRxjsData({
+      origin:environment.APISmartLocation,
+      api: "/api/ProjectManager/GetPorjectTreeWithCarriers",
       params: {
         name: this.projectInfo.name,
         Sidx: 0,
         Rows: 1,
       }
     });
-    forkJoin([fenceInfo, routerInfo, shipList]).subscribe((result: any) => {
+    forkJoin([fenceInfo, routerInfo,shipList]).subscribe((result: any) => {
+      console.log(result)
       this.pssData.fenceList  = [];
       result[0].data.forEach(element => {
-        if (element.projectId === this.projectInfo.id) {
-          this.pssData.fenceList.push(element);
+        if (element.projectId == this.projectInfo.id) {
+          this.pssData.fenceList.push(element)
         }
       });
-      this.pssData.routeList = [];
-      // 绘制多边形
-      this.addFenceGeometry(this.pssData.fenceList, this.pssData.routeList);
-      this.pssData.ship = result[2].pageResult.data[0] ? result[2].pageResult.data[0].children.ship : [];
-      this.pssData.vehicle = result[2].pageResult.data[0] ? result[2].pageResult.data[0].children.vehicle : [];
-      const featuresShip = [];
-      const featuresVehicle = [];
+      this.pssData.routeList = []
+      // result[1].data.forEach(element => {
+      //   if (element.projectId == this.projectInfo.id) {
+      //     this.pssData.routeList.push(element)
+      //   }
+      // });
+
+      //绘制多边形
+      this.addFenceGeometry(this.pssData.fenceList,this.pssData.routeList);
+      this.pssData.ship = result[2].pageResult.data[0]?result[2].pageResult.data[0].children.ship:[]
+      this.pssData.vehicle = result[2].pageResult.data[0]?result[2].pageResult.data[0].children.vehicle:[]
+      let featuresShip = [];
+      let featuresVehicle = [];
       if (result[2].pageResult.data) {
-        for (const item of this.pssData.ship) {
-          if (item.lon && item.lat) {
+        for (let item of this.pssData.ship) {
+          if(item.lon && item.lat){
               featuresShip.push({
               geometry: {
                 type: 'point',
@@ -294,25 +305,24 @@ export class SystemListComponent implements OnInit {
                 y: item.lat
               },
               attributes: {
-                // tslint:disable-next-line: radix
-                OJBEDTID: parseInt(item.cardNumber),
-                name: item.carrierName,
+                OJBEDTID:  parseInt(item.cardNumber),
+                name:item.carrierName,
                 type: 'ship',
                 lon: item.lon,
                 lat: item.lat,
                 angle: item.course,
-                companyName: item.companyName,
-                projectName: item.projectName,
-                typeName: item.typeName,
-                cardNumber: item.cardNumber,
+                companyName:item.companyName,
+                projectName:item.projectName,
+                typeName:item.typeName,
+                cardNumber:item.cardNumber,
                 dataTime: format(item.dataTime, 'YYYY-MM-DD HH:mm:ss'),
-                carrierId: item.carrierId
+                carrierId:item.carrierId
               }
-            });
+            })
           }
         }
-        for (const i of this.pssData.vehicle) {
-          if (i.lon && i.lat) {
+        for (let i of this.pssData.vehicle) {
+          if(i.lon && i.lat){
             featuresVehicle.push({
               geometry: {
                 type: 'point',
@@ -320,41 +330,40 @@ export class SystemListComponent implements OnInit {
                 y: i.lat
               },
               attributes: {
-                // tslint:disable-next-line: radix
                 OJBEDTID:  parseInt(i.cardNumber),
-                name: i.carrierName,
+                name:i.carrierName,
                 type: 'Vehicle',
                 lon: i.lon,
                 lat: i.lat,
                 angle: i.course,
-                companyName: i.companyName,
-                projectName: i.projectName,
-                typeName: i.typeName,
-                cardNumber: i.cardNumber,
-                dataTime: i.dataTime,
-                carrierId: i.carrierId
+                companyName:i.companyName,
+                projectName:i.projectName,
+                typeName:i.typeName,
+                cardNumber:i.cardNumber,
+                dataTime:i.dataTime,
+                carrierId:i.carrierId
               }
-            });
+            })
           }
         }
       }
-      if (this.server.map.findLayerById('Vehicle_Layer')) {
-        this.server.map.remove(this.server.map.findLayerById('Vehicle_Layer'));
+      if(this.server.map.findLayerById('Vehicle_Layer')){
+        this.server.map.remove(this.server.map.findLayerById('Vehicle_Layer'))
       }
-      if (this.server.map.findLayerById('BD_ShipLayer')) {
-        this.server.map.remove(this.server.map.findLayerById('BD_ShipLayer'));
+      if(this.server.map.findLayerById('BD_ShipLayer')){
+        this.server.map.remove(this.server.map.findLayerById('BD_ShipLayer'))
       }
-      this.createShipLayer('BD_ShipLayer', 'bdShip', featuresShip);
-      this.createShipLayer('Vehicle_Layer', 'ADS', featuresVehicle);
-      if (this.pssData.ship.length || this.pssData.vehicle.length || this.pssData.fenceList.length || this.pssData.routeList.length) {
+      this.createShipLayer('BD_ShipLayer','bdShip',featuresShip)
+      this.createShipLayer('Vehicle_Layer','ADS',featuresVehicle)
+      if(this.pssData.ship.length || this.pssData.vehicle.length || this.pssData.fenceList.length || this.pssData.routeList.length){
         this.systemList[1].collapsible  = true;
         this.systemList[1].viewMapDisable = false;
-      } else {
+      }else{
         this.systemList[1].collapsible  = false;
         this.systemList[1].viewMapDisable = true;
       }
-      this.ifNoProject();
-    });
+      this.ifNoProject()
+    })
   }
   // 获取变形监测测点信息
   getAutoDeform(): void {
@@ -627,7 +636,7 @@ export class SystemListComponent implements OnInit {
       const featuresVehicle = [];
       if (data.pageResult.data) {
         for (const item of this.pssData.ship) {
-          if (item.lon && item.lat) {
+          if (item.lon && item.lat && item.carrierId) {
               featuresShip.push({
               geometry: {
                 type: 'point',
@@ -688,97 +697,93 @@ export class SystemListComponent implements OnInit {
       this.createShipLayer('Vehicle_Layer', 'ADS', featuresVehicle);
     });
   }
-  // 图层控制
-  visibleBDChange(e) {
-    this.server.map.findLayerById('fenceLayer').visible = e;
-    this.server.map.findLayerById('BD_ShipLayer').visible = e;
-    this.server.map.findLayerById('Vehicle_Layer').visible = e;
+  visibleBDChange(e){
+    this.server.map.findLayerById('fenceLayer').visible=e;
+    this.server.map.findLayerById('BD_ShipLayer').visible=e;
+    this.server.map.findLayerById('Vehicle_Layer').visible=e;
     this.server.view.popup.close();
   }
-  // 定位到点
-  locationToMarker(item, layerID) {
-    const query = {
-      objectIds: layerID == 'Work_Layer' ? item.attributes.OJBEDTID : parseInt(item.cardNumber),
-      outFields: ['*'],
+  locationToMarker(item,layerID){
+    let query={
+      objectIds:layerID=='Work_Layer' ? item.attributes.OJBEDTID :parseInt(item.cardNumber),
+      outFields: ["*"],
       returnGeometry: true
-    };
-    this.server.view.whenLayerView(this.server.map.findLayerById(layerID)).then((featureLayerView) => {
-          featureLayerView.queryFeatures(query).then((result) => {
-            console.log(result);
-              if (result.features.length == 0) {
+    }
+    this.server.view.whenLayerView(this.server.map.findLayerById(layerID)).then((featureLayerView) =>{
+          featureLayerView.queryFeatures(query).then((result)=> {
+            console.log(result)
+              if(result.features.length==0){
                 this.message.info('暂无位置信息！');
-              } else {
-                this.addGraphics(result);
+              }else{
+                this.addGraphics(result)
               }
           });
-          // 载具关联电子围栏
+          //载具关联电子围栏
           this.server.view.popup.on('trigger-action', (event) => {
-            switch (event.action.id) {
-              case 'fenceIcon':
-              this.openPoly(event.target.features[0].attributes.carrierId, 'fence');
+            switch(event.action.id){
+              case "fenceIcon":
+              this.openPoly(event.target.features[0].attributes.carrierId,"fence")
               break;
-              case 'routeIcon':
-              this.openPoly(event.target.features[0].attributes.carrierId, 'route');
+              case "routeIcon":
+              this.openPoly(event.target.features[0].attributes.carrierId,"route")
               break;
             }
-          });
+          })
     });
   }
-  // 创建点
   addGraphics(result) {
-    result.features.forEach((feature) => {
+    result.features.forEach((feature)=> {
         this.server.view.popup.open({
           features: [feature],
-          location: [feature.attributes.lon, feature.attributes.lat],
-          highlightEnabled: true
-        });
+          location: [feature.attributes.lon,feature.attributes.lat],
+          highlightEnabled:true
+        }) 
         this.server.view.goTo({
           center: [feature.attributes.lon, feature.attributes.lat],
           zoom: 17
-        }, { duration: 1500 });
+        }, { duration: 1500 })
     });
   }
-  // 创建要素
-  createShipLayer(layerID, imgName, features) {
+  createShipLayer(layerID,imgName,features){
     loadModules([
-      'esri/renderers/SimpleRenderer',
+      "esri/renderers/SimpleRenderer",
     ]).then(([
       SimpleRenderer
-    ]) => {
+    ])=>{
       const labelClass = {
         symbol: {
-          type: 'text',
-          color: 'green',
+          type: "text",
+          color: "green",
           haloColor: 'white',
           haloSize: 1,
           font: {
             size: 8,
-            weight: 'bold'
+            weight: "bold"
           },
         },
-        labelPlacement: 'above-center',
+        labelPlacement: "above-center",
         labelExpressionInfo: {
-          expression: '$feature.name'
+          expression: "$feature.name"
         },
         maxScale: 0,
         minScale: 50000
       };
-      const RENDERER_SHIP = {
-        type: 'unique-value',
+      const RENDERER_SHIP={
+        type: "unique-value",
         field: 'angle',
         defaultSymbol: {
-          type: 'picture-marker',
-          url: `assets/images/${imgName}.svg`,
-          width: layerID == 'Work_Layer' ? 20 : 10,
+          type: "picture-marker",
+          url: `../../assets/images/${imgName}.svg`,
+          width: layerID=='Work_Layer' ? 20 :10,
           height: 20,
           angle: 0
         },
-        uniqueValueInfos: []
-      };
+        uniqueValueInfos:[]
+      }
       const RENDERER_CIRCLE = new SimpleRenderer({
         symbol: {
-          type: 'simple-marker',
-          color: 'green',
+          type: "simple-marker",
+          color: "green",
           outline: {
             color: [255, 255, 255, 0.7],
             width: 0.5
@@ -787,174 +792,186 @@ export class SystemListComponent implements OnInit {
         }
       });
 
-      const tempAngleSymbol = [];
-      for (let i = 0; i < 360; i++) {
+      let tempAngleSymbol=[]
+      for(let i=0;i<360;i++){
         tempAngleSymbol.push({
-          value: i,
+          value:i,
           symbol: {
-            type: 'picture-marker',
-            url: `assets/images/${imgName}.svg`,
+            type: "picture-marker",
+            url: `../../assets/images/${imgName}.svg`,
             width: 10,
             height: 20,
             angle: i
           }
-        });
+        })
       }
-      RENDERER_SHIP.uniqueValueInfos = tempAngleSymbol;
+      RENDERER_SHIP.uniqueValueInfos=tempAngleSymbol
 
       const editThisAction = {
-        title: '历史轨迹',
-        id: 'edit-guiji',
-        className: 'esri-icon-applications'
+        title: "历史轨迹",
+        id: "edit-guiji",
+        className: "esri-icon-applications"
       };
 
-      let popupTemplate_BDship = {
-      title: '{name}',
-      actions: [
-        {
-          title: ' 关联防区',
-          id: 'fenceIcon',
-        },
-        {
-          title: ' 关联路线',
-          id: 'routeIcon',
-        }, editThisAction
-      ],
-      content: [{
-          type: 'fields',
-          fieldInfos: [{
-              fieldName: 'name',
-              label: '名称',
+
+       var popupTemplate_BDship = {
+        title: "{name}",
+        actions:[
+          {
+            title:' 关联防区',
+            id:'fenceIcon',
+          },
+          {
+            title:' 关联路线',
+            id:'routeIcon',
+          },editThisAction
+        ],
+        content: [{
+            type: "fields",
+            fieldInfos: [
+            //   {
+            //     fieldName: "name",
+            //     label: "名称",
+            //     format: {
+            //         places: 0,
+            //         digitSeparator: true
+            //     }
+            // }, 
+            {
+              fieldName: "cardNumber",
+              label: "北斗卡号",
+          },
+              {
+                fieldName: "lon",
+                label: "经度",
+                format: {
+                    places: 5,
+                    digitSeparator: true
+                }
+            }, {
+                fieldName: "lat",
+                label: "纬度",
+                format: {
+                    places: 5,
+                    digitSeparator: true
+                }
+            },
+            {
+              fieldName: "angle",
+              label: "航向",
               format: {
                   places: 0,
                   digitSeparator: true
               }
-          }, {
-              fieldName: 'projectName',
-              label: '项目名称',
-              format: {
-                  places: 0,
-                  digitSeparator: true
-              }
-          }, {
-              fieldName: 'angle',
-              label: '航向',
-              format: {
-                  places: 0,
-                  digitSeparator: true
-              }
-          }, {
-              fieldName: 'companyName',
-              label: '所属单位',
-              format: {
-                  places: 0,
-                  digitSeparator: true
-              }
-          }, {
-              fieldName: 'lon',
-              label: '经度',
+          },
+            {
+              fieldName: "dataTime",
+              label: "时间",
               format: {
                   places: 5,
                   digitSeparator: true
               }
-          }, {
-              fieldName: 'lat',
-              label: '纬度',
-              format: {
-                  places: 5,
-                  digitSeparator: true
-              }
-          }, {
-            fieldName: 'dataTime',
-            label: '时间',
-            format: {
-                places: 5,
-                digitSeparator: true
-            }
-        },
-      //   {
-      //     fieldName: "typeName",
-      //     label: "类型名称",
-      //     format: {
-      //         places: 5,
-      //         digitSeparator: true
-      //     }
-      // }
-    ]
-    }]
-  };
-      let shipLayerField = [{
-        name: 'OJBEDTID',
-        alias: 'OJBEDTID',
-        type: 'string'
-      }, {
-        name: 'name',
-        alias: 'name',
-        type: 'string'
-      }, {
-        name: 'angle',
-        alias: 'angle',
-        type: 'double'
-      }, {
-        name: 'lon',
-        alias: 'lon',
-        type: 'double'
-      }, {
-        name: 'lat',
-        alias: 'lat',
-        type: 'double'
-      }, {
-        name: 'type',
-        alias: 'type',
-        type: 'string'
-      }, {
-        name: 'dataTime',
-        alias: 'dataTime',
-        type: 'string'
-      }, {
-        name: 'carrierId',
-        alias: 'carrierId',
-        type: 'string'
-      }, {
-        name: 'projectName',
-        alias: 'projectName',
-        type: 'string'
-      }, {
-        name: 'companyName',
-        alias: 'companyName',
-        type: 'string'
-      }, {
-        name: 'cardNumber',
-        alias: 'cardNumber',
-        type: 'string'
-      }, {
-        name: 'typeName',
-        alias: 'typeName',
-        type: 'string'
-      }];
-      if (layerID === 'Work_Layer') {
+          },
+            {
+                fieldName: "projectName",
+                label: "项目名称",
+                format: {
+                    places: 0,
+                    digitSeparator: true
+                }
+            }, {
+                fieldName: "companyName",
+                label: "所属单位",
+                format: {
+                    places: 0,
+                    digitSeparator: true
+                }
+            },
+        //   {
+        //     fieldName: "typeName",
+        //     label: "类型名称",
+        //     format: {
+        //         places: 5,
+        //         digitSeparator: true
+        //     }
+        // }
+      ]
+      }]
+    };
+    
+
+      var shipLayerField=[{
+        name: "OJBEDTID",
+        alias: "OJBEDTID",
+        type: "string"
+      },{
+        name: "name",
+        alias: "name",
+        type: "string"
+      },{
+        name: "angle",
+        alias: "angle",
+        type: "double"
+      },{
+        name: "lon",
+        alias: "lon",
+        type: "double"
+      },{
+        name: "lat",
+        alias: "lat",
+        type: "double"
+      },{
+        name: "type",
+        alias: "type",
+        type: "string"
+      },{
+        name: "dataTime",
+        alias: "dataTime",
+        type: "string"
+      },{
+        name: "carrierId",
+        alias: "carrierId",
+        type: "string"
+      },{
+        name: "projectName",
+        alias: "projectName",
+        type: "string"
+      },{
+        name: "companyName",
+        alias: "companyName",
+        type: "string"
+      },{
+        name: "cardNumber",
+        alias: "cardNumber",
+        type: "string"
+      },{
+        name: "typeName",
+        alias: "typeName",
+        type: "string"
+      }]
+      if(layerID=='Work_Layer'){
          popupTemplate_BDship = {
-          title: '{name}',
-          actions: [],
+          title: "{name}",
+          actions:[],
           content: [{
-              type: 'fields',
+              type: "fields",
               fieldInfos: [{
-                  fieldName: 'name',
-                  label: '名称',
+                  fieldName: "name",
+                  label: "名称",
                   format: {
                       places: 0,
                       digitSeparator: true
                   }
               }, {
-                  fieldName: 'lon',
-                  label: '经度',
+                  fieldName: "lon",
+                  label: "经度",
                   format: {
                       places: 5,
                       digitSeparator: true
                   }
               }, {
-                  fieldName: 'lat',
-                  label: '纬度',
+                  fieldName: "lat",
+                  label: "纬度",
                   format: {
                       places: 5,
                       digitSeparator: true
@@ -962,73 +979,70 @@ export class SystemListComponent implements OnInit {
               }]
         }]
       };
-         shipLayerField = [{
-        name: 'OJBEDTID',
-        alias: 'OJBEDTID',
-        type: 'string'
-      }, {
-        name: 'name',
-        alias: 'name',
-        type: 'string'
-      }, {
-        name: 'lon',
-        alias: 'lon',
-        type: 'double'
-      }, {
-        name: 'lat',
-        alias: 'lat',
-        type: 'double'
+        shipLayerField=[{
+          name: "OJBEDTID",
+          alias: "OJBEDTID",
+          type: "string"
+        },{
+          name: "name",
+          alias: "name",
+          type: "string"
+        },{
+          name: "lon",
+          alias: "lon",
+          type: "double"
+        },{
+          name: "lat",
+          alias: "lat",
+          type: "double"
+        }]
       }
-       ];
-      }
-      this.mapServer.createFeatureLayer(
-        layerID, shipLayerField, popupTemplate_BDship, labelClass, RENDERER_CIRCLE, RENDERER_SHIP, features);
-    });
+      this.mapServer.createFeatureLayer(layerID,shipLayerField,popupTemplate_BDship,labelClass,RENDERER_CIRCLE,RENDERER_SHIP,features) 
+    })
   }
-  // 绘制电子围栏
-  addFenceGeometry(fenceList, routeList) {
-    if (this.server.map.findLayerById('fenceLayer')) {
-        this.server.map.remove(this.server.map.findLayerById('fenceLayer'));
+  addFenceGeometry(fenceList,routeList){
+    if(this.server.map.findLayerById('fenceLayer')){
+        this.server.map.remove(this.server.map.findLayerById('fenceLayer'))
     }
     loadModules([
-      'esri/layers/GraphicsLayer',
-      'esri/Graphic',
+      "esri/layers/GraphicsLayer",
+      "esri/Graphic",
       'esri/geometry/Circle'
     ]).then(([
       GraphicsLayer,
       Graphic,
       Circle
-    ]) => {
-      const graphicsLayer = new GraphicsLayer({ id: 'fenceLayer' });
+    ])=>{
+      const graphicsLayer = new GraphicsLayer({ id:'fenceLayer' });
       this.server.map.add(graphicsLayer);
-      const popupTemplate = {
-        title: '{Name}',
+      const popupTemplate= {
+        title: "{Name}",
         content: [
           {
-            type: 'fields',
+            type: "fields",
             fieldInfos: [{
-                label: '名称',
-                fieldName: 'Name'
+                label:'名称',
+                fieldName: "Name"
               },
-              { label: '所属项目',
-                fieldName: 'projectName'
+              { label:'所属项目',
+                fieldName: "projectName"
               },
-              { label: '缓冲区范围',
-              fieldName: 'bufferRange'
+              { label:'缓冲区范围',
+              fieldName: "bufferRange"
               },
-              { label: '创建时间',
-                fieldName: 'createTime'
+              { label:'创建时间',
+                fieldName: "createTime"
               }
             ]
           }
         ],
-      };
+      }
       const fillSymbol = {
-        type: 'simple-fill',
-        style: 'diagonal-cross',
+        type: "simple-fill",
+        style: "diagonal-cross",
         outline: {
-          cap: 'square',
-          join: 'bevel',
+          cap: "square",
+          join: "bevel",
           miterLimit: 17,
           width: 1.5,
           color: [255, 0, 0, 1]
@@ -1037,112 +1051,111 @@ export class SystemListComponent implements OnInit {
       };
 
       const lineSymbol = {
-        type: 'simple-line', // solid
-        style: 'short-dash',
-        cap: 'square',
+        type: "simple-line", //solid
+        style: "short-dash",
+        cap: "square",
         width: 2,
         color: [255, 0, 0, 1]
       };
 
-      const createAttr = (item) => {
+      const createAttr=(item)=>{
         return {
-          OJBEDTID: item.id,
+          OJBEDTID:item.id,
           Name: item.name,
           projectName: item.projectName,
-          createTime: format(item.createTime, 'YYYY-MM-DD'),
+          createTime: format(item.createTime,'YYYY-MM-DD'),
           bufferRange: item.bufferRange
-        };
-      };
-      const createGraphic = (geometry, symbol, attr, popupTemplate) => {
+        }
+      }
+      const createGraphic=(geometry,symbol,attr,popupTemplate)=>{
         return new Graphic({
-          geometry,
-          symbol,
+          geometry: geometry,
+          symbol: symbol,
           attributes: attr,
-          popupTemplate
-        });
-      };
-      const createLine = (item) => {
+          popupTemplate:popupTemplate
+        })
+      }
+      const createLine=(item)=>{
         const polyline = {
-          type: 'polyline',
+          type: "polyline", 
           paths: JSON.parse(item.frontierPoint)
-        };
-        const Attr = createAttr(item);
-        graphicsLayer.add(createGraphic(polyline, lineSymbol, Attr, popupTemplate) );
-      };
-      const createPolygon = (item) => {
-        const polygon = {
+        };        
+        let Attr=createAttr(item)
+        graphicsLayer.add(createGraphic(polyline,lineSymbol,Attr,popupTemplate) )
+      }
+      const createPolygon=(item)=>{
+        let polygon = {
           type: 'polygon',
-          rings: JSON.parse(item.frontierPoint)
-        };
-        const Attr = createAttr(item);
-        graphicsLayer.add(createGraphic(polygon, fillSymbol, Attr, popupTemplate));
-      };
-      const createCircle = (item) => {
-        const arg = JSON.parse(item.frontierPoint);
-        const circle = new Circle({
+          rings:JSON.parse(item.frontierPoint)
+        }
+        let Attr=createAttr(item)
+        graphicsLayer.add(createGraphic(polygon,fillSymbol,Attr,popupTemplate))
+      }
+      const createCircle=(item)=>{
+        let arg=JSON.parse(item.frontierPoint)
+        let circle =new Circle({
           geodesic: true,
-          center: arg.center,
-          radius: arg.radius,
+          center:arg.center,
+          radius:arg.radius,
           spatialReference: {
             wkid: 3857
           }
-        });
-        const Attr = createAttr(item);
-        graphicsLayer.add(createGraphic(circle, fillSymbol, Attr, popupTemplate));
-      };
-      for (var fence of fenceList) {
-        if (fence.fenceShape == 'polygon') {
-          createPolygon(fence);
-        } else if (fence.fenceShape == 'circle') {
-          createCircle(fence);
+        })
+        let Attr=createAttr(item)
+        graphicsLayer.add(createGraphic(circle,fillSymbol,Attr,popupTemplate))
+      } 
+      for(var fence of fenceList){
+        if(fence.fenceShape=='polygon'){
+          createPolygon(fence)
+        }else if(fence.fenceShape=='circle'){
+          createCircle(fence)
         }
       }
-      for (var route of routeList) {
-        createLine(route);
+      for(var route of routeList){
+        createLine(route)
       }
-    });
+    })
   }
-  // 定位电子围栏
-  locationToFenceExtend(item) {
-    const fs = this.server.map.findLayerById('fenceLayer').graphics.items;
-    for (const f of fs) {
-      if (f.attributes.OJBEDTID == item.id) {
-        this.server.view.extent = f.geometry.extent;
-        this.server.view.zoom = this.server.view.zoom - 1;
+  locationToFenceExtend(item){
+    let fs=this.server.map.findLayerById('fenceLayer').graphics.items
+    for(let f of fs){
+      if(f.attributes.OJBEDTID==item.id){
+        this.server.view.extent=f.geometry.extent
+        this.server.view.zoom=this.server.view.zoom-1
         this.server.view.popup.open({
           features: [f],
-          location: [f.geometry.extent.center.longitude, f.geometry.extent.center.latitude],
-          highlightEnabled: true
-        });
+          location: [f.geometry.extent.center.longitude,f.geometry.extent.center.latitude],
+          highlightEnabled:true
+        }) 
       }
     }
   }
-  // 显示载具关联电子围栏
-  openPoly(carrierId, fenceType) {
+  //显示载具关联电子围栏
+  openPoly(carrierId,fenceType){
     this.fenceType = fenceType;
-    const options = {
-      origin: environment.APISmartLocation,
-      api: fenceType === 'fence' ? this.apiGetFencesByCarrier : this.apiGetRoutesByCarrier,
+    let options = {
+      origin:environment.APISmartLocation,
+      api: fenceType == 'fence' ? this.api_getFencesByCarrier : this.api_getRoutesByCarrier,
       params: {
-        carrierId,
-        fenceType: fenceType === 'fence' ? '24a9d240-e5ec-4073-b73a-08d74e18b561' : '9d663eba-8532-406e-b73b-08d74e18b561',
+        carrierId: carrierId,
+        fenceType: fenceType == 'fence' ? '24a9d240-e5ec-4073-b73a-08d74e18b561' :'9d663eba-8532-406e-b73b-08d74e18b561',
       }
-    };
+    }
     this.server.getRxjsData(options).subscribe((data) => {
       this.totalFencesByCarrier = data.total;
       this.colDataFencesByCarrier = data.data;
       this.displayDataFencesByCarrier = [...this.colDataFencesByCarrier];
       this.openFencesByCarrier = true;
-    });
+    })
   }
-  // 判断是否存在项目
-  ifNoProject() {
-    if (!this.systemList[2].collapsible && !this.systemList[1].collapsible && !this.systemList[0].collapsible) {
-      this.noProject = true;
-      this.pageLoading = false;
-    } else {
-      this.noProject = false;
-      this.pageLoading = false;
+
+  ifNoProject(){
+    if(!this.systemList[2].collapsible && !this.systemList[1].collapsible && !this.systemList[0].collapsible && !this.hdi.collapsible){
+      this.noProject=true
+      this.pageLoading=false
+    }else{
+      this.noProject=false
+      this.pageLoading=false
     }
   }
   // 获取激光量方船舶数据

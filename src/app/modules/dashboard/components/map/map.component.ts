@@ -3,7 +3,7 @@ import { loadModules } from 'esri-loader';
 import { ComomService } from '../../../../shared/servers.service';
 import { Observable } from 'rxjs';
 import { MapService } from '../../../../shared/map.service'
-import { environment,environmentAutomonitor, environmentProject } from 'src/environments/environment';
+import { environment,environmentAutomonitor, environmentProject, environmentVolum } from 'src/environments/environment';
 import { markerSyConfig,AisSymConfig } from './symbol'
 
 @Component({  
@@ -235,15 +235,7 @@ export class MapComponent implements OnInit {
       // var mapSever = new MapImageLayer({
       //   url:"http://47.102.116.25:9000/arcgis/rest/services/JiangsuPurplishBlueTileMap/MapServer"
       // })
-      var xgjcImage =  new MapImageLayer({
-        url:"http://116.228.164.92:6081/arcgis/rest/services/xgjc/MapServer"
-      })
-      var hsynImage =  new MapImageLayer({
-        url:"http://116.228.164.92:6081/arcgis/rest/services/hengshayunni/MapServer"
-      })
-      var seaImage = new MapImageLayer({
-        url:"http://116.228.164.92:6081/arcgis/rest/services/CHINA_SeaChart/MapServer"
-      })
+
 
 
       
@@ -277,8 +269,8 @@ export class MapComponent implements OnInit {
       this.server.view.popup.on("trigger-action", (event)=> {
         if(event.action.id==='pipePoint_details'){
           // console.log(event.target.features)
-          this.server.selectedProject.next(event.target.features[0].attributes.id)
-          this.getAutoDeform(event.target.features[0].attributes.id);
+          this.server.selectedProject.next(event.target.features[0].attributes.id);
+          // this.getPointDetail(event.target.features[0].attributes.id);
           // if (event.target.features[0].attributes.id =='fc3f255c-cba0-490f-9c2e-a32146387ab9'){
           //   this.getCheckWorkPoint()
           // }
@@ -338,11 +330,11 @@ export class MapComponent implements OnInit {
   }
   getProjectData(){
     let options={
-      api:'/api/ProjectManager/GetPorjectList',
-      origin:'http://10.9.53.103:5300',
+      api:'/api/ProjectManage/GetPorjectList',
+      origin:environmentVolum.Origin,
       params:{
         Sidx:0,
-        Rows:999
+        Rows:9999
       }
     }
     this.server.getRxjsData(options).subscribe((data: any) => {
@@ -365,6 +357,7 @@ export class MapComponent implements OnInit {
                 lat: item.latitude,
                 name: item.name,
                 id: item.id,
+                projectId: item.projectId
             }
         })
       }
@@ -588,8 +581,8 @@ export class MapComponent implements OnInit {
   onInput(value: string): void {
     this.options=[]
     let options = {
-      origin: environmentAutomonitor.Origin,
-      api: '/api/ProjectManage/GetProjectList',
+      origin: environmentVolum.Origin,
+      api: '/api/ProjectManage/GetPorjectList',
       params: {
         Sidx: '0',
         Name: value,
@@ -598,7 +591,7 @@ export class MapComponent implements OnInit {
       }
     }
     this.server.getRxjsData(options).subscribe((res: any) => {
-      this.options = res.data;
+      this.options = res.pageResult.data;
     });
   }
   compareFun = (o1, o2) => {

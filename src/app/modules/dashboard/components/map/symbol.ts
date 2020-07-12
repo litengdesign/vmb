@@ -64,6 +64,11 @@ export const markerSyConfig={
         name: "id",
         alias: "id",
         type: "string"
+    },
+    {
+        name: "id",
+        alias: "id",
+        type: "string"
     }],
       
     LabelClass_HDLL : {
@@ -109,6 +114,15 @@ export const markerSyConfig={
                 format: {
                     places: 5,
                     digitSeparator: true
+                }
+            },
+            {
+                fieldName: "id",
+                label: "id",
+                format: {
+                    places: 5,
+                    digitSeparator: true,
+                    show: false
                 }
             }
           ]

@@ -164,7 +164,7 @@ export class DashboardComponent implements OnInit {
       origin: environmentVolum.Origin,
       api: '/api/ProjectManage/GetPorjectList',
       params: {
-        Name: '珠海',
+        Name: '',
         Sidx: 0,
         Rows: 30
       }

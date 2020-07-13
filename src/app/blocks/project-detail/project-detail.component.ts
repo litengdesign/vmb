@@ -28,6 +28,7 @@ export class ProjectDetailComponent implements OnInit {
     // 订阅router改变
     this.router.params.subscribe((params) => {
       this.projectId = params.projectId;
+      // this.getProjectInfo();
       this.mapServer.mapComplete.subscribe(res => {
         if (res) {
           this.server.view.goTo({

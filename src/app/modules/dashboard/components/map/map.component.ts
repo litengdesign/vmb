@@ -356,6 +356,10 @@ export class MapComponent implements OnInit {
                 lon: item.longitude,
                 lat: item.latitude,
                 name: item.name,
+                companyName: item.companyName,
+                customerName: item.customerName,
+                typeName: item.typeName,
+                code: item.code,
                 id: item.id,
                 projectId: item.projectId
             }

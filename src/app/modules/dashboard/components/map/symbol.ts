@@ -66,11 +66,25 @@ export const markerSyConfig={
         type: "string"
     },
     {
-        name: "id",
-        alias: "id",
+        name: "companyName",
+        alias: "companyName",
+        type: "string"
+    },
+    {
+        name: "typeName",
+        alias: "typeName",
+        type: "string"
+    },
+    {
+        name: "customerName",
+        alias: "customerName",
+        type: "string"
+    },
+    {
+        name: "code",
+        alias: "code",
         type: "string"
     }],
-      
     LabelClass_HDLL : {
         symbol: {
             type: "text",
@@ -113,6 +127,38 @@ export const markerSyConfig={
                 label: "纬度",
                 format: {
                     places: 5,
+                    digitSeparator: true
+                }
+            },
+            {
+                fieldName: "code",
+                label: "编号",
+                format: {
+                    places: 10,
+                    digitSeparator: true
+                }
+            },
+            {
+                fieldName: "companyName",
+                label: "施工单位",
+                format: {
+                    places: 10,
+                    digitSeparator: true
+                }
+            },
+            {
+                fieldName: "customerName",
+                label: "设计单位",
+                format: {
+                    places: 10,
+                    digitSeparator: true
+                }
+            },
+            {
+                fieldName: "typeName",
+                label: "工程类型",
+                format: {
+                    places: 10,
                     digitSeparator: true
                 }
             },

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 7014 --base-href /vmb/ --open",
+    "start": "ng serve --port 7014 --open --base-href /vmb/",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

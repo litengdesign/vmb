@@ -18,10 +18,10 @@ import { environment } from '../../environments/environment';
 // }
 export const authConfig: AuthConfig = {
     // Url of the Identity Provider
-    issuer: 'http://47.102.121.205:5100',
+    issuer: 'http://test.smart-sdc.com',
     // URL of the SPA to redirect the user to after login
-    redirectUri: window.location.origin + '/#/home?',
-    postLogoutRedirectUri: window.location.origin + '/#/home?',
+    redirectUri: window.location.origin + '/vmb/#/home?',
+    postLogoutRedirectUri: window.location.origin + '/vmb/#/home?',
     // The SPA's id. The SPA is registerd with this id at the auth-server
     clientId: environment.clientId,
     // clientId:'gis_release',

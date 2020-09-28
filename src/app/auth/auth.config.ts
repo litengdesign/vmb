@@ -1,3 +1,10 @@
+/*
+ * @Author: Liteng
+ * @Description: Description
+ * @Date: 2020-07-08 17:26:58
+ * @LastEditors: Liteng
+ * @LastEditTime: 2020-09-28 17:08:18
+ */
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { environment } from '../../environments/environment';
 // export const authConfig: AuthConfig = {
@@ -18,7 +25,7 @@ import { environment } from '../../environments/environment';
 // }
 export const authConfig: AuthConfig = {
     // Url of the Identity Provider
-    issuer: 'http://test.smart-sdc.com',
+    issuer: 'http://10.9.53.103:5100',
     // URL of the SPA to redirect the user to after login
     redirectUri: window.location.origin + '/vmb/#/home?',
     postLogoutRedirectUri: window.location.origin + '/vmb/#/home?',

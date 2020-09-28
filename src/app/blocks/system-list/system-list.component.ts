@@ -660,6 +660,7 @@ export class SystemListComponent implements OnInit {
               }
             });
           }
+          // console.log(featuresShip);
         }
         for (const i of this.pssData.vehicle) {
           if (i.lon && i.lat) {
@@ -773,7 +774,7 @@ export class SystemListComponent implements OnInit {
         field: 'angle',
         defaultSymbol: {
           type: "picture-marker",
-          url: `../../assets/images/${imgName}.svg`,
+          url: `../vmb/assets/images/${imgName}.svg`,
           width: layerID=='Work_Layer' ? 20 :10,
           height: 20,
           angle: 0
@@ -798,7 +799,7 @@ export class SystemListComponent implements OnInit {
           value:i,
           symbol: {
             type: "picture-marker",
-            url: `../../assets/images/${imgName}.svg`,
+            url: `../vmb/assets/images/${imgName}.svg`,
             width: 10,
             height: 20,
             angle: i

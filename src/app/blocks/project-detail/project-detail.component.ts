@@ -1,3 +1,10 @@
+/*
+ * @Author: Liteng
+ * @Description: Description
+ * @Date: 2020-07-03 12:36:56
+ * @LastEditors: Liteng
+ * @LastEditTime: 2020-09-28 19:21:59
+ */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ServersService } from '../../servers.service';
@@ -28,7 +35,7 @@ export class ProjectDetailComponent implements OnInit {
     // 订阅router改变
     this.router.params.subscribe((params) => {
       this.projectId = params.projectId;
-      // this.getProjectInfo();
+      this.getProjectInfo();
       this.mapServer.mapComplete.subscribe(res => {
         if (res) {
           this.server.view.goTo({

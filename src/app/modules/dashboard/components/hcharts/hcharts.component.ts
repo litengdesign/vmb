@@ -122,7 +122,7 @@ export class HchartsComponent implements OnChanges, OnInit {
             x: parseFloat(item[0]),
             y: parseFloat(item[1]),
             marker: {
-              symbol: 'url(../../assets/images/arrow.svg)',
+              symbol: 'url(../../vmb/assets/images/arrow.svg)',
             },
           }
           if (index == 0) {
@@ -137,7 +137,7 @@ export class HchartsComponent implements OnChanges, OnInit {
             x: this.List.length > 0 ? this.List[0].x : '',
             y: this.List.length > 0 ? this.List[0].y : '',
             marker: {
-              symbol: 'url(../../assets/images/startPoint.svg)'
+              symbol: 'url(../../vmb/assets/images/startPoint.svg)'
             }
           }]
         },

@@ -1,3 +1,10 @@
+<!--
+ * @Author: Liteng
+ * @Description: Description
+ * @Date: 2020-07-03 08:39:51
+ * @LastEditors: Liteng
+ * @LastEditTime: 2020-09-28 23:19:24
+-->
 <div class="title-content">
     <i class="{{icon}}"></i>
     <div class="title-wrap">
@@ -10,7 +17,7 @@
         </span>
         <span class="card-extend" *ngIf="link">
             
-            <a [routerLink]="link" target="_blank">
+            <a [href]="link" target="_blank">
                 <!-- 跳转 -->
                 <i nz-icon [nzIconfont]="'icon-insertlink'" [title]="'跳转到'+title"></i>
             </a>

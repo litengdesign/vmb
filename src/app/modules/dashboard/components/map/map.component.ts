@@ -96,6 +96,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     //加载地图
     this.initMap();
+    this.getTide();
   }
   initMap() {
     loadModules([
@@ -666,6 +667,8 @@ export class MapComponent implements OnInit {
   visibleTideChange(event){
     if (event){
       this.mapServer.createManyGraphics(this.server.tideData).subscribe(res => {
+        debugger;
+        console.log(res);
         // this.msg.info(res.message)
         this.server.tideData.graphics = res.graphics;
       })

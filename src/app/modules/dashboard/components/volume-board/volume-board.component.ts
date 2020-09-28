@@ -104,6 +104,7 @@ export class VolumeBoardComponent implements OnInit {
 
   // 其他参数
   public defaultSelectDate: any = [addDays(new Date(), -365), new Date()];
+  public defaultSelectDate2: any = [addDays(new Date(), -14), new Date()];
   public shipId = null;
   public ships: any[] = [];
   public searchType = 'month'; // 默认搜索方式
@@ -140,8 +141,8 @@ export class VolumeBoardComponent implements OnInit {
         params.endTime = format(this.defaultSelectDate[1], 'YYYY-MM');
         break;
       case 'day':
-        params.startTime = format(this.defaultSelectDate[0], 'YYYY-MM-DD');
-        params.endTime = format(this.defaultSelectDate[1], 'YYYY-MM-DD');
+        params.startTime = format(this.defaultSelectDate2[0], 'YYYY-MM-DD');
+        params.endTime = format(this.defaultSelectDate2[1], 'YYYY-MM-DD');
         break;
       default:
         break;

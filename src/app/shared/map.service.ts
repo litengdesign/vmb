@@ -229,7 +229,7 @@ export class MapService {
         },
         symbol: {
             type: "picture-marker",
-            url: '../../assets/images/guiji.png',
+            url: '../vmb/assets/images/guiji.png',
             width: 25,
             height: 30,
             angle: 1
@@ -336,7 +336,7 @@ export class MapService {
         field: 'markerType',
         defaultSymbol: {
           // type: "picture-marker",
-          // url: '../../assets/images/fx.png',
+          // url: '../vmb/assets/images/fx.png',
           // width: 15,
           // height: 15,
           // angle: 1
@@ -353,7 +353,7 @@ export class MapService {
             value: 'startMarker',
             symbol: {
                 type: "picture-marker",
-                url: '../../assets/images/start.png',
+                url: '../vmb/assets/images/start.png',
                 width: 25,
                 height: 25
             }
@@ -361,7 +361,7 @@ export class MapService {
             value: 'endMarker',
             symbol: {
                 type: "picture-marker",
-                url: '../../assets/images/end.png',
+                url: '../vmb/assets/images/end.png',
                 width: 25,
                 height: 25
             }
@@ -372,7 +372,7 @@ export class MapService {
       //         value: i,
       //         symbol: {
       //             type: "picture-marker",
-      //             url: '../../assets/images/fx.png',
+      //             url: '../vmb/assets/images/fx.png',
       //             width: 15,
       //             height: 15,
       //             angle: i
@@ -585,13 +585,14 @@ export class MapService {
         let graphics = [];
         let graphic;
         systemObj.graphicList.forEach(marker => {
-          if (marker.longitude && marker.latitude) {
+          if (marker.lon && marker.lat) {
             graphic = new Graphic(
               this.filtterGraphic(marker)
             )
             graphics.push(graphic);
           }
         });
+        console.log(graphics)
         this.server.view.graphics.addMany(graphics);
         observer.next({
           message: '绘制完成',
@@ -667,7 +668,7 @@ export class MapService {
           },
           symbol: {
             type: marker.symbolType,
-            url: "../../assets/images/" + marker.systemId + ".svg",
+            url: "../vmb/assets/images/" + marker.systemId + ".svg",
             width: "20px",
             height: "20px",
             color: marker.color || '#1890ff',
@@ -684,6 +685,7 @@ export class MapService {
       default:
         break;
     }
+    console.log(graphic)
     return graphic;
   }
   gotoPoint(item) {
@@ -796,7 +798,7 @@ export class MapService {
         field: 'angle',
         defaultSymbol: {
           type: "picture-marker",
-          url: "../../assets/images/aisShip.svg",
+          url: "../vmb/assets/images/aisShip.svg",
           width: 10,
           height: 20,
           angle: 0
@@ -821,7 +823,7 @@ export class MapService {
           value: i,
           symbol: {
             type: "picture-marker",
-            url: "../../assets/images/aisShip.svg",
+            url: "../vmb/assets/images/aisShip.svg",
             width: 10,
             height: 20,
             angle: i

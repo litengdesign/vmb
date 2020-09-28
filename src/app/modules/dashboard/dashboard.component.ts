@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ComomService} from '../../shared/servers.service';
 import { fadeInAnimation, navigateAnimation } from '../../animations';
+import { MapService } from '../../services/map.service';
+import { ServersService } from '../../servers.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -9,7 +11,13 @@ import { fadeInAnimation, navigateAnimation } from '../../animations';
 
 })
 export class DashboardComponent implements OnInit {
-  constructor(public comomServer: ComomService) { }
+  constructor(public comomServer: ComomService,public mapServer: MapService , public server:ServersService) { }
+    // popup params
+    public popoverStyle = {};
+    public activePoint = {};
+    public showPop = false;
+    public visibleTidalList = false;
+    public selectedPoint: object;
   public visible = false;
     public apps = [
     {
@@ -99,5 +107,32 @@ export class DashboardComponent implements OnInit {
   ];
   public isMobile = window.screen.width < 576 ? true : false;
   ngOnInit(): void {
+  }
+    //处理弹框位置
+    dealStyle() {
+      let screenPoint = this.server.view.toScreen(this.activePoint)
+      this.popoverStyle = {
+        left: (screenPoint.x + 30) + 'px',
+        top: (screenPoint.y - 195) + 'px',
+      }
+    }
+    closePop(){
+      this.showPop = false;
+      this.mapServer.showPop.next(false);
+    }
+      //获取点详情
+  getPointDetail(item){
+    this.visibleTidalList  =false;
+    item.moveing = true;
+    this.server.tideData.options.params={
+      id: item.attributes.id
+    }
+    item.options = this.server.tideData.options;
+    this.mapServer.gotoPoint(item).subscribe(res=>{
+      this.mapServer.createHightGraphics(item).subscribe(res => {
+        this.mapServer.dealStyle();
+      })
+    })
+
   }
 }

@@ -585,14 +585,15 @@ export class MapService {
         let graphics = [];
         let graphic;
         systemObj.graphicList.forEach(marker => {
-          if (marker.lon && marker.lat) {
+          if (marker.longitude && marker.latitude) {
             graphic = new Graphic(
               this.filtterGraphic(marker)
             )
+            // console.log("单个点"+graphic)
             graphics.push(graphic);
           }
         });
-        console.log(graphics)
+        // console.log("graphics"+graphics)
         this.server.view.graphics.addMany(graphics);
         observer.next({
           message: '绘制完成',
@@ -685,7 +686,7 @@ export class MapService {
       default:
         break;
     }
-    console.log(graphic)
+    // console.log("graphic"+graphic)
     return graphic;
   }
   gotoPoint(item) {

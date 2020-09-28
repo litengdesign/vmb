@@ -3,9 +3,8 @@
  * @Description: Description
  * @Date: 2020-07-03 09:13:24
  * @LastEditors: Liteng
- * @LastEditTime: 2020-09-27 17:34:27
+ * @LastEditTime: 2020-09-28 15:31:04
  */
-
 export const environment = {
   production: true,
   Origin: 'http://106.15.239.187:5106',

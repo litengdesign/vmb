@@ -161,13 +161,13 @@ export class ArcgisMapComponent implements OnInit {
         }
         }
       const xgjcImage =  new MapImageLayer({
-        url: 'http://116.228.164.92:6081/arcgis/rest/services/xgjc/MapServer'
+        url: 'http://10.9.52.50:6080/arcgis/rest/services/xgjc/MapServer'
       });
       const hsynImage =  new MapImageLayer({
-        url: 'http://116.228.164.92:6081/arcgis/rest/services/hengshayunni/MapServer'
+        url: 'http://10.9.52.50:6080/arcgis/rest/services/hengshayunni/MapServer'
       });
       const seaImage = new MapImageLayer({
-        url: 'http://116.228.164.92:6081/arcgis/rest/services/CHINA_SeaChart/MapServer'
+        url: 'http://10.9.52.50:6080/arcgis/rest/services/CHINA_SeaChart/MapServer'
       });
 
       this.server.map.addMany([this.server.tdtLayer, this.server.annoTDTLayer, seaImage, xgjcImage, hsynImage]);

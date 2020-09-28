@@ -156,7 +156,7 @@ export class ProjectDetailMapComponent implements OnInit {
         }
         }
       // var featureLayer = new TileLayer({
-      //   url: "http://116.228.164.92:6081/arcgis/services/xgjc/MapServer"
+      //   url: "http://10.9.52.50:6080/arcgis/services/xgjc/MapServer"
       // });
 
       this.server.map.addMany([this.server.tdtLayer, this.server.annoTDTLayer]);

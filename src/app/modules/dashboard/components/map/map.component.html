@@ -1,3 +1,10 @@
+<!--
+ * @Author: Liteng
+ * @Description: Description
+ * @Date: 2020-07-03 12:52:30
+ * @LastEditors: Liteng
+ * @LastEditTime: 2020-09-28 15:26:35
+-->
 <div id="viewDiv" [ngClass]="{'active': !server.isOpen}">
     <div class="zoomOut" [ngClass]="{'active': !server.isOpen}" (click)='toggleZoom()' [title]="server.isOpen?'展开':'收缩'"></div>
     <div class='nav'>
@@ -5,7 +12,7 @@
             <a nz-button nzType="link" class="cancel-btn" nzShape="round"  target="_blank" routerLink="/integration">集成平台</a>
         </div>
         <div class="badge">
-            <a nz-button nzType="link" class="cancel-btn" nzShape="round" target="_blank" href="http://47.102.121.205:7015/">管理系统</a>
+            <a nz-button nzType="link" class="cancel-btn" nzShape="round" target="_blank" href="http://test.smart-sdc.com/vmm/">管理系统</a>
         </div>
         <div class="badge tide">
             <nz-button-group>

@@ -178,7 +178,7 @@ export class SystemListComponent implements OnInit {
   public number = 0;
 
   public noProject = false;
-  public pageLoading = true;
+  public pageLoading = false;
   // 方量相关参数
   public isVisibleVolumeStatistical = false;
   public api_list = '/api/VolumeStatistics/GetVolumeDataByMonth'; // 按月获取图表数据

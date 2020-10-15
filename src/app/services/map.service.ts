@@ -548,8 +548,8 @@ export class MapService {
             this.activePoint = response.results[0].mapPoint;
             this.createHightGraphics({
               type: 'point',
-              longitude: response.results[0].graphic.geometry.lon,
-              latitude: response.results[0].graphic.geometry.lat,
+              longitude: response.results[0].graphic.geometry.longitude,
+              latitude: response.results[0].graphic.geometry.latitude,
               systemId: response.results[0].graphic.attributes.systemId,
               options: response.results[0].graphic.attributes.options,
               popupTemplate: response.results[0].graphic.popupTemplate
